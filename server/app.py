@@ -44,24 +44,25 @@ def search_food_items():
     
     requested_food_data = get_food_api(request.json["query"])
 
-    items = []
+    arrayOfItems = []
 
     for item in requested_food_data["foods"]:
         name = item.get("description", "")
         description = item.get("ingredients", "")
+        calories = None
 
         for nutrient in item.get("foodNutrients", []):
             if nutrient.get("nutrientName", "") == "Energy" and nutrient.get("unitName", "") == "KCAL":
                 calories = nutrient.get("value")
 
-        items.append({
+        arrayOfItems.append({
             "name": name,
             "description": description,
             "calories": calories
         })
 
 
-    return jsonify({"items": items}), 200
+    return jsonify({"items": arrayOfItems}), 200
 
 
 #
