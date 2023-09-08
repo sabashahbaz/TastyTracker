@@ -4,39 +4,91 @@ import requests
 import pandas 
 import sqlalchemy 
 import os 
+import json
 
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-#need to be a get request 
+#GET food api request 
+    
+def get_food_api(userInput):
+    food_api_url = "https://api.nal.usda.gov/fdc/v1/foods/search"
+    food_api_key = os.getenv('FOOD_ITEMS_API_KEY')
 
-# Helper function to define correct URL for parsing user input and pinging API
-def __get_request_url_with_populated_terms(userInput: str):
-    BASE_URL = "https://api.edamam.com/api/nutrition-data"
-    TERM_APP_ID = "enter-id-here"
-    TERM_APP_KEY = "enter-app-key-here"
-    TERM_NUTRITION_TYPE = "logging"
-    TERM_INGREDIENT = userInput
-    return f"{BASE_URL}?app_id={TERM_APP_ID}&app_key={TERM_APP_KEY}&nutrition_type={TERM_NUTRITION_TYPE}&ingr={TERM_INGREDIENT}"
-
-#GET data for calorie counter
-@app.route('/search_food_item')
-def get_data_for_calorie_calculator(userInput):
-    key = os.getenv('CALORIE_COUNTER_API_KEY')
-    url =  __get_request_url_with_populated_terms(userInput)
-    # querystring = {"query":userInput, "domain":"com"}
+    parameters = {
+    "query": { "query":userInput },
+    "dataType": ["SR Legacy"],
+    "pageSize": 25
+}
     headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        "Content-Encoding": "gzip",
+        "api_key":  food_api_key
     }
-
-    food_response = requests.get(url, headers=headers)
+    
+    # food_response = requests.get(food_api_url, headers=headers, params=parameters)
+    food_response = requests.get(f"https://api.nal.usda.gov/fdc/v1/foods/search?query={userInput}&API_KEY={food_api_key}")
+    print(food_response.status_code)
     if food_response.status_code == 200:
-        data=food_response.json()
-        return data
-    else: 
-        raise Exception("Calorie Counter api failed")
+        food_data = food_response.json()
+        return food_data
+    else:
+        raise Exception("food api request failed")
+
+ 
+
+@app.post('/search_food_items')
+def search_food_items():
+    print('post')
+    
+    requested_food_data = get_food_api(request.json["query"])
+
+    items = []
+
+    for item in requested_food_data["foods"]:
+        name = item.get("description", "")
+        description = item.get("ingredients", "")
+
+        for nutrient in item.get("foodNutrients", []):
+            if nutrient.get("nutrientName", "") == "Energy" and nutrient.get("unitName", "") == "KCAL":
+                calories = nutrient.get("value")
+
+        items.append({
+            "name": name,
+            "description": description,
+            "calories": calories
+        })
+
+
+    return jsonify({"items": items}), 200
+
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
 #TDEE calculator 
 
@@ -72,6 +124,7 @@ def calculate_tdee():
     
     # activity_level = user_data.get('activity_level')
     activity_level = user_data.get('activity_level')
+
     activity_level_index = activity_levels.get(activity_level)
 
     daily_calories_needed = int(bmr * activity_level_index)
@@ -178,3 +231,29 @@ if __name__ == '__main__':
 #     lose_half_pound_week = int(calories - int((3500/2) /7))
 #     print("To lose .5 lb of fat a week, your daily caloric needs drop to" + str(lose_half_pound_week) + ".")
 
+# Helper function to define correct URL for parsing user input and pinging API
+# def __get_request_url_with_populated_terms(userInput: str):
+#     BASE_URL = "https://api.edamam.com/api/nutrition-data"
+#     TERM_APP_ID = "enter-id-here"
+#     TERM_APP_KEY = "enter-app-key-here"
+#     TERM_NUTRITION_TYPE = "logging"
+#     TERM_INGREDIENT = userInput
+#     return f"{BASE_URL}?app_id={TERM_APP_ID}&app_key={TERM_APP_KEY}&nutrition_type={TERM_NUTRITION_TYPE}&ingr={TERM_INGREDIENT}"
+
+# #GET data for calorie counter
+# @app.route('/search_food_item')
+# def get_data_for_calorie_calculator(userInput):
+#     key = os.getenv('CALORIE_COUNTER_API_KEY')
+#     url =  __get_request_url_with_populated_terms(userInput)
+#     # querystring = {"query":userInput, "domain":"com"}
+#     headers = {
+#         "Content-Type": "application/json",
+#         "Content-Encoding": "gzip",
+#     }
+
+#     food_response = requests.get(url, headers=headers)
+#     if food_response.status_code == 200:
+#         data=food_response.json()
+#         return data
+#     else: 
+#         raise Exception("Calorie Counter api failed")
