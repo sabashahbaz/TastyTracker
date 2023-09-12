@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os 
-from models import db, Item, Food_List, Item_Food_List_Association, User
+from models import db, Item, Item_User_Association, User
 import json
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -32,19 +32,14 @@ def check_session():
 def create_account():
     data = request.json
     password_hash = bcrypt.generate_password_hash(data["password"]).decode("utf-8")
-
     new_user = User (
         username=data["username"],
         password_hash=password_hash
-        )
-    
+    )
+    session["user_id"] = new_user.id
+
     db.session.add(new_user)
     db.session.commit()
-    session["user_id"] = new_user.id
-    new_food_list = Food_List(user_id=session['user_id'])
-    db.session.add(new_food_list)
-    db.session.commit()
-    
     return new_user.to_dict(), 201
 
 #login 
@@ -166,14 +161,58 @@ def search_food_items():
 @app.post('/add_to_food_list')
 def post_item_to_food_list():
     requested_data = request.json #get the jsonified requested data 
-    food_list = Food_List.query.filter(Food_List.user_id == session.get("user_id")).first() #find the users id who is currently logged in and associated with the foodlist 
-    item = requested_data["item_id"] # get the item_id from the requested data 
+    selected_item = Item.query.filter(Item.user_id == session.get("user_id")).first() #find the user id that is currently associated with the selected item 
+    # item = requested_data["item_id"] # get the item_id from the requested data 
     meal_type = requested_data["meal_type"] #get the meal type from the requested data
-    new_food_list_item = Item_Food_List_Association(item_id = item, food_list_id = food_list.id )
-    db.session.add(new_food_list_item)
-    db.session.commit()
 
-    return new_food_list_item.item_object.to_dict(), 201
+    # food_item_list= []
+
+    # if "data" in requested_data:
+    try: 
+        food_item_list = []
+
+        for item_data in requested_data:
+            for_food_item_to_add = Item (
+                name = item_data.get("name", ""),
+                description=item_data.get("description", ""),
+                calories=item_data.get("calories", 0),
+                meal_type= item_data.get(meal_type, "")
+            )
+            food_item_list.append(for_food_item_to_add)
+
+        db.session.add(food_item_list)
+        db.session.commit()
+
+        return make_response(jsonify([item.to_dict() for item in food_item_list]), 201)
+    except:
+        return {"error: doesn't work"}
+    
+    return {"error": "No 'data' field found in the request."}
+        
+            # food_item in requested_data["data"]:
+            #     food_item_to_add = Item ( 
+            #         name=item["name"],
+            #         description=item["brand"],
+            #         calories=item["calories"]
+            #     )
+
+                # foodList.append(food_item_to_add)
+
+        #     return make_response(jsonify([food_item.to_dict() for item in foodList]), 201)
+        # except:
+        #     return {"error: doesn't work"}
+            
+    # new_food_list_item = Item_Food_List_Association(item_id = item, food_list_id = food_list.id )
+
+    # foodList.append(new_food_list_item)
+
+    # db.session.add(new_food_list_item)
+        # db.session.add(foodList)
+        # db.session.commit()
+
+    # return new_food_list_item.item_object.to_dict(), 201
+
+        
 
 
 @app.route('/')

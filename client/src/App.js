@@ -55,23 +55,24 @@ function App() {
     }
 
   function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
-    console.log(foodToAdd)
+    // console.log("the foodToAdd inside the function",foodToAdd)
     fetch('/add_to_food_list', {
         method: 'POST',
         headers: {
             "Content-Type": "application/JSON",
         },
-        body: JSON.stringify({"item_id":foodToAdd,"meal_type": selectedMeal}),
+        body: JSON.stringify({"item_id":foodToAdd}),
     })
     .then(response => response.json())
-    .then(data => setFoodList(data));
+    .then(data => setFoodList(data))
+    // console.log(" what setFoodList sets to",foodList);
   }
           
-    
+  // console.log("does it actually set it??",foodList)
   return (
       <BrowserRouter>
       <NavBar
-        currentUser={currentUser}>Navbar</NavBar>
+        currentUser={currentUser} logout={logout}>Navbar</NavBar>
         <Routes>
           <Route path="/" element={
                 <FoodDashBoardPage 

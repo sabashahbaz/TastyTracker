@@ -18,7 +18,7 @@ function CreateAccountPage ({createAccount}) {
     }
 
     function createAccountAlert(e) {
-        if (isAccountCreated) {
+        if (!isAccountCreated) {
             alert("Account was created successfully!")
         } else {
             alert("Please try again ")

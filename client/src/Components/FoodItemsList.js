@@ -3,7 +3,7 @@ import FoodItem from "./FoodItem";
 
 function FoodItemsList({items,addToFoodList}) {
 
-    console.log("hi from food items list", items)
+    // console.log("hi from food items list", items)
 
     return(
         <div>

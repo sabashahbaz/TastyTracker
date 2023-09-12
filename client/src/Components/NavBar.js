@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-import UserDetails from './CurrentDetails';
+import UserDetails from './UserDetails';
 
 function NavBar ({ currentUser, logout}) {
 

@@ -1,11 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function LoginPage({attemptLogin}) {
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleChangeUsername = e => setUsername(e.target.value)
+    const handleChangePassword = e => setPassword(e.target.value)
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        attemptLogin({"username": username, "password": password })
+        createLoginAlert()
+    }
+
+    function createLoginAlert(e) {
+        if (!isLoggedIn) {
+            alert("Logged in successfully!")
+        } else {
+            alert("Please try again ")
+        }
+    }
+
+
     return (
         <div>
-            <form className= "login-page=container">
+            <form className= "login-page=container" onSubmit={handleSubmit}>
                 <div className ="username-group">
+                    <p>login page</p>
                         <h2>Username</h2>
                         <input
                             className="username-input"
@@ -25,10 +49,10 @@ function LoginPage({attemptLogin}) {
                             value={password}
                         />
                     </div>
-                    <button className="submit-button" type="submit"> create a new account</button>
+                    <button className="submit-button" type="submit"> login</button>
             </form>
         </div>
     )
 }
 
-export default LoginPage()
+export default LoginPage;
