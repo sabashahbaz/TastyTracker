@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function SearchFood ({setFoodItems, searchInput, changeSearch}) {
+function SearchFood ({setItems}) {
 
     const [newSearch, setNewSearch] = useState("")
 
@@ -20,33 +20,9 @@ function SearchFood ({setFoodItems, searchInput, changeSearch}) {
             body: JSON.stringify({"query": newSearch})
         })
         .then(response => response.json())
-        // .then(filteredFoodObject => {
-        //     console.log("JSONified Data: ")
-        //     console.log(filteredFoodObject)
-        //     console.log("\n\n\n")
-        //     console.log("Unwrapped Array Data")
-        //     console.log(filteredFoodObject["items"])
-        // })
-        .then(filteredFoodObject => setFoodItems(filteredFoodObject["items"]))
-        // foodItems = filteredFoodObject["items"]
+        .then(filteredFoodObject => setItems(filteredFoodObject["items"]))
         }
-    // function handleChange(e) {
-    //     setNewSearch(e.target.value)
-    // }
 
-    // function handleSubmit(e) {
-    //     e.preventDefault()
-    //     fetch('/search_food_items', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             "Accepts": 'application/json'
-    //         },
-    //         body: JSON.stringify({"query": newSearch})
-    //     })
-    //     .then(response => response.json())
-    //     .then(foodItems => setFoodItems(foodItems))
-    // }
 
     return (
         <form  className="food-search-container" onSubmit={handleSubmit} >

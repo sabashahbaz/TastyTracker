@@ -12,38 +12,6 @@ const [weight, setWeight] = useState("")
 const [selectedActivity, setSelectedActivity] = useState(1)
 const [currentTdee, setCurrentTdee] = useState(0)
 
-  // console.log(`Current Gender: ${selectedGender}`)
-  // console.log(`Current Age: ${setAge}`)
-  // console.log(`Current Age: ${age}`)
-  // console.log(`Current Height: ${setSelectedHeight}`)
-  // console.log(`Current weight: ${setWeight}`)
-  // console.log(`Current avitivity: ${setSelectedActivity}`)
-
-
-// function handleGenderChange (e) {
-// setSelectedGender(e.target.value)
-// console.log(`Current Gender: ${selectedGender}`)
-// }
-
-// function handleAgeChange (e) {
-// setAge(e.target.value)
-// console.log(`Current Age: ${age}`)
-// }
-
-// function handleHeightChange (e) {
-// setSelectedHeight(e.target.value); 
-// console.log(`Current Height: ${selectedHeight}`)
-// };
-
-// function handleWeightChange(e) {
-// setWeight(e.target.value)
-// console.log(`Current Weight: ${weight}`)
-// }
-
-// function handleActivityChange(e) {
-// setSelectedActivity(e.target.value)
-// }
-
 const heightOptions = [];
 for ( let feet = 4; feet <= 7; feet++) {
 for (let inches = 0; inches <= 11; inches ++) {

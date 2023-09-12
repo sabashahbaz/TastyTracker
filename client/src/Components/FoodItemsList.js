@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import FoodItem from "./FoodItem";
 
-function FoodItemsList({foodItems}) {
+function FoodItemsList({items,addToFoodList}) {
 
-    console.log("hi from food items list", foodItems)
-    // let foodItemsArr = foodItems.items
+    console.log("hi from food items list", items)
 
     return(
         <div>
-            {foodItems.map((item) => (
-                <FoodItem key={item.id} item={item} /> ))}
+            {items.map((item) => (
+                <FoodItem key={item.id} item={item} addToFoodList={addToFoodList}/> ))}
                 <p>food list</p>
         </div>
     )
