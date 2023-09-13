@@ -11,15 +11,15 @@ import LoginPage from "./Components/LoginPage"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
-  const [items, setItems] = useState([]) //the food items that are returned from the search 
-  const [foodList, setFoodList] = useState([]) //the food list 
+  const [searchedItems, setSearchedItems] = useState([]) //the food items that are returned from the search 
+  const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user 
   const [selectedMeal, setSelectedMeal] = useState("")
 
-  // useEffect(() => {
-  //   fetch('/check_session')
-  //     .then(user => setCurrentUser(user))
-  //     .then(() => console.log("\n > useEffect completed."))
-  // }, []);
+  useEffect(() => {
+    fetch('/check_session')
+      .then(user => setCurrentUser(user))
+      .then(() => console.log("\n > useEffect completed."))
+  }, []);
 
   function createAccount(userInfo) {
     console.log(userInfo)
@@ -70,7 +70,9 @@ function App() {
         }])
             })
         .then(response => response.json())
-        .then(data => setFoodList(data), console.log("is it set???",foodList))
+        .then(data => setFoodItem(data))
+        .then(data => setFoodItem([...foodItem, data]))
+
         .catch(error => {console.log("front-end is broken", error)})   
 
   }
@@ -82,14 +84,14 @@ function App() {
         <Routes>
           <Route path="/" element={
                 <FoodDashBoardPage 
-                items={setItems}
-                foodList={foodList}
-                setItems={setItems}
+                searchedItems={searchedItems}
+                foodItem={foodItem}
+                setSearchedItems={setSearchedItems}
                 setSelectedMeal={setSelectedMeal}
                 />} />
           <Route path="search_food" element={
                 <SearchResultsPage 
-                setItems={setItems} items={items} 
+                setSearchedItems={setSearchedItems} searchedItems={searchedItems} 
                 addToFoodList={addToFoodList}
                 />} /> 
           <Route path="tdee_calculator" element={<TdeeCalculator />} />

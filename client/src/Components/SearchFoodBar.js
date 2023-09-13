@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function SearchFood ({setItems}) {
+function SearchFood ({setSearchedItems}) {
 
     const [newSearch, setNewSearch] = useState("")
 
@@ -20,7 +20,7 @@ function SearchFood ({setItems}) {
             body: JSON.stringify({"query": newSearch})
         })
         .then(response => response.json())
-        .then(filteredFoodObject => setItems(filteredFoodObject["items"]))
+        .then(filteredFoodObject => setSearchedItems(filteredFoodObject["items"]))
         }
 
 

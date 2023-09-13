@@ -13,17 +13,22 @@ function LoginPage({attemptLogin}) {
     function handleSubmit(e) {
         e.preventDefault();
         attemptLogin({"username": username, "password": password })
-        createLoginAlert()
     }
 
-    function createLoginAlert(e) {
-        if (!isLoggedIn) {
-            alert("Logged in successfully!")
-        } else {
-            alert("Please try again ")
-        }
-    }
+    // function createLoginAlert(isSuccess) {
+    //     if (isSuccess) {
+    //         alert("Logged in successfully!")
+    //     } else {
+    //         alert("please try again");
+    //     }
+    // }
 
+    // function createLoginAlert(e) {
+    //     if (isLoggedIn === true) {
+    //         alert("Logged in successfully!")
+    //     } else {
+    //         alert("Please try again ")
+    //     }
 
     return (
         <div>
@@ -53,6 +58,7 @@ function LoginPage({attemptLogin}) {
             </form>
         </div>
     )
-}
+    }
+
 
 export default LoginPage;
