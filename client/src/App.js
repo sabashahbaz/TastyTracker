@@ -61,20 +61,23 @@ function App() {
         headers: {
             "Content-Type": "application/JSON",
         },
-        body: JSON.stringify([{
+        body: JSON.stringify({
                         "name": foodToAdd.name, 
                         "description": foodToAdd.description,
                         "calories": foodToAdd.calories,
                         "meal_type": selectedMeal,
                         // "user_id": foodToAdd.user_id,
-        }])
+        })
             })
         .then(response => response.json())
-        .then(data => setFoodItem(data))
+        // .then(data => setFoodItem(data), console.log("is it set", foodItem))
         .then(data => setFoodItem([...foodItem, data]))
+        // .then(() => console.log("this is getting returned to FoodItem: ", foodItem))
+        // .then(data => console.log("here we goooo", data))
+        // console.log("is it set", foodItem) 
 
-        .catch(error => {console.log("front-end is broken", error)})   
-
+        .catch(error => {console.log("front-end is broken", error)})  
+    return foodItem 
   }
 
   return (

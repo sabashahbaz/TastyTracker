@@ -19,6 +19,9 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+#global variable 
+total_calories_consumed = 0 
+
 @app.get('/check_session')
 def check_session():
     user = User.query.filter(User.id == session.get('user_id')).first()
@@ -160,84 +163,35 @@ def search_food_items():
 # POST to food list
 @app.post('/add_to_food_list')
 def post_item_to_food_list():
-    print("hey form backend")
+    global total_calories_consumed = 0
+    # print("hey form backend")
     requested_data = request.json #get the jsonified requested data 
     try:
-        items = []
-        print("hey after []")
-        for data in requested_data: 
-            print("hey after data")
-            item = Item (
-                name = data["name"],
-                description = data["description"],
-                calories = data["calories"],
-                meal_type = data["meal_type"],
-                # user_id = data["user_id"]
-            )
-            print("from backend",item)
-            db.session.add(item)
-            items.append(item.to_dict())
+        # items = []
+        # print("hey after []")
+        # for data in requested_data: 
+        # print("hey after data")
+        item = Item(
+            name = requested_data["name"],
+            description = requested_data["description"],
+            calories = requested_data["calories"],
+            meal_type = requested_data["meal_type"],
+            # user_id = data["user_id"]
+        )
+        # print("from backend")
+        print(item)
+        db.session.add(item)
+            # items.append(item.to_dict())
         db.session.commit()
-        return make_response(jsonify(items), 200)
+
+        total_calories_consumed += item.calories #adding
+        # print("whooooooo")
+        # print(item.to_dict())
+        return item.to_dict(), 200
     except: 
         return make_response(jsonify({"error": "the backend is broken"}), 400)
     
     #curl -X POST -H "Content-Type: application/json" -d '{"user_id": "1", "item_id": "1", "meal_type": "breakfast"}' localhost:5555/books
-    
-    # user_id = Item.query.filter(Item.user_id == session.get("user_id")).first() #find the user id that is currently associated with the selected item 
-    # # item = requested_data["item_id"] # get the item_id from the requested data 
-    # meal_type = requested_data["meal_type"] #get the meal type from the requested data
-    # item_id = requested_data["item_id"] # get the item_id from the requested data 
-
-
-    # food_item_list= []
-
-    # if "data" in requested_data:
-    # try: 
-    #     food_item_list = []
-
-    #     for item_data in requested_data:
-    #         for_food_item_to_add = Item (
-    #             name = item_data.get("name", ""),
-    #             description=item_data.get("description", ""),
-    #             calories=item_data.get("calories", 0),
-    #             meal_type= item_data.get(meal_type, "")
-    #         )
-    #         food_item_list.append(for_food_item_to_add)
-
-    #     db.session.add(food_item_list)
-    #     db.session.commit()
-
-    #     return make_response(jsonify([item.to_dict() for item in food_item_list]), 201)
-    # except:
-    #     return {"error: doesn't work"}
-    
-    # return {"error": "No 'data' field found in the request."}
-        
-            # food_item in requested_data["data"]:
-            #     food_item_to_add = Item ( 
-            #         name=item["name"],
-            #         description=item["brand"],
-            #         calories=item["calories"]
-            #     )
-
-                # foodList.append(food_item_to_add)
-
-        #     return make_response(jsonify([food_item.to_dict() for item in foodList]), 201)
-        # except:
-        #     return {"error: doesn't work"}
-            
-    # new_food_list_item = Item_Food_List_Association(item_id = item, food_list_id = food_list.id )
-
-    # foodList.append(new_food_list_item)
-
-    # db.session.add(new_food_list_item)
-        # db.session.add(foodList)
-        # db.session.commit()
-
-    # return new_food_list_item.item_object.to_dict(), 201
-
-        
 
 
 @app.route('/')
