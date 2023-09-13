@@ -8,6 +8,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(125), nullable=False)
+    #calories
+    user_table = db.relationship("Item_User_Association", back_populates="user_object")
+    
 
     def to_dict(self):
         return{"user_id": self.id, "username": self.username}
@@ -42,6 +45,7 @@ class Item_User_Association(db.Model):  #associates the items to users
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
 
     item_object = db.relationship("Item", back_populates="items_selected_by_user")  #signalling to the items that we are associating
+    user_object = db.relationship("User", back_populates="user_table")
 
     def to_dict(self):
         return {

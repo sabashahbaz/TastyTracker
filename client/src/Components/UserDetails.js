@@ -2,8 +2,6 @@ import React from "react";
 
 function UserDetails({currentUser, logout}) {
 
-    console.log(currentUser.username)
-
     return (
     <div>
         <h1 className= "welcome-message">
