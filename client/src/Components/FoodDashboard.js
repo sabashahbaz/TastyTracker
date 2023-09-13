@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 // import "../CSS/FoodDashboard.css";
 import DisplayBreakfastItems from './DisplayBreakfastItems';
@@ -7,9 +7,17 @@ import DisplayDinnerItems from "./DisplayDinnerItems"
 import DisplaySnackItems from "./DisplaySnackItems"
 
 
-function FoodDashboard ({foodItem, setSelectedMeal}) {
-    console.log("from food dashboard", foodItem)
-    // const [selectedMeal, setSelectedMeal] = useState("")
+function FoodDashboard ({foodItem, setCurrentUser, setSelectedMeal}) {
+
+    // useEffect(() => {
+    // fetch('/check_session')
+    // .then(response => {
+    //     if(response.ok) {
+    //     response.json()
+    //     .then(user => setCurrentUser(user))
+    //     }
+    // })
+    // }, [])
 
     return (
         <div className = "food_dashboard">
@@ -74,64 +82,3 @@ function FoodDashboard ({foodItem, setSelectedMeal}) {
 }
 
 export default FoodDashboard;
-
- {/* {foodList.map((foodItem) => {
-                        if (foodItem.meal_type === "Breakfast") {
-                            return ( 
-                                <div className = "breakfast-item-container" key={foodItem.id}>
-                                    <div className = "item-name" name={foodItem.name}></div>
-                                    <div className = "item-calories" calories={foodItem.calories}></div>
-                                </div>
-                            ) 
-                        } else { return null}
-                        })}   */}
-
-
-    // const [breakfastList, setBreakfastList] = useState([])
-    // const [lunchList, setLunchList] = useState([])
-    // const [dinnerList, setDinnerList] = useState([])
-    // const [snackList, setSnackList] = useState([])
-    
-    // function addFoodUnderCorrectSection() {
-    //     if (selectedMeal === "Breakfast") {
-    //         breakfastList.push(foodList);
-    //     } else if (selectedMeal === "Lunch") {
-    //         lunchList.push(foodList);
-    //     } else if (selectedMeal === "Dinner") {
-    //         dinnerList.push(foodList);
-    //     } else if (selectedMeal === "Snack") {
-    //         snackList.push(foodList);
-    //     }
-    // }
- 
-    // const[meals, setMeals] = useState ({
-    //     Breakfast: [],
-    //     Lunch: [],
-    //     Dinner: [],
-    //     Snack: [],
-    // })
-
-    // function addFoodUnderCorrectSection() {
-    //     if (selectedMeal === "Breakfast") {
-    //         breakfastList.push(foodList);
-    //     } else if (selectedMeal === "Lunch") {
-    //         lunchList.push(foodList);
-    //     } else if (selectedMeal === "Dinner") {
-    //         dinnerList.push(foodList);
-    //     } else if (selectedMeal === "Snack") {
-    //         snackList.push(foodList);
-    //     }
-    // }
-
-    // function addFoodUnderCorrectSection() {
-    //     if (selectedMeal && foodList.length > 0) {
-    //         // Create a copy of the meals object to avoid mutating state directly
-    //         const updatedMeals = { ...meals };
-
-    //         // Push the foodList to the selected meal's list
-    //         updatedMeals[selectedMeal].push(...foodList);
-
-    //         // Update the state with the new meals object
-    //         setMeals(updatedMeals);
-    //     }
-    // }

@@ -14,12 +14,25 @@ function App() {
   const [searchedItems, setSearchedItems] = useState([]) //the food items that are returned from the search 
   const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user 
   const [selectedMeal, setSelectedMeal] = useState("")
+  const [caloriesIAte, setCaloriesIAte] = useState("")
+  const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
+  const [currentTdee, setCurrentTdee] = useState(0)
+
+  // useEffect(() => {
+  //   fetch('/check_session')
+  //     .then(user => setCurrentUser(user))
+  //     .then(() => console.log("\n > useEffect completed."))
+  // }, []);
 
   useEffect(() => {
     fetch('/check_session')
-      .then(user => setCurrentUser(user))
-      .then(() => console.log("\n > useEffect completed."))
-  }, []);
+    .then(response => {
+      if(response.ok) {
+        response.json()
+        .then(user => setCurrentUser(user))
+      }
+    })
+  }, [])
 
   function createAccount(userInfo) {
     console.log(userInfo)
@@ -54,8 +67,26 @@ function App() {
       if(response.ok) {setCurrentUser(null)}})
     }
 
+function calculate_tdee(userInfo) {
+  console.log('user info', userInfo)
+fetch('/calculate_tdee', {
+  method: 'POST',
+  headers: {
+  'Content-Type': 'application/json',
+  'Accepts': 'application/json'
+  },
+  body: JSON.stringify(userInfo)
+})
+.then(response => response.json())
+.then(data => setCurrentTdee(data))
+.catch(error => {
+  console.error('Error:', error);
+  // Handle the error, e.g., show an error message to the user
+});
+}
+
   function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
-    console.log("the foodToAdd inside the function",foodToAdd)
+    console.log("currentUser",currentUser.user_id)
     fetch('/add_to_food_list', {
         method: 'POST',
         headers: {
@@ -66,23 +97,21 @@ function App() {
                         "description": foodToAdd.description,
                         "calories": foodToAdd.calories,
                         "meal_type": selectedMeal,
-                        // "user_id": foodToAdd.user_id,
+                        "user_id": currentUser.user_id,
         })
             })
         .then(response => response.json())
-        // .then(data => setFoodItem(data), console.log("is it set", foodItem))
         .then(data => setFoodItem([...foodItem, data]))
-        // .then(() => console.log("this is getting returned to FoodItem: ", foodItem))
-        // .then(data => console.log("here we goooo", data))
-        // console.log("is it set", foodItem) 
-
         .catch(error => {console.log("front-end is broken", error)})  
     return foodItem 
   }
 
+  console.log(currentTdee)
+
   return (
       <BrowserRouter>
       <NavBar
+        caloriesIAte={caloriesIAte} totalCaloriesRemaining={totalCaloriesRemaining}
         currentUser={currentUser} logout={logout}>Navbar</NavBar>
         <Routes>
           <Route path="/" element={
@@ -94,10 +123,11 @@ function App() {
                 />} />
           <Route path="search_food" element={
                 <SearchResultsPage 
+                setCurrentUser={setCurrentUser}
                 setSearchedItems={setSearchedItems} searchedItems={searchedItems} 
                 addToFoodList={addToFoodList}
                 />} /> 
-          <Route path="tdee_calculator" element={<TdeeCalculator />} />
+          <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee} />} />
           <Route path="create_account" element={
                 <CreateAccountPage
                 createAccount={createAccount}

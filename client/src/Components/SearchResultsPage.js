@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import SearchFoodBar from './SearchFoodBar';
 import FoodItemsList from './FoodItemsList';
 
-function SearchResultsPage ({setSearchedItems, searchedItems, addToFoodList}) {
+function SearchResultsPage ({setSearchedItems, searchedItems, setCurrentUser, addToFoodList}) {
+
+
+useEffect(() => {
+fetch('/check_session')
+.then(response => {
+    if(response.ok) {
+    response.json()
+    .then(user => setCurrentUser(user))
+    }
+})
+}, [])
 
     return(
         <div>

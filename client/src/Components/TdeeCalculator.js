@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function TdeeCalculator() {
+function TdeeCalculator({setCurrentTdee, calculate_tdee}) {
 
 
   // function calculate_TDEE (userInfo) 
@@ -10,7 +10,7 @@ const [age, setAge] = useState("")
 const [selectedHeight, setSelectedHeight] = useState(""); 
 const [weight, setWeight] = useState("")
 const [selectedActivity, setSelectedActivity] = useState(1)
-const [currentTdee, setCurrentTdee] = useState(0)
+// const [currentTdee, setCurrentTdee] = useState(0)
 
 const heightOptions = [];
 for ( let feet = 4; feet <= 7; feet++) {
@@ -33,18 +33,15 @@ calculate_tdee({
 "height": Number(selectedHeight),
 "activity_level" : Number(selectedActivity)
 })
-setCurrentTdee(prevState => prevState + 1)
+
+// setCurrentTdee(prevState => prevState + 1)
 
 };
-console.log(`Current TDEE:`)
-console.log(currentTdee)
+// console.log(`Current TDEE:`)
+// console.log(currentTdee)
 
 function calculate_tdee(userInfo) {
     console.log('user info', userInfo)
-// console.log("cowabunga")
-// console.log(userInfo)
-// console.log("cowabunga, but a string")
-// console.log(JSON.stringify(userInfo))
 fetch('/calculate_tdee', {
     method: 'POST',
     headers: {
