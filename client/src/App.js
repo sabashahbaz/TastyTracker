@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect} from "react";
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import TdeeCalculator from './Components/TdeeCalculator';
 import FoodDashBoardPage from './Components/FoodDashboardPage'
 import Error from './Error';
@@ -8,9 +8,12 @@ import SearchResultsPage from './Components/SearchResultsPage'
 import NavBar from './Components/NavBar'
 import CreateAccountPage from './Components/CreateAccountPage'
 import LoginPage from "./Components/LoginPage"
+import {useNavigate} from 'react-router-dom';
 import WelcomePage from './Components/WelcomePage';
 
 function App() {
+  // const navigate = useNavigate();
+
   const [currentUser, setCurrentUser] = useState(null)
   const [searchedItems, setSearchedItems] = useState([]) //the food items that are returned from the search 
   const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user 
@@ -19,12 +22,7 @@ function App() {
   const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
   const [currentTdee, setCurrentTdee] = useState(0)
 
-  // useEffect(() => {
-  //   fetch('/check_session')
-  //     .then(user => setCurrentUser(user))
-  //     .then(() => console.log("\n > useEffect completed."))
-  // }, []);
-
+  
   useEffect(() => {
     fetch('/check_session')
     .then(response => {
@@ -107,7 +105,7 @@ fetch('/calculate_tdee', {
     return foodItem 
   }
 
-  console.log(currentUser)
+  // console.log(currentUser)
 
   return (
       <BrowserRouter>
@@ -116,7 +114,7 @@ fetch('/calculate_tdee', {
         currentUser={currentUser} logout={logout}>Navbar</NavBar>
         <Routes>
         {/* <Route path="food_dashboard" element={<FoodDashBoardPage />} /> */}
-        <Route path="food_dashboard" element={
+        <Route path="/" element={
                 <FoodDashBoardPage 
                 setCurrentUser={setCurrentUser}
                 searchedItems={searchedItems}

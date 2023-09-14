@@ -4,49 +4,34 @@ import {useNavigate} from 'react-router-dom';
 function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
     const navigate = useNavigate();
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const handleChangeUsername = e => setUsername(e.target.value)
     const handleChangePassword = e => setPassword(e.target.value)
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     attemptLogin({"username": username, "password": password })
-    //     .then((isSuccess) => {
-    //         if(isSuccess) {
-    //             history.pushState('food_dashboard');
-    //         } else {
-    //             alert("login failed. Pelase try again")
-    //         }
-    //     })
-    // };
-
-    const handleSubmit = async (e) => {
+    function handleSubmit (e) {
         e.preventDefault();
-        if(! username || !password) return;
         attemptLogin({"username": username, "password": password })
-        setCurrentUser({username: username, password: password})
-        navigate('/food_dashboard')
     }
-
-
-    // function createLoginAlert(isSuccess) {
-    //     if (isSuccess) {
-    //         alert("Logged in successfully!")
-    //     } else {
-    //         alert("please try again");
+    //     if (currentUser) {
+    //         console.log('hellloooo')
+    //         navigate('/food_dashboard')
+    //     } else {alert("please try again")}    
+    // }
+    //     {currentUser 
+    //         ?  (navigate('/food_dashboard'))
+    //         : alert("Please try agan")}
+    
+    // const handleSubmit = async(e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await attemptLogin();
+    //         navigate('/food_dashboard')
+    //     } catch (error) {
+    //         navigate('/')
     //     }
     // }
-
-    // function createLoginAlert(e) {
-    //     if (isLoggedIn === true) {
-    //         alert("Logged in successfully!")
-    //     } else {
-    //         alert("Please try again ")
-    //     }
 
     console.log("Current user form login page", currentUser)
 
@@ -83,16 +68,3 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
 
 export default LoginPage;
 
-{/* <div>
-{currentUser ? (
-<Link to="/food_dashboard">
-    <button className="submit-button" type="submit">
-    Login
-    </button>
-</Link>
-) : (
-<button className="submit-button" type="submit">
-    Login
-</button>
-)}
-</div> */}
