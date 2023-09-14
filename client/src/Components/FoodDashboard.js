@@ -9,15 +9,15 @@ import DisplaySnackItems from "./DisplaySnackItems"
 
 function FoodDashboard ({foodItem, setCurrentUser, setSelectedMeal}) {
 
-    // useEffect(() => {
-    // fetch('/check_session')
-    // .then(response => {
-    //     if(response.ok) {
-    //     response.json()
-    //     .then(user => setCurrentUser(user))
-    //     }
-    // })
-    // }, [])
+    useEffect(() => {
+    fetch('/check_session')
+    .then(response => {
+        if(response.ok) {
+        response.json()
+        .then(user => setCurrentUser(user))
+        }
+    })
+    }, [])
 
     return (
         <div className = "food_dashboard">

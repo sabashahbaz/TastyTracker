@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect} from "react";
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import TdeeCalculator from './Components/TdeeCalculator';
 import FoodDashBoardPage from './Components/FoodDashboardPage'
 import Error from './Error';
@@ -8,6 +8,7 @@ import SearchResultsPage from './Components/SearchResultsPage'
 import NavBar from './Components/NavBar'
 import CreateAccountPage from './Components/CreateAccountPage'
 import LoginPage from "./Components/LoginPage"
+import WelcomePage from './Components/WelcomePage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -106,7 +107,7 @@ fetch('/calculate_tdee', {
     return foodItem 
   }
 
-  console.log(currentTdee)
+  console.log(currentUser)
 
   return (
       <BrowserRouter>
@@ -114,13 +115,50 @@ fetch('/calculate_tdee', {
         caloriesIAte={caloriesIAte} totalCaloriesRemaining={totalCaloriesRemaining}
         currentUser={currentUser} logout={logout}>Navbar</NavBar>
         <Routes>
-          <Route path="/" element={
+        {/* <Route path="food_dashboard" element={<FoodDashBoardPage />} /> */}
+        <Route path="food_dashboard" element={
                 <FoodDashBoardPage 
+                setCurrentUser={setCurrentUser}
                 searchedItems={searchedItems}
                 foodItem={foodItem}
                 setSearchedItems={setSearchedItems}
                 setSelectedMeal={setSelectedMeal}
                 />} />
+        {/* <Route 
+            exact
+            path="/" 
+            element={currentUser ? <Navigate path='food_dashboard' element={
+                      <FoodDashBoardPage 
+                                  searchedItems={searchedItems}
+                                  foodItem={foodItem}
+                                  setSearchedItems={setSearchedItems}
+                                  setSelectedMeal={setSelectedMeal}
+                                  />}/> 
+                                : <WelcomePage />}
+                        />
+
+            {/* render={() => (
+            <div>
+              {currentUser ? (
+                <FoodDashBoardPage path='food_dashboard'
+                  searchedItems={searchedItems}
+                  foodItem={foodItem}
+                  setSearchedItems={setSearchedItems}
+                  setSelectedMeal={setSelectedMeal}
+                />
+              ) : (
+                <WelcomePage />
+              )}
+            </div> */}
+          {/* )} /> */}
+        {/* <Route path= */}
+          {/* element={
+                <FoodDashBoardPage 
+                searchedItems={searchedItems}
+                foodItem={foodItem}
+                setSearchedItems={setSearchedItems}
+                setSelectedMeal={setSelectedMeal}
+                />} /> */} 
           <Route path="search_food" element={
                 <SearchResultsPage 
                 setCurrentUser={setCurrentUser}
@@ -135,6 +173,8 @@ fetch('/calculate_tdee', {
           <Route path="login" element={
             <LoginPage
             attemptLogin={attemptLogin}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
             />} />
           <Route path="*" element={<Error/>}/>
         </Routes>
