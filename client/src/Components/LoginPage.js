@@ -12,10 +12,6 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
 
     async  function handleSubmit (e) {
         e.preventDefault();
-        // attemptLogin({"username": username, "password": password })
-        // if (currentUser) navigate('/');
-
-    // async function attemptLogin (userInfo) {
         let currentUserResponse;
         await fetch('/login', {
             method: 'POST',
@@ -34,31 +30,6 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
         console.log("from login page", currentUserResponse);
         if (!currentUserResponse.error) navigate('/')
         }
-
-
-
-
-        // // // async function attemptLogin({"username": username, "password": password })
-        // // navigate('/')
-        // // attemptLogin (userInfo) {
-        //     fetch('/login', {
-        //         method: 'POST',
-        //         headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accepts': 'application/json'
-        //         },
-        //         body: JSON.stringify({"username": username, "password": password })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => setCurrentUser(data))
-        //         // .then(() => { if (currentUser){navigate('/')}})
-            
-                
-        
-
-
-
-     //make this return a promoise so you can .then(if currentuser)
 
     console.log("Current user form login page", currentUser)
 
@@ -118,3 +89,27 @@ export default LoginPage;
     //         navigate('/')
     //     }
     // }
+
+
+
+        // // // async function attemptLogin({"username": username, "password": password })
+        // // navigate('/')
+        // // attemptLogin (userInfo) {
+        //     fetch('/login', {
+        //         method: 'POST',
+        //         headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accepts': 'application/json'
+        //         },
+        //         body: JSON.stringify({"username": username, "password": password })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => setCurrentUser(data))
+        //         // .then(() => { if (currentUser){navigate('/')}})
+            
+                
+        
+
+
+
+     //make this return a promoise so you can .then(if currentuser)

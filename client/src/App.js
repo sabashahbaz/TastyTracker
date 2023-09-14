@@ -47,26 +47,6 @@ function App() {
       .then(data => setCurrentUser(data))
   };
 
-  // async function attemptLogin (userInfo) {
-  //   let currentUser;
-  //   await fetch('/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accepts': 'application/json'
-  //     },
-  //     body: JSON.stringify(userInfo)
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     currentUser = data;
-  //     setCurrentUser(data);
-  //     // navigate('/');
-  //   });
-  //   // console.log(currentUser);
-  //   if (currentUser) navigate('/');
-  // }
-
   function logout () {
     fetch('/logout', {method: 'DELETE'})
     .then(response => {

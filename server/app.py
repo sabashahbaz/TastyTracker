@@ -2,10 +2,14 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os
-from models import db, Item, Item_User_Association, User
-import json
+from models import db, Item, User
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
+from datetime import date
+
+today = date.today()
+print("Today's date:", today)
+
 
 
 app = Flask(__name__)
