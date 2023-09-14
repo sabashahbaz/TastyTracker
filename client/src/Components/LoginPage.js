@@ -10,28 +10,55 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
     const handleChangeUsername = e => setUsername(e.target.value)
     const handleChangePassword = e => setPassword(e.target.value)
 
-    function handleSubmit (e) {
+    async  function handleSubmit (e) {
         e.preventDefault();
-        attemptLogin({"username": username, "password": password })
-    }
-    //     if (currentUser) {
-    //         console.log('hellloooo')
-    //         navigate('/food_dashboard')
-    //     } else {alert("please try again")}    
-    // }
-    //     {currentUser 
-    //         ?  (navigate('/food_dashboard'))
-    //         : alert("Please try agan")}
-    
-    // const handleSubmit = async(e) => {
-    //     e.preventDefault();
-    //     try {
-    //         await attemptLogin();
-    //         navigate('/food_dashboard')
-    //     } catch (error) {
-    //         navigate('/')
-    //     }
-    // }
+        // attemptLogin({"username": username, "password": password })
+        // if (currentUser) navigate('/');
+
+    // async function attemptLogin (userInfo) {
+        let currentUserResponse;
+        await fetch('/login', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Accepts': 'application/json'
+            },
+            body: JSON.stringify({"username": username, "password": password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            currentUserResponse = data;
+            setCurrentUser(data);
+            // navigate('/');
+        });
+        console.log("from login page", currentUserResponse);
+        if (!currentUserResponse.error) navigate('/')
+        }
+
+
+
+
+        // // // async function attemptLogin({"username": username, "password": password })
+        // // navigate('/')
+        // // attemptLogin (userInfo) {
+        //     fetch('/login', {
+        //         method: 'POST',
+        //         headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accepts': 'application/json'
+        //         },
+        //         body: JSON.stringify({"username": username, "password": password })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => setCurrentUser(data))
+        //         // .then(() => { if (currentUser){navigate('/')}})
+            
+                
+        
+
+
+
+     //make this return a promoise so you can .then(if currentuser)
 
     console.log("Current user form login page", currentUser)
 
@@ -68,3 +95,26 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
 
 export default LoginPage;
 
+  // if (currentUser) {
+        //             console.log('hellloooo')
+        //             navigate('/food_dashboard')
+        //         } else {alert("please try again")}    
+        //     }
+    
+    //     if (currentUser) {
+    //         console.log('hellloooo')
+    //         navigate('/food_dashboard')
+    //     } else {alert("please try again")}    
+    // }
+        // {currentUser && (navigate('/food_dashboard'))}
+            // : alert("Please try agan")}
+    
+    // const handleSubmit = async(e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await attemptLogin();
+    //         navigate('/food_dashboard')
+    //     } catch (error) {
+    //         navigate('/')
+    //     }
+    // }

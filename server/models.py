@@ -8,8 +8,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(125), nullable=False)
-    #calories
+    # tdee = db.Column(db.Integer(50), nullable=False)
+    # total_calories_eaten = db.Column(db.Integer(100), nullable=False)
+
     user_table = db.relationship("Item_User_Association", back_populates="user_object")
+    # user_table = db.relationship("Total_Calories", back_populates="user_object")
+
     
 
     def to_dict(self):
@@ -53,5 +57,16 @@ class Item_User_Association(db.Model):  #associates the items to users
             "item_id": self.item_id,
             "user_id": self.user_id
         }
+    
+# class Total_Calories(db.Model):
+#     __tablename__ = "total_calories_table"
+
+#     id=db.Column(db.Integer, primary_key = True)
+#     total_calories = db.Column(db.Integer, nullable = False)
+
+#     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
+
+#     user_object = db.relationship("User", back_populates="user_table")
+
     #many to many relationship between food items and food list 
 

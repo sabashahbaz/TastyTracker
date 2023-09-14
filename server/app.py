@@ -175,19 +175,17 @@ def post_item_to_food_list():
         db.session.add(item)
         db.session.commit()
 
-        total_calories_consumed += item.calories #adding the calories I have eaten 
-        # print(item.calories)
+        # calories_I_ate = item.calories
+        # total_calories_consumed = calories_I_ate + item.calories #adding the calories I have eaten 
+        # print("item.calories", item.calories)
+        # print("calories_I_ate", calories_I_ate)
+        # print("the total calories I ate today", total_calories_consumed)
+
         # calories_I_have_left_to_eat = daily_calories_needed - total_calories_consumed
         
         return item.to_dict()
     except: 
         return make_response(jsonify({"error": "the backend is broken"}), 400)
-    
-
-
-
-
-
 
 @app.route("/")
 def index():
