@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os
-from models import db, Item, User
+from models import db, Item, User, Current_Day_Log
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from datetime import date
@@ -35,18 +35,70 @@ def check_session():
     else:
         return {"message": "No user logged in"}, 401
 
-
-# create account
+# create account + get TDEE
 @app.post("/create_account")
 def create_account():
     data = request.json
+
+    weight = data.get("weight")
+    height = data.get("height")
+    age = data.get("age")
+    gender = data.get("gender").lower()
+
+    activity_levels = {1: 1.2, 2: 1.375, 3: 1.46, 4: 1.725, 5: 1.9}
+
+    if weight <= 0 or height <= 0 or age <= 0:
+        return jsonify({"error": "invalid user data"}), 400
+
+    if gender == "male":
+        bmr = 66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age)
+
+    elif gender == "female":
+        bmr = 655.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age)
+    else:
+        return jsonify({"error": "Invalid gender"})
+    
+    activity_level = data.get("activity_level")
+
+    activity_level_index = activity_levels.get(activity_level)
+
+    daily_calories_needed = int(bmr * activity_level_index)
+
     password_hash = bcrypt.generate_password_hash(data["password"]).decode("utf-8")
-    new_user = User(username=data["username"], password_hash=password_hash)
-    session["user_id"] = new_user.id
+
+    new_user = User(
+                    first_name=data["first_name"],
+                    last_name=data["last_name"],
+                    username=data["username"],
+                    password_hash=password_hash,
+                    tdee= daily_calories_needed
+                )
+    
+    # set_current_date = Current_Day_Log(
+    #                 date=new_user.current_day_log
+    #             )
 
     db.session.add(new_user)
+    # db.session.add(set_current_date)
     db.session.commit()
-    return new_user.to_dict(), 201
+
+    # (None, None, new_user.current_day_log)
+
+    session["user_id"] = new_user.id
+
+    return jsonify({"message": "Account created successfully", "user": new_user.to_dict()}), 201
+
+#track who is currently logged in 
+def get_current_user_id():
+    return session.get('user_id')
+
+#listening
+@db.event.listens_for(Current_Day_Log, 'before_insert')
+def set_current_date(mapper, connection, target):
+    current_user_id = get_current_user_id()  # Get the current user's ID from your session 
+    # Set the user_id and date before inserting
+    target.user_id = current_user_id
+    target.date = date.now().date()
 
 
 # login
@@ -61,49 +113,11 @@ def login():
     else:
         return {"error": "invalid username or password"}, 401
 
-
 # logout
 @app.delete("/logout")
 def logout():
     session["user_id"] = None
     return {"message": "Logged out"}, 200
-
-
-# TDEE calculator
-@app.post("/calculate_tdee")
-def calculate_tdee():
-    print("this script is being mean")
-    user_data = request.json
-
-    weight = user_data.get("weight")
-    height = user_data.get("height")
-    age = user_data.get("age")
-    gender = user_data.get("gender").lower()
-
-    activity_levels = {1: 1.2, 2: 1.375, 3: 1.46, 4: 1.725, 5: 1.9}
-
-    if weight <= 0 or height <= 0 or age <= 0:
-        return jsonify({"error": "invalid user data"}), 400
-
-    if gender == "male":
-        bmr = 66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age)
-
-    elif gender == "female":
-        bmr = 655.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age)
-    else:
-        return jsonify({"error": "Invalid gender"})
-
-    # activity_level = user_data.get('activity_level')
-    activity_level = user_data.get("activity_level")
-
-    activity_level_index = activity_levels.get(activity_level)
-
-    daily_calories_needed = int(bmr * activity_level_index)
-
-    response_data = {"daily_calories_needed": daily_calories_needed}
-
-    return jsonify(response_data)
-
 
 # GET food api request
 def get_food_api(userInput):
@@ -132,7 +146,6 @@ def get_food_api(userInput):
     else:
         raise Exception("food api request failed")
 
-
 # POST search
 @app.post("/search_food_items")
 def search_food_items():
@@ -159,7 +172,6 @@ def search_food_items():
         )
 
     return jsonify({"items": arrayOfItems}), 200
-
 
 # POST to food list
 @app.post("/add_to_food_list")
@@ -191,6 +203,9 @@ def post_item_to_food_list():
     except: 
         return make_response(jsonify({"error": "the backend is broken"}), 400)
 
+#ADD calories eaten + UPDATE calories left 
+@app
+
 @app.route("/")
 def index():
     return "TastyTracker"
@@ -198,3 +213,40 @@ def index():
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
+
+
+
+# TDEE calculator
+# @app.post("/calculate_tdee")
+# def calculate_tdee():
+#     print("this script is being mean")
+#     user_data = request.json
+
+#     weight = user_data.get("weight")
+#     height = user_data.get("height")
+#     age = user_data.get("age")
+#     gender = user_data.get("gender").lower()
+
+#     activity_levels = {1: 1.2, 2: 1.375, 3: 1.46, 4: 1.725, 5: 1.9}
+
+#     if weight <= 0 or height <= 0 or age <= 0:
+#         return jsonify({"error": "invalid user data"}), 400
+
+#     if gender == "male":
+#         bmr = 66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age)
+
+#     elif gender == "female":
+#         bmr = 655.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age)
+#     else:
+#         return jsonify({"error": "Invalid gender"})
+
+#     # activity_level = user_data.get('activity_level')
+#     activity_level = user_data.get("activity_level")
+
+#     activity_level_index = activity_levels.get(activity_level)
+
+#     daily_calories_needed = int(bmr * activity_level_index)
+
+#     response_data = {"daily_calories_needed": daily_calories_needed}
+
+#     return jsonify(response_data)

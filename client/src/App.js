@@ -8,7 +8,6 @@ import SearchResultsPage from './Components/SearchResultsPage'
 import NavBar from './Components/NavBar'
 import CreateAccountPage from './Components/CreateAccountPage'
 import LoginPage from "./Components/LoginPage"
-import {useNavigate} from 'react-router-dom';
 import WelcomePage from './Components/WelcomePage';
 
 function App() {
@@ -33,9 +32,8 @@ function App() {
     })
   }, [])
 
-  function createAccount(userInfo) {
-    console.log(userInfo)
-    fetch('create_account', {
+  function createAccountAndTdee(userInfo) {
+    fetch('/create_account', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,8 +42,31 @@ function App() {
       body: JSON.stringify(userInfo)
     })
       .then(response => response.json())
-      .then(data => setCurrentUser(data))
+      .then(data => {
+        console.log(data)
+        setCurrentUser(data.user.username)
+        setCurrentTdee(data.user.tdee)
+        console.log(currentTdee)
+      })
+      .catch(error => {console.log("front-end is broken", error)})  
   };
+  console.log(currentTdee)
+
+
+  // function createAccount(userInfo) {
+  //   console.log(userInfo)
+  //   fetch('create_account', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accepts': 'application/json'
+  //     },
+  //     body: JSON.stringify(userInfo)
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => setCurrentUser(data))
+  //     //setting the tdee
+  // };
 
   function logout () {
     fetch('/logout', {method: 'DELETE'})
@@ -53,23 +74,23 @@ function App() {
       if(response.ok) {setCurrentUser(null)}})
     }
 
-function calculate_tdee(userInfo) {
-  console.log('user info', userInfo)
-fetch('/calculate_tdee', {
-  method: 'POST',
-  headers: {
-  'Content-Type': 'application/json',
-  'Accepts': 'application/json'
-  },
-  body: JSON.stringify(userInfo)
-})
-.then(response => response.json())
-.then(data => setCurrentTdee(data))
-.catch(error => {
-  console.error('Error:', error);
-  // Handle the error, e.g., show an error message to the user
-});
-}
+// function calculate_tdee(userInfo) {
+//   console.log('user info', userInfo)
+// fetch('/calculate_tdee', {
+//   method: 'POST',
+//   headers: {
+//   'Content-Type': 'application/json',
+//   'Accepts': 'application/json'
+//   },
+//   body: JSON.stringify(userInfo)
+// })
+// .then(response => response.json())
+// .then(data => setCurrentTdee(data))
+// .catch(error => {
+//   console.error('Error:', error);
+//   // Handle the error, e.g., show an error message to the user
+// });
+// }
 
   function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
     console.log("currentUser",currentUser.user_id)
@@ -100,8 +121,10 @@ fetch('/calculate_tdee', {
         caloriesIAte={caloriesIAte} totalCaloriesRemaining={totalCaloriesRemaining}
         currentUser={currentUser} logout={logout}>Navbar</NavBar>
         <Routes>
-        {/* <Route path="food_dashboard" element={<FoodDashBoardPage />} /> */}
-        <Route path="/" element={
+        <Route path="/welcome" element = {
+          <WelcomePage/>}
+        />
+        <Route path="/food_log" element={
                 <FoodDashBoardPage 
                 setCurrentUser={setCurrentUser}
                 searchedItems={searchedItems}
@@ -109,55 +132,25 @@ fetch('/calculate_tdee', {
                 setSearchedItems={setSearchedItems}
                 setSelectedMeal={setSelectedMeal}
                 />} />
-        {/* <Route 
-            exact
-            path="/" 
-            element={currentUser ? <Navigate path='food_dashboard' element={
-                      <FoodDashBoardPage 
-                                  searchedItems={searchedItems}
-                                  foodItem={foodItem}
-                                  setSearchedItems={setSearchedItems}
-                                  setSelectedMeal={setSelectedMeal}
-                                  />}/> 
-                                : <WelcomePage />}
-                        />
-
-            {/* render={() => (
-            <div>
-              {currentUser ? (
-                <FoodDashBoardPage path='food_dashboard'
-                  searchedItems={searchedItems}
-                  foodItem={foodItem}
-                  setSearchedItems={setSearchedItems}
-                  setSelectedMeal={setSelectedMeal}
-                />
-              ) : (
-                <WelcomePage />
-              )}
-            </div> */}
-          {/* )} /> */}
-        {/* <Route path= */}
-          {/* element={
-                <FoodDashBoardPage 
-                searchedItems={searchedItems}
-                foodItem={foodItem}
-                setSearchedItems={setSearchedItems}
-                setSelectedMeal={setSelectedMeal}
-                />} /> */} 
           <Route path="search_food" element={
                 <SearchResultsPage 
                 setCurrentUser={setCurrentUser}
                 setSearchedItems={setSearchedItems} searchedItems={searchedItems} 
                 addToFoodList={addToFoodList}
                 />} /> 
-          <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee} />} />
-          <Route path="create_account" element={
-                <CreateAccountPage
-                createAccount={createAccount}
-                />} />
+          {/* <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee} />} /> */}
+          <Route path="tdee_calculator" element={<TdeeCalculator
+                                create_account_tdee ={createAccountAndTdee}
+                                setCurrentUser={setCurrentUser}
+                                // calculate_tdee={calculate_tdee} 
+                                setCurrentTdee={setCurrentTdee}/>}
+                                /> 
+                {/* <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee}/>}/>    */}
+                {/* <Route path="create_account" element={<CreateAccountPage createAccount={createAccount}/>}>
+          </Route> */}
+
           <Route path="login" element={
             <LoginPage
-           
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
             />} />

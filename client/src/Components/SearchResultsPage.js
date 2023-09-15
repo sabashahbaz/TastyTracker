@@ -6,15 +6,15 @@ function SearchResultsPage ({setSearchedItems, searchedItems, setCurrentUser, ad
 
 
 useEffect(() => {
-fetch('/check_session')
-.then(response => {
-    if(response.ok) {
-    response.json()
-    .then(user => setCurrentUser(user))
-    }
-})
-}, [])
-
+    fetch('/check_session')
+    .then(response => {
+        if(response.ok) {
+        response.json()
+        .then(user => setCurrentUser(user))
+        }
+    })
+    }, [])
+//is user is not equal to session id, forbid them 
     return(
         <div>
             <p>search bar and food results will be displayed here</p>

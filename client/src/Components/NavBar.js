@@ -7,7 +7,7 @@ function NavBar ({ currentUser, logout}) {
     return (
     
         <div className = "nav-bar-container">
-            <Link to="/" className="logo">the logo</Link>
+            <Link to="/welcome" className="logo">the logo</Link>
             <div>
                 { currentUser?.username?.length > 0
                 ? (
@@ -17,7 +17,7 @@ function NavBar ({ currentUser, logout}) {
                 )
                 : (
                     <div>
-                    <Link to='/create_account'><button>Create an Account</button></Link>
+                    {/* <Link to='/create_account'><button>Create an Account</button></Link> */}
                     <Link to='/login'><button >Login</button></Link>
                     </div>
                 )}

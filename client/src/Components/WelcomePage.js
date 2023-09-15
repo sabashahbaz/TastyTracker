@@ -1,9 +1,13 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 function Welcome () {
 
+
     return (
-        <p>welcome page</p>
+        <div>
+            <Link to='/tdee_calculator'><button>Create an Account</button></Link>
+        </div>
     )
 }
 

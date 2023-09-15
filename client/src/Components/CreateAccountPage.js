@@ -4,6 +4,8 @@ function CreateAccountPage ({createAccount}) {
 
     const [isAccountCreated, setIsAccountCreated] = useState(false);
 
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
@@ -12,7 +14,9 @@ function CreateAccountPage ({createAccount}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        createAccount({ "username": username, "password": password });
+        createAccount({ 
+            "username": username, 
+            "password": password });
         setIsAccountCreated(true)
         createAccountAlert()
     }
@@ -28,6 +32,26 @@ function CreateAccountPage ({createAccount}) {
     return (
         <div>
             <form className = "create-account-form" onSubmit={handleSubmit}>
+            <div className ="namr-group">
+                    <h2>first name</h2>
+                    <input
+                        className="username-input"
+                        type="text"
+                        onChange={handleChangeUsername}
+                        placeholder="enter your name"
+                        value={username}
+                    />
+                </div>
+                <div className ="username-group">
+                    <h2>last name</h2>
+                    <input
+                        className="username-input"
+                        type="text"
+                        onChange={handleChangeUsername}
+                        placeholder="Create a username!"
+                        value={username}
+                    />
+                </div>
                 <div className ="username-group">
                     <h2>Username</h2>
                     <input
