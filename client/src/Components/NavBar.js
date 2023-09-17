@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-import UserDetails from './UserDetails';
+// import UserDetails from './UserDetails';
 import login_button_image from "../assets/person-circle.svg";
 import logo from "../assets/logo.png";
 function NavBar ({ currentUser, logout}) {
@@ -25,24 +25,30 @@ function NavBar ({ currentUser, logout}) {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item">
+                        <li className="nav-item me-4">
                             <Link to="/food_log" className="nav-link" class="nav-link fs-3">
                                 My Food Log
                             </Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item me-4">
                             <Link to="/recipes" className="nav-link" class="nav-link fs-3">
                                 Recipes
                             </Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item me-4">
                             <Link to="/about" className="nav-link" class="nav-link fs-3">
                                 About Us
                             </Link>
                         </li>
-                        <li className="nav-item ml-right"> {/* Use ml-auto to push this item to the right */}
+                        <li className="nav-item me-4"> {/* Use ml-auto to push this item to the right */}
                             {currentUser?.username?.length > 0 ? (
-                                <UserDetails currentUser={currentUser} logout={logout} />
+                                    <li className="nav-item me-3">
+                                    <div className="d-flex align-items-center">
+                                    <span className="nav-link fs-3 me-2">Welcome {currentUser.first_name}! </span>
+                                    {/* <UserDetails  /> */}
+                                    <button onClick={logout}>Logout</button>
+                                    </div>
+                                </li>
                             ) : (
                                 <Link to="/login" className="nav-link" class="nav-link fs-3" >
                                     <img src={login_button_image} alt="Login" width="40" height="40" /> 

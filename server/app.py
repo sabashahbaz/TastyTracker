@@ -89,16 +89,16 @@ def create_account():
     return jsonify({"message": "Account created successfully", "user": new_user.to_dict()}), 201
 
 #track who is currently logged in 
-def get_current_user_id():
-    return session.get('user_id')
+# def get_current_user_id():
+#     return session.get('user_id')
 
-#listening
-@db.event.listens_for(Current_Day_Log, 'before_insert')
-def set_current_date(mapper, connection, target):
-    current_user_id = get_current_user_id()  # Get the current user's ID from your session 
-    # Set the user_id and date before inserting
-    target.user_id = current_user_id
-    target.date = date.now().date()
+# #listening
+# @db.event.listens_for(Current_Day_Log, 'before_insert')
+# def set_current_date(mapper, connection, target):
+#     current_user_id = get_current_user_id()  # Get the current user's ID from your session 
+#     # Set the user_id and date before inserting
+#     target.user_id = current_user_id
+#     target.date = date.now().date()
 
 
 # login
@@ -204,7 +204,6 @@ def post_item_to_food_list():
         return make_response(jsonify({"error": "the backend is broken"}), 400)
 
 #ADD calories eaten + UPDATE calories left 
-@app
 
 @app.route("/")
 def index():

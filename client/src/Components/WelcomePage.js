@@ -7,8 +7,7 @@ function Welcome () {
 
     return (
         <div>
-            <Link to='/tdee_calculator'><button>Create an Account</button></Link>
-            <button className="btn btn-light">Click me</button>
+            <Link to='/tdee_calculator'><button>Get Started Today!</button></Link>
         </div>
     )
 }

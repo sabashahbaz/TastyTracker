@@ -16,7 +16,7 @@ class User(db.Model):
     user_that_selected_the_item = db.relationship("Item_User_Association", back_populates="user_object")
 
     #user and current log associatoin
-    # user_log_association = db.relationship("User_Current_Log_Association", back_populates="user_log")
+    user_log_association = db.relationship("User_Current_Log_Association", back_populates="user_log")
 
     def to_dict(self):
         return{"user_id": self.id, 
@@ -76,15 +76,15 @@ class Item_Current_Day_Log_Association(db.Model):
     current_log_of_items_obj = db.relationship("Current_Day_Log", back_populates="current_log_and_item_association")
 
 #associate user and current log
-# class User_Current_Log_Association(db.Model):
-#     __table_name__ = "item_and_log_association_table"
+class User_Current_Log_Association(db.Model):
+    __table_name__ = "item_and_log_association_table"
 
-#     id = db.Column(db.Integer, primary_key= True )
-#     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
-#     current_day_log_id = db.Column(db.Integer, db.ForeignKey("current_day_log_table.id"))
+    id = db.Column(db.Integer, primary_key= True )
+    user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
+    current_day_log_id = db.Column(db.Integer, db.ForeignKey("current_day_log_table.id"))
 
-#     user_log = db.relationship("User", back_populates="user_log_association")
-#     current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
+    user_log = db.relationship("User", back_populates="user_log_association")
+    current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
 
 ### don't need a user and current log association table becauseone user has many logs ### 
 ##one log will have one user 
@@ -97,13 +97,13 @@ class Current_Day_Log(db.Model):
     date= db.Column(db.Integer, nullable = False) #keeping track of the day 
 
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id")) #connect the log to the specific user
-    # item_id = db.Column(db.Integer, db.ForeignKey("item_table.id")) #connect the items to the log
+    item_id = db.Column(db.Integer, db.ForeignKey("item_table.id")) #connect the items to the log
 
     #current log and item association 
     current_log_and_item_association = db.relationship("Item_Current_Day_Log_Association", back_populates="current_log_of_items_obj")
 
     #current log and user association 
-    # current_log_and_user_association = db.relationship("User_Current_Log_Association", back_populates = "current_log_of_user")
+    current_log_and_user_association = db.relationship("User_Current_Log_Association", back_populates = "current_log_of_user")
 
     def to_dict(self):
         return {
@@ -111,7 +111,7 @@ class Current_Day_Log(db.Model):
             "total_daily_calories_eaten": self.total_daily_calories_eaten,
             "date": self.date,
             "user_id": self.user_id,
-            # "item_id": self.item_id,
+            "item_id": self.item_id,
         }
 
 
