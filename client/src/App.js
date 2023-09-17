@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar'
 import CreateAccountPage from './Components/CreateAccountPage'
 import LoginPage from "./Components/LoginPage"
 import WelcomePage from './Components/WelcomePage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   // const navigate = useNavigate();
@@ -53,44 +54,11 @@ function App() {
   console.log(currentTdee)
 
 
-  // function createAccount(userInfo) {
-  //   console.log(userInfo)
-  //   fetch('create_account', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accepts': 'application/json'
-  //     },
-  //     body: JSON.stringify(userInfo)
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => setCurrentUser(data))
-  //     //setting the tdee
-  // };
-
   function logout () {
     fetch('/logout', {method: 'DELETE'})
     .then(response => {
       if(response.ok) {setCurrentUser(null)}})
     }
-
-// function calculate_tdee(userInfo) {
-//   console.log('user info', userInfo)
-// fetch('/calculate_tdee', {
-//   method: 'POST',
-//   headers: {
-//   'Content-Type': 'application/json',
-//   'Accepts': 'application/json'
-//   },
-//   body: JSON.stringify(userInfo)
-// })
-// .then(response => response.json())
-// .then(data => setCurrentTdee(data))
-// .catch(error => {
-//   console.error('Error:', error);
-//   // Handle the error, e.g., show an error message to the user
-// });
-// }
 
   function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
     console.log("currentUser",currentUser.user_id)
@@ -121,7 +89,7 @@ function App() {
         caloriesIAte={caloriesIAte} totalCaloriesRemaining={totalCaloriesRemaining}
         currentUser={currentUser} logout={logout}>Navbar</NavBar>
         <Routes>
-        <Route path="/welcome" element = {
+        <Route path="/" element = {
           <WelcomePage/>}
         />
         <Route path="/food_log" element={

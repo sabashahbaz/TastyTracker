@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
             // navigate('/');
         });
         console.log("from login page", currentUserResponse);
-        if (!currentUserResponse.error) navigate('/')
+        if (!currentUserResponse.error) navigate('/food_log')
         }
 
     console.log("Current user form login page", currentUser)
@@ -36,29 +37,32 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
     return (
         <div>
             <form className= "login-page=container" onSubmit={handleSubmit}>
-                <div className ="username-group">
-                    <p>login page</p>
-                        <h2>Username</h2>
-                        <input
-                            className="username-input"
-                            type="text"
-                            onChange={handleChangeUsername}
-                            placeholder="enter username!"
-                            value={username}
-                        />
+                <div class="mb-3">
+                    <label for="username input" class="form-label">Username</label>
+                        <input type="text"
+                                class="form-control" 
+                                id="input username" 
+                                aria-describedby="username"
+                                onChange={handleChangeUsername}
+                                placeholder=""
+                                value={username}
+                                />
                     </div>
-                    <div className ="password-group">
-                        <h2>Password</h2>
-                        <input
-                            className="password-input"
-                            type="text"
-                            onChange={handleChangePassword}
-                            placeholder="enter a password!"
-                            value={password}
-                        />
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" 
+                                class="form-control" 
+                                id="exampleInputPassword1"
+                                onChange={handleChangePassword}
+                                placeholder=""
+                                value={password}
+                                />
                     </div>
-                    {/* <Link to='/food_dashboard'><button className="submit-button" type="submit"> login</button></Link> */}
-                    <button className="submit-button" type="submit">Login</button>
+                    <button type="button" class="btn btn-secondary">Login</button>
+                    {/* <button className="submit-button" type="submit">Login</button> */}
+                    <Link to="/tdee_calculator"  class="nav-link fs-3">
+                                new user? create an account!
+                            </Link>
             </form>
         </div>
     )

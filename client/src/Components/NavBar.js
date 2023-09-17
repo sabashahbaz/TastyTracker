@@ -5,11 +5,18 @@ import logo from "../assets/logo.png";
 function NavBar ({ currentUser, logout}) {
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-transparent p-md-1 py-0 ">
             <div className="container-fluid">
-                <Link to="/welcome" className="navbar-brand">
-                    <img src={logo} alt="tasty tracker logo" className="logo" width="150" height="150" />
-                </Link>
+                {currentUser ? (
+                    <Link to="/food_log" className="navbar-brand">
+                        <img src={logo} alt="tasty tracker logo" className="logo" width="150" height="150" />
+                    </Link>
+
+                ): (
+                    <Link to="/" className="navbar-brand">
+                        <img src={logo} alt="tasty tracker logo" className="logo" width="100" height="100" />
+                    </Link>
+                )}
                 {/* <div class="collapse navbar-collapse justify-content-right" id="navbarSupportedContent"></div> */}
                 <button
                     className="navbar-toggler" //when screen size is reduced, change visibility 
@@ -18,17 +25,21 @@ function NavBar ({ currentUser, logout}) {
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
-                    aria-label="Toggle navigation"
+                    aria-label="Toggle Navbar"
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
+
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item me-4">
+                        {currentUser ? (
+                            <li className="nav-item me-4">
                             <Link to="/food_log" className="nav-link" class="nav-link fs-3">
                                 My Food Log
                             </Link>
                         </li>
+                        ): null}
+                        
                         <li className="nav-item me-4">
                             <Link to="/recipes" className="nav-link" class="nav-link fs-3">
                                 Recipes

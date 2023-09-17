@@ -1,0 +1,7 @@
+.bg-img{
+    background-image: url("https://img.freepik.com/free-photo/flat-lay-vegetables-white-background-food-diet-concept_169016-20321.jpg?w=2000");
+    height:100%;
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+}
