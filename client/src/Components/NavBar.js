@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-// import UserDetails from './UserDetails';
 import login_button_image from "../assets/person-circle.svg";
 import logo from "../assets/logo.png";
 function NavBar ({ currentUser, logout}) {
@@ -44,9 +43,10 @@ function NavBar ({ currentUser, logout}) {
                             {currentUser?.username?.length > 0 ? (
                                     <li className="nav-item me-3">
                                     <div className="d-flex align-items-center">
-                                    <span className="nav-link fs-3 me-2">Welcome {currentUser.first_name}! </span>
+                                    <span className="nav-link fs-3 me-2">Welcome {currentUser.username}! </span>
                                     {/* <UserDetails  /> */}
-                                    <button onClick={logout}>Logout</button>
+                                    <button type="button" class="btn btn-light btn-lg" onClick={logout}>Logout</button>
+
                                     </div>
                                 </li>
                             ) : (
