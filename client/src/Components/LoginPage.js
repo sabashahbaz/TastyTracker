@@ -34,39 +34,47 @@ function LoginPage({attemptLogin, currentUser, setCurrentUser}) {
 
     console.log("Current user form login page", currentUser)
 
+
     return (
-        <div>
-            <form className= "login-page=container" onSubmit={handleSubmit}>
-                <div class="mb-3">
-                    <label for="username input" class="form-label">Username</label>
-                        <input type="text"
-                                class="form-control" 
-                                id="input username" 
-                                aria-describedby="username"
-                                onChange={handleChangeUsername}
-                                placeholder=""
-                                value={username}
-                                />
+        <div className="container d-flex justify-content-center align-items-center">
+            <form className="login-page-container w-50" onSubmit={handleSubmit}>
+                <div className="mb-3 p-2">
+                    <label htmlFor="inputUsername" className="form-label">Username</label>
+                    <input
+                        type="text"
+                        size="20"
+                        className="form-control w-100"
+                        id="inputUsername"
+                        aria-describedby="username"
+                        onChange={handleChangeUsername}
+                        value={username}
+                    />
+                </div>
+                <div className="mb-3 p-2">
+                    <label htmlFor="inputPassword" className="form-label">Password</label>
+                    <input
+                        type="password"
+                        className="form-control w-100"
+                        id="inputPassword"
+                        onChange={handleChangePassword}
+                        value={password}
+                    />
+                </div>
+                <div className="row p-2">
+                    <div className="col-6">
+                        <button type="submit" className="btn btn-primary w-100">Login</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" 
-                                class="form-control" 
-                                id="exampleInputPassword1"
-                                onChange={handleChangePassword}
-                                placeholder=""
-                                value={password}
-                                />
+                    <div className="col-6">
+                        <Link to="/tdee_calculator" className="nav-link fs-6">
+                            <p>New user? Create an account!</p>
+                        </Link>
                     </div>
-                    <button type="button" class="btn btn-secondary">Login</button>
-                    {/* <button className="submit-button" type="submit">Login</button> */}
-                    <Link to="/tdee_calculator"  class="nav-link fs-3">
-                                new user? create an account!
-                            </Link>
+                </div>
             </form>
         </div>
-    )
+    );
 }
+
 
 export default LoginPage;
 

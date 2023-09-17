@@ -1,8 +1,16 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import login_button_image from "../assets/person-circle.svg";
 import logo from "../assets/logo.png";
-function NavBar ({ currentUser, logout}) {
+function NavBar ({ currentUser, setCurrentUser, logout}) {
+    const navigate = useNavigate();
+
+    function logout () {
+        fetch('/logout', {method: 'DELETE'})
+        .then(response => {
+        if(response.ok) {setCurrentUser(null)}  navigate('/')})
+        }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent p-md-1 py-0 ">

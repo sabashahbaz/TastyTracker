@@ -53,13 +53,6 @@ function App() {
   };
   console.log(currentTdee)
 
-
-  function logout () {
-    fetch('/logout', {method: 'DELETE'})
-    .then(response => {
-      if(response.ok) {setCurrentUser(null)}})
-    }
-
   function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
     console.log("currentUser",currentUser.user_id)
     fetch('/add_to_food_list', {
@@ -87,7 +80,7 @@ function App() {
       <BrowserRouter>
       <NavBar
         caloriesIAte={caloriesIAte} totalCaloriesRemaining={totalCaloriesRemaining}
-        currentUser={currentUser} logout={logout}>Navbar</NavBar>
+        currentUser={currentUser} setCurrentUser={setCurrentUser}>Navbar</NavBar>
         <Routes>
         <Route path="/" element = {
           <WelcomePage/>}
