@@ -1,4 +1,4 @@
-from flask import Flask, make_response, jsonify, request, session
+from flask import Flask, make_response, jsonify, request, session, flash
 from flask_cors import CORS
 import requests
 import os
@@ -74,31 +74,32 @@ def create_account():
                     tdee= daily_calories_needed
                 )
     
-    # set_current_date = Current_Day_Log(
-    #                 date=new_user.current_day_log
-    #             )
+    # new_user_log = Current_Day_Log(
+    #         total_daily_calories_eaten= "",
+    #         user_id = data["user_id"]
+    # )
+    # new_user.current_log_and_user_association.append(new_user_log)
+
 
     db.session.add(new_user)
-    # db.session.add(set_current_date)
-    db.session.commit()
+    try:
+        db.session.commit()  # Commit new_user to get an ID from the database
+        session["user_id"] = new_user.id  # Assign the user_id to the session
+    
+        print("this better work", new_user.id)
+        # Now create and add new_user_log with the correct user_id
+        new_user_log = Current_Day_Log(
+            total_daily_calories_eaten="0",
+            user_id=new_user.id
+        )
+        db.session.add(new_user_log)
+        db.session.commit()  # Commit new_user_log
+        print("did it work??", new_user_log)
 
-    # (None, None, new_user.current_day_log)
-
-    session["user_id"] = new_user.id
-
-    return jsonify({"message": "Account created successfully", "user": new_user.to_dict()}), 201
-
-#track who is currently logged in 
-# def get_current_user_id():
-#     return session.get('user_id')
-
-# #listening
-# @db.event.listens_for(Current_Day_Log, 'before_insert')
-# def set_current_date(mapper, connection, target):
-#     current_user_id = get_current_user_id()  # Get the current user's ID from your session 
-#     # Set the user_id and date before inserting
-#     target.user_id = current_user_id
-#     target.date = date.now().date()
+        return jsonify({"message": "Account created successfully", "user": new_user.to_dict()}), 201
+    except Exception as e:  # Rollback changes in case of an exception
+        db.session.rollback()
+        raise Exception("Adding a user failed")
 
 
 # login
@@ -108,9 +109,12 @@ def login():
     user = User.query.filter(User.username == data["username"]).first()
 
     if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
+        # flash('Logged in successfully!', category='success')
         session["user_id"] = user.id
         return user.to_dict(), 200
+        
     else:
+        # flash('Incorrect password, try again.', category='error')
         return {"error": "invalid username or password"}, 401
 
 # logout
@@ -214,38 +218,3 @@ if __name__ == "__main__":
     app.run(port=5555, debug=True)
 
 
-
-# TDEE calculator
-# @app.post("/calculate_tdee")
-# def calculate_tdee():
-#     print("this script is being mean")
-#     user_data = request.json
-
-#     weight = user_data.get("weight")
-#     height = user_data.get("height")
-#     age = user_data.get("age")
-#     gender = user_data.get("gender").lower()
-
-#     activity_levels = {1: 1.2, 2: 1.375, 3: 1.46, 4: 1.725, 5: 1.9}
-
-#     if weight <= 0 or height <= 0 or age <= 0:
-#         return jsonify({"error": "invalid user data"}), 400
-
-#     if gender == "male":
-#         bmr = 66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age)
-
-#     elif gender == "female":
-#         bmr = 655.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age)
-#     else:
-#         return jsonify({"error": "Invalid gender"})
-
-#     # activity_level = user_data.get('activity_level')
-#     activity_level = user_data.get("activity_level")
-
-#     activity_level_index = activity_levels.get(activity_level)
-
-#     daily_calories_needed = int(bmr * activity_level_index)
-
-#     response_data = {"daily_calories_needed": daily_calories_needed}
-
-#     return jsonify(response_data)
