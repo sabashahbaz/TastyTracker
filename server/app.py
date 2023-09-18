@@ -74,13 +74,6 @@ def create_account():
                     tdee= daily_calories_needed
                 )
     
-    # new_user_log = Current_Day_Log(
-    #         total_daily_calories_eaten= "",
-    #         user_id = data["user_id"]
-    # )
-    # new_user.current_log_and_user_association.append(new_user_log)
-
-
     db.session.add(new_user)
     try:
         db.session.commit()  # Commit new_user to get an ID from the database

@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import TdeeCalculator from './Components/TdeeCalculator';
+import CreateAccountPage from './Components/CreateAccountPage.js';
 import FoodDashBoardPage from './Components/FoodDashboardPage'
 import Error from './Error';
 import SearchResultsPage from './Components/SearchResultsPage'
@@ -32,27 +32,6 @@ function App() {
       }
     })
   }, [])
-
-  // function createAccountAndTdee(userInfo) {
-  //   fetch('/create_account', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accepts': 'application/json'
-  //     },
-  //     body: JSON.stringify(userInfo)
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       setCurrentUser(data.user.username)
-  //       setCurrentTdee(data.user.tdee)
-  //       console.log(currentTdee)
-  //       if (currentTdee) navigate('/food_log')
-  //     })
-  //     .catch(error => {console.log("front-end is broken", error)})  
-  // };
-  // console.log(currentTdee)
 
   function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
     console.log("currentUser",currentUser.user_id)
@@ -101,7 +80,7 @@ function App() {
                 addToFoodList={addToFoodList}
                 />} /> 
           {/* <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee} />} /> */}
-          <Route path="tdee_calculator" element={<TdeeCalculator
+          <Route path="tdee_calculator" element={<CreateAccountPage
                                 // create_account_tdee ={createAccountAndTdee}
                                 setCurrentUser={setCurrentUser}
                                 // calculate_tdee={calculate_tdee} 
@@ -128,3 +107,4 @@ function App() {
 export default App;
 
 
+ 
