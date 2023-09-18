@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 
-function TdeeCalculator({currentTdee, setCurrentUser, setCurrentTdee, calculate_tdee, create_account_tdee}) {
+function CreateAccountPage({currentTdee, setCurrentUser, setCurrentTdee, calculate_tdee, create_account_tdee}) {
 
 const navigate = useNavigate();
 
@@ -70,8 +70,6 @@ async function handleSubmitAccountForm (e) {
     if (accountResponse) navigate('/food_log')
     // .catch(error => {console.log("front-end is broken", error)})  
     };
-
-    console.log(currentTdee)
 
 return (
 
@@ -250,5 +248,5 @@ return (
     );
 }
     
-export default TdeeCalculator;
+export default CreateAccountPage;
 

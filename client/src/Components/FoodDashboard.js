@@ -9,6 +9,7 @@ import DisplaySnackItems from "./DisplaySnackItems"
 
 function FoodDashboard ({foodItem, setCurrentUser, setSelectedMeal}) {
 
+
     return (
         <div className = "food_dashboard">
             <div className= "breakfast-container">

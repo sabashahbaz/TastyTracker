@@ -3,31 +3,36 @@ import React, {useEffect} from "react";
 // import SearchFood from './SearchFoodBar';
 import FoodDashboard from './FoodDashboard';
 
-function FoodDashBoardPage ({setItems, items, foodItem, setSelectedMeal, setCurrentUser}) {
+function FoodDashBoardPage ({setItems, items, setCurrentTdee, caloriesIAte, currentTdee, foodItem, setSelectedMeal, currentUser, setCurrentUser}) {
 
-// Because this is the home page //
-useEffect(() => {
-    fetch('/check_session')
-    .then(response => {
-        if(response.ok) {
-        response.json()
-        .then(user => setCurrentUser(user))
-        }
-    })
-    }, [])
-    
+    useEffect(() => {
+        fetch('/check_session')
+        .then(response => {
+            if(response.ok) {
+                response.json()
+                .then(user => {
+                    setCurrentUser(user);
+                    setCurrentTdee(user.tdee);
+                });
+            }
+        })
+    }, []);
+        
 return (
-    <>
-        <p> food dashboard </p>
-        <FoodDashboard setItems={setItems} items={items} setSelectedMeal={setSelectedMeal} setCurrentUser={setCurrentUser}foodItem={foodItem}/>
-        {/* <div><FoodLogForm/> </div> */}
-        {/* <div><SearchFood setFoodItems={setFoodItems}/></div> */}
-    </>
-
     
-    
+        <div>
+            <div>
+                {currentUser ? (
+                    <>
+                        <h2> current TDEE is {currentTdee}</h2>
+                        <h2> Calories I have eaten today {caloriesIAte} </h2>
+                    </>
 
-)
+                ): null}
+            </div>
+            <FoodDashboard setItems={setItems} items={items} setSelectedMeal={setSelectedMeal} setCurrentUser={setCurrentUser}foodItem={foodItem}/>
+        </div> 
+    )
 }
 
 export default FoodDashBoardPage;

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
-function LoginPage({attemptLogin,  currentUser, setCurrentUser}) {
+function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
     const navigate = useNavigate();
 
     const [username, setUsername] = useState("")
@@ -26,13 +26,12 @@ function LoginPage({attemptLogin,  currentUser, setCurrentUser}) {
         .then(data => {
             currentUserResponse = data;
             setCurrentUser(data);
+            setCurrentTdee(data.tdee)
             // navigate('/');
         });
-        console.log("from login page", currentUserResponse);
         if (!currentUserResponse.error) navigate('/food_log')
         }
 
-    console.log("Current user form login page", currentUser)
 
 
     return (
@@ -77,51 +76,3 @@ function LoginPage({attemptLogin,  currentUser, setCurrentUser}) {
 
 
 export default LoginPage;
-
-  // if (currentUser) {
-        //             console.log('hellloooo')
-        //             navigate('/food_dashboard')
-        //         } else {alert("please try again")}    
-        //     }
-    
-    //     if (currentUser) {
-    //         console.log('hellloooo')
-    //         navigate('/food_dashboard')
-    //     } else {alert("please try again")}    
-    // }
-        // {currentUser && (navigate('/food_dashboard'))}
-            // : alert("Please try agan")}
-    
-    // const handleSubmit = async(e) => {
-    //     e.preventDefault();
-    //     try {
-    //         await attemptLogin();
-    //         navigate('/food_dashboard')
-    //     } catch (error) {
-    //         navigate('/')
-    //     }
-    // }
-
-
-
-        // // // async function attemptLogin({"username": username, "password": password })
-        // // navigate('/')
-        // // attemptLogin (userInfo) {
-        //     fetch('/login', {
-        //         method: 'POST',
-        //         headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accepts': 'application/json'
-        //         },
-        //         body: JSON.stringify({"username": username, "password": password })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => setCurrentUser(data))
-        //         // .then(() => { if (currentUser){navigate('/')}})
-            
-                
-        
-
-
-
-     //make this return a promoise so you can .then(if currentuser)

@@ -23,15 +23,14 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-# global variable
-total_calories_consumed = 0
-
-
 @app.get("/check_session")
 def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
+    tdee = user.tdee
     if user:
         return user.to_dict(), 200
+    if tdee: 
+        return jsonify({"user": user.to_dict(), "tdee": tdee}), 200
     else:
         return {"message": "No user logged in"}, 401
 
@@ -94,7 +93,6 @@ def create_account():
         db.session.rollback()
         raise Exception("Adding a user failed")
 
-
 # login
 @app.post("/login")
 def login():
@@ -104,7 +102,8 @@ def login():
     if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
         # flash('Logged in successfully!', category='success')
         session["user_id"] = user.id
-        return user.to_dict(), 200
+        tdee = user.tdee
+        return jsonify({"user": user.to_dict(), "tdee": tdee}), 200
         
     else:
         # flash('Incorrect password, try again.', category='error')
@@ -173,10 +172,9 @@ def search_food_items():
 # POST to food list
 @app.post("/add_to_food_list")
 def post_item_to_food_list():
-    global total_calories_consumed
-
-    # print("hey form backend")
+    print("are we reaching the backend")
     requested_data = request.json  # get the jsonified requested data
+    print("heyyyyyyy")
     try:
         item = Item(
             name = requested_data["name"],
@@ -187,25 +185,41 @@ def post_item_to_food_list():
         )
         db.session.add(item)
         db.session.commit()
-
-        # calories_I_ate = item.calories
-        # total_calories_consumed = calories_I_ate + item.calories #adding the calories I have eaten 
-        # print("item.calories", item.calories)
-        # print("calories_I_ate", calories_I_ate)
-        # print("the total calories I ate today", total_calories_consumed)
-
-        # calories_I_have_left_to_eat = daily_calories_needed - total_calories_consumed
+        print("did we get to the end???", item)
         
         return item.to_dict()
-    except: 
+    except Exception as e:
+        print("Error:", e)
         return make_response(jsonify({"error": "the backend is broken"}), 400)
-
 #ADD calories eaten + UPDATE calories left 
+# @app.patch("/update_calories_consumed/<int:user_id>")
+# def update_calories_consumed(user_id):
+#     requested_data = request.json
+
+#     try:
+#         # Fetch the user's current log
+#         current_log = Current_Day_Log.query.filter_by(user_id=user_id).first()
+
+#         if current_log:
+#             # Calculate the new total daily calories eaten by adding the calories from the food item
+#             # you posted earlier to the existing total
+#             new_calories_eaten = current_log.total_daily_calories_eaten + requested_data["calories"]
+
+#             # Update the current log with the new total calories eaten
+#             current_log.total_daily_calories_eaten = new_calories_eaten
+#             db.session.commit()
+
+#             return jsonify({"message": "Calories consumed updated successfully"}), 200
+#         else:
+#             return jsonify({"error": "User not found"}), 404
+
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+    
 
 @app.route("/")
 def index():
     return "TastyTracker"
-
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

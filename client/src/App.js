@@ -12,17 +12,14 @@ import WelcomePage from './Components/WelcomePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-// const navigate = useNavigate();
-
   const [currentUser, setCurrentUser] = useState(null)
   const [searchedItems, setSearchedItems] = useState([]) //the food items that are returned from the search 
   const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user 
   const [selectedMeal, setSelectedMeal] = useState("")
   const [caloriesIAte, setCaloriesIAte] = useState("")
   const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
-  const [currentTdee, setCurrentTdee] = useState(0)
+  const [currentTdee, setCurrentTdee] = useState("")
 
-  
   useEffect(() => {
     fetch('/check_session')
     .then(response => {
@@ -33,28 +30,25 @@ function App() {
     })
   }, [])
 
-  function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
-    console.log("currentUser",currentUser.user_id)
-    fetch('/add_to_food_list', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/JSON",
-        },
-        body: JSON.stringify({
-                        "name": foodToAdd.name, 
-                        "description": foodToAdd.description,
-                        "calories": foodToAdd.calories,
-                        "meal_type": selectedMeal,
-                        "user_id": currentUser.user_id,
-        })
-            })
-        .then(response => response.json())
-        .then(data => setFoodItem([...foodItem, data]))
-        .catch(error => {console.log("front-end is broken", error)})  
-    return foodItem 
-  }
+function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
+  fetch('/add_to_food_list', {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/JSON",
+      },
+      body: JSON.stringify({
+                      "name": foodToAdd.name, 
+                      "description": foodToAdd.description,
+                      "calories": foodToAdd.calories,
+                      "meal_type": selectedMeal,
+                      "user_id": currentUser.user_id,
+      })
+    })
+      .then(response => response.json())
+      .then(data => setFoodItem([...foodItem, data]))
+  return foodItem 
+}
 
-  // console.log(currentUser)
 
   return (
       <BrowserRouter>
@@ -67,6 +61,10 @@ function App() {
         />
         <Route path="/food_log" element={
                 <FoodDashBoardPage 
+                setCurrentTdee = {setCurrentTdee}
+                caloriesIAte={caloriesIAte}
+                currentTdee={currentTdee}
+                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 searchedItems={searchedItems}
                 foodItem={foodItem}
@@ -79,19 +77,15 @@ function App() {
                 setSearchedItems={setSearchedItems} searchedItems={searchedItems} 
                 addToFoodList={addToFoodList}
                 />} /> 
-          {/* <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee} />} /> */}
           <Route path="tdee_calculator" element={<CreateAccountPage
                                 // create_account_tdee ={createAccountAndTdee}
                                 setCurrentUser={setCurrentUser}
                                 // calculate_tdee={calculate_tdee} 
                                 setCurrentTdee={setCurrentTdee}/>}
                                 /> 
-                {/* <Route path="tdee_calculator" element={<TdeeCalculator setCurrentUser={setCurrentUser} calculate_tdee={calculate_tdee} setCurrentTdee={setCurrentTdee}/>}/>    */}
-                {/* <Route path="create_account" element={<CreateAccountPage createAccount={createAccount}/>}>
-          </Route> */}
-
           <Route path="login" element={
             <LoginPage
+            setCurrentTdee={setCurrentTdee}
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
             />} />
@@ -107,4 +101,5 @@ function App() {
 export default App;
 
 
- 
+
+

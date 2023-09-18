@@ -33,6 +33,7 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(400), nullable = False)
+    calories = db.Column(db.Integer, nullable = False)
     meal_type = db.Column(db.String(50), nullable = False)
 
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id")) #the item is tied to the user id
