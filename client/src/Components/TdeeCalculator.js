@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 
-function TdeeCalculator({setCurrentTdee, calculate_tdee, create_account_tdee}) {
+function TdeeCalculator({currentTdee, setCurrentUser, setCurrentTdee, calculate_tdee, create_account_tdee}) {
+
+const navigate = useNavigate();
 
 
   // function calculate_TDEE (userInfo) 
@@ -21,10 +24,6 @@ const handleChangePassword = e => setPassword(e.target.value)
 const handleChangeFirstName = e => setFirstName(e.target.value)
 const handleChangeLastName = e => setLastName(e.target.value)
 
-
-
-// const [currentTdee, setCurrentTdee] = useState(0)
-
 const heightOptions = [];
 for ( let feet = 4; feet <= 7; feet++) {
 for (let inches = 0; inches <= 11; inches ++) {
@@ -36,13 +35,17 @@ heightOptions.push({
 
 function handleSubmitUserInfo(e) {
     e.preventDefault();
-    setStep(2);
+    if (firstName && lastName && username && password)  {
+        setStep(2);
+    } else {
+        alert("Please complete all required fields")
+    }
+    
 }
 
 function handleSubmitAccountForm (e) {
     e.preventDefault();
-    console.log("hey after submission")
-    create_account_tdee({
+    createAccountAndTdee({
         "gender": selectedGender,
         "age": Number(age),
         "weight": Number(weight),
@@ -54,90 +57,154 @@ function handleSubmitAccountForm (e) {
         "password": password })
     };
 
+
+async function createAccountAndTdee(userInfo) {
+    let currentResponse;
+    await fetch('/create_account', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        'Accepts': 'application/json'
+        },
+        body: JSON.stringify(userInfo)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            setCurrentUser(data.user.username)
+            setCurrentTdee(data.user.tdee)
+            currentResponse = data
+            console.log(currentTdee)
+        });
+        if (currentResponse) navigate('/food_log')
+        // .catch(error => {console.log("front-end is broken", error)})  
+    };
+    console.log(currentTdee)
+
+    
 return (
-<div className="tdde-form">
+
+<div className="container d-flex justify-content-center align-items-center">
 
 {step === 1 
 
         ? (
-            <form className = "create-account-form" onSubmit={handleSubmitUserInfo}>
-            <div className ="first-name-group">
-                    <h2>first name</h2>
+            <form className="create-account-container w-50" onSubmit={handleSubmitUserInfo}>
+            <div className="header text-center">
+                <h2>Create your Account</h2>
+                <p>To keep track of your food and view saved recipies</p>
+            </div>
+            <div className="mb-3 p-2">
+                    <label className="first-name-label">First Name</label>
                     <input
-                        className="first-name-input"
                         type="text"
+                        size="20"
+                        className="form-control w-100"
+                        id="inputFirstname"
+                        aria-describedby="firstname"
                         onChange={handleChangeFirstName}
-                        placeholder="enter first name"
+                        placeholder=""
                         value={firstName}
                     />
                 </div>
-                <div className ="last-name-group">
-                    <h2>last name</h2>
+                <div className="mb-3 p-2">
+                    <label className="last-name-label">Last Name</label>
                     <input
-                        className="last-name-input"
                         type="text"
+                        size="20"
+                        className="form-control w-100"
+                        id="inputLastname"
+                        aria-describedby="lastname"
                         onChange={handleChangeLastName}
-                        placeholder="enter last name"
+                        placeholder=""
                         value={lastName}
                     />
                 </div>
-                <div className ="username-group">
-                    <h2>Username</h2>
+                <div className="mb-3 p-2">
+                    <label className="username-label">Username</label>
                     <input
-                        className="username-input"
                         type="text"
+                        size="20"
+                        className="form-control w-100"
+                        id="inputusername"
+                        aria-describedby="username"
                         onChange={handleChangeUsername}
-                        placeholder="Create a username!"
+                        placeholder=""
                         value={username}
                     />
                 </div>
-                <div className ="password-group">
-                    <h2>Password</h2>
+                <div className="mb-3 p-2">
+                    <label className="password-label"> Password</label>
                     <input
-                        className="password-input"
-                        type="text"
+                        type="password"
+                        size="20"
+                        className="form-control w-100"
+                        id="inputpasswordname"
+                        aria-describedby="password"
                         onChange={handleChangePassword}
-                        placeholder="Create a password!"
+                        placeholder=""
                         value={password}
                     />
                 </div>
-                <button className="submit-button" type="submit"> create a new account</button>
+                <button className="btn btn-primary w-100" type="submit"> Create your Account</button>
             </form>
         )
     
         : (   
-            <form className="form-containter" onSubmit={handleSubmitAccountForm}> 
-                    
-            <h1>TDEE calculator</h1>
-            <div>
-            Gender  
-                <input 
-                    type = "radio" 
-                    // name = "male-button" 
-                    value = {"male"}
-                    onChange={(e) => setSelectedGender(e.target.value)}
-                    checked={selectedGender === 'male'}
-                    // onChange={handleGenderChange}
-                    />
-                Male
-                <input type = "radio" 
-                    // name = "female-button" 
-                    value = {"female"}
-                    onChange={(e) => setSelectedGender(e.target.value)}
-                    checked={selectedGender ==='female'}
-                    // onChange={handleGenderChange}
-                    /> 
-                Female
+            <form className="tdee-calculator-container w-50" onSubmit={handleSubmitAccountForm}>
+            <div className="header text-center">
+                <h2>Calculate Total Daily Energy Expenditure (TDEE)</h2>
+                <p>This TDEE calculator tool calculates your daily calories burned to help you achieve your goal weight</p>
             </div>
-            <div className= "age-input">
+            <div className="d-flex">
+                <div className="form-check form-check-inline ">
+                    <label>Gender :</label>
+                </div>
+                <div className="d-flex">
+                    <div className="form-check form-check-inline">
+                        <input
+                            className="form-check-input"
+                            type="radio"
+                            name="flexRadioDefault"
+                            id="flexRadioDefault1"
+                            value="male"
+                            onChange={(e) => setSelectedGender(e.target.value)}
+                            checked={selectedGender === 'male'}
+                        />
+                        <label className="form-check-label" for="inlineRadio1" htmlFor="flexRadioDefault1">
+                            Male
+                        </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                        <input
+                            className="form-check-input"
+                            type="radio"
+                            name="flexRadioDefault"
+                            id="flexRadioDefault2"
+                            value="female"
+                            onChange={(e) => setSelectedGender(e.target.value)}
+                            checked={selectedGender === 'female'}
+                        />
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                            Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div className="d-flex w-100">
+                <div className="form-check form-check-inline">
                 Age:
                 <input
                 type="text"
-                name="age"
+                size="20"
+                className="form-control w-100"
+                id="inputage"
+                aria-describedby="username"
                 onChange={(e) => setAge(e.target.value)}
                 value={age}
                 // onChange={handleAgeChange}
                 />
+                </div>
             </div>
             <div className = "height-input">
                 Height:
@@ -193,127 +260,6 @@ return (
 }
     
 export default TdeeCalculator;
-
-
-// function handleSubmit(e) {
-// e.preventDefault();
-// calculate_tdee({ 
-// "gender": selectedGender,
-// "age": Number(age),
-// "weight": Number(weight),
-// "height": Number(selectedHeight),
-// "activity_level" : Number(selectedActivity)
-// })
-// };
-
-// console.log(`Current TDEE:`)
-// console.log(currentTdee)
-
-
-
-// async function calculate_tdee(userInfo) {
-//     console.log('user info', userInfo)
-// fetch('/calculate_tdee', {
-//     method: 'POST',
-//     headers: {
-//     'Content-Type': 'application/json',
-//     'Accepts': 'application/json'
-//     },
-//     body: JSON.stringify(userInfo)
-// })
-// .then(response => response.json())
-// .then(data => setCurrentTdee(data))
-// .catch(error => {console.error('Error:', error);
-// });
-// }
-    
-
-{/* <form className="form-containter" onSubmit={handleSubmitTDEE}> 
-    
-    <h1>TDEE calculator</h1>
-    <div>
-    Gender  
-        <input 
-            type = "radio" 
-            // name = "male-button" 
-            value = {"male"}
-            onChange={(e) => setSelectedGender(e.target.value)}
-            checked={selectedGender === 'male'}
-            // onChange={handleGenderChange}
-            />
-        Male
-        <input type = "radio" 
-            // name = "female-button" 
-            value = {"female"}
-            onChange={(e) => setSelectedGender(e.target.value)}
-            checked={selectedGender ==='female'}
-            // onChange={handleGenderChange}
-            /> 
-        Female
-    </div>
-    <div className= "age-input">
-        Age:
-        <input
-        type="text"
-        name="age"
-        onChange={(e) => setAge(e.target.value)}
-        value={age}
-        // onChange={handleAgeChange}
-        />
-    </div>
-    <div className = "height-input">
-        Height:
-        <select
-        name="height"
-        value={selectedHeight}
-        onChange={(e) => setSelectedHeight(e.target.value)}
-        // size="10"
-        >
-        <option value="">Select Height</option>
-        {heightOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-            {option.label}
-            </option>
-        ))}
-        </select>
-    </div>
-
-    <div className= "weight-input">
-        Weight:
-        <input
-        type="text"
-        name="weight"
-        onChange={(e) => setWeight(e.target.value)}
-        value={weight}
-        />
-    </div>
-
-    <div className = "activity-input">
-
-        Activity Level
-        <select
-        name="activity"
-        onChange={(e) => setSelectedActivity(e.target.value)}
-        // defaultValue="1"
-        // onChange={handleActivityChange}
-        >
-        <option value="1">Sedentary (little or no exercise)</option>
-        <option value="2">Lightly active (light exercise or sports 1-3 days a week)</option>
-        <option value="3">Moderately active (moderate exercise or sports 3-5 days a week)</option>
-        <option value="4">Very active (hard exercise or sports 6-7 days a week)</option>
-        <option value="5">Super active (very hard exercise, physical job, or training)</option>
-        </select>
-    
-    </div>
-    <input className="submit-button" type="submit" value="calculate" />
-</form> */}
-// </div>
-// );
-
-
-
-
-
 
 
 

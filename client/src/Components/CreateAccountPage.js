@@ -30,13 +30,16 @@ function CreateAccountPage ({createAccount}) {
     }
 
     return (
-        <div>
-            <form className = "create-account-form" onSubmit={handleSubmit}>
-            <div className ="namr-group">
-                    <h2>first name</h2>
+        <div className="container d-flex justify-content-center align-items-center">
+            <form className="login-page-container w-50" onSubmit={handleSubmit}>
+            <div className="mb-3 p-2">
+                    <label className="first-name-label">First handleChangeFirstName</label>
                     <input
-                        className="username-input"
                         type="text"
+                        size="20"
+                        className="form-control w-100"
+                        id="inputUsername"
+                        aria-describedby="username"
                         onChange={handleChangeUsername}
                         placeholder="enter your name"
                         value={username}
@@ -72,7 +75,7 @@ function CreateAccountPage ({createAccount}) {
                         value={password}
                     />
                 </div>
-                <button className="submit-button" type="submit"> create a new account</button>
+                <button className="submit-button" type="submit"> create a unt</button>
             </form>
         </div>
     )

@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func 
 
 db = SQLAlchemy()
 
@@ -94,7 +95,7 @@ class Current_Day_Log(db.Model):
 
     id = db.Column(db.Integer, primary_key= True ) 
     total_daily_calories_eaten = db.Column(db.Integer, nullable = False) #tracking the total calories user has eaten (calculated in app.py)
-    date= db.Column(db.Integer, nullable = False) #keeping track of the day 
+    date= db.Column(db.DateTime(timezone=True), default=func.now(), nullable = False) #keeping track of the day 
 
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id")) #connect the log to the specific user
     item_id = db.Column(db.Integer, db.ForeignKey("item_table.id")) #connect the items to the log
