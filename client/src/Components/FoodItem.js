@@ -1,23 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
-function FoodItem ({item, addToFoodList}) {
+function FoodItem ({item, selectedMeal, setFoodItem, currentUser, foodItem, setTotalCaloriesIAte}) {
     const navigate = useNavigate()
 
-    function handleClick(e) {
-        addToFoodList(item)
-        // navigate("/food_log")
+    // const [foodItem, setFoodItem] = useState([])
 
-    }
+    // console.log("hey from food item page", foodItem)
+
+    function postDataAndPatchData() {
+        // const newObj = {
+        //     "name": item.name, 
+        //     "description": item.description,
+        //     "calories": item.calories,
+        //     "meal_type": selectedMeal,
+        //     "user_id": currentUser.user_id,
+        // }
+        // console.log(newObj)
+        fetch('/add_to_food_list', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/JSON",
+            },
+            body: JSON.stringify({
+                "name": item.name, 
+                "description": item.description,
+                "calories": item.calories,
+                "meal_type": selectedMeal,
+                "user_id": currentUser.user_id,
+            })
+        })
+            .then(response => response.json())
+            .then(data =>setFoodItem([...foodItem, data]))
+
+        fetch(`/update_calories_eaten/${currentUser.user_id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "calories": item.calories,
+            })
+        })
+            .then(response => response.json())
+            .then(data => setTotalCaloriesIAte(data.caloriesgit) )
+};
+
+// console.log(foodItem)
 
     return (
-        <div className="food-item" onClick={(e) => handleClick(e)} >
+        <div className="food-item" onClick={(e) => postDataAndPatchData(e)} >
         <h1>{item.name}</h1>
         <p>{item.description}</p>
-        <p>Calories: {item.calories} grams</p>
+        <p>Calories: {item.calories} calories</p>
         </div> 
     )
-}
+    }
 
 export default FoodItem;
 
@@ -52,3 +90,71 @@ export default FoodItem;
 //     console.log("Front-end is broken", error);
 //   });
 // }
+
+
+
+
+    // console.log(currentFoodResponse)
+
+    // async function handleClick(e) {
+    //     await addToFoodList(item)
+    //     if (currentFoodResponse) {
+    //         navigate('/food_log')
+    //         console.log(currentFoodResponse)
+    //     }
+    //     console.log("hey")
+    //     // console.log(currentUser.user_id)
+    //     fetch(/update_calories_eaten/, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accepts': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             "calories": item.calories,
+    //         })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => setTotalCaloriesIAte(data))
+    //     postDataAndPatchData(item)
+    
+
+    // async function postDataAndPatchData(foodToAdd, caloriesToPatch) {
+    //     try {
+    //         const postResponse = await fetch('/add_to_food_list', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 "name": foodToAdd.name, 
+    //                 "description": foodToAdd.description,
+    //                 "calories": foodToAdd.calories,
+    //                 "meal_type": selectedMeal,
+    //                 "user_id": currentUser.user_id,
+    //             }),
+    //         });
+    
+    //         const patchResponse = await fetch(`/update_calories_eaten`, {
+    //             method: 'PATCH',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 "calories": caloriesToPatch.calories,
+    //             }),
+    //         });
+    
+    //         if (postResponse.ok && patchResponse.ok) {
+    //             const postData = await postResponse.json();
+    //             const patchData = await patchResponse.json();
+    
+    //             console.log('POST Response:', postData);
+    //             console.log('PATCH Response:', patchData);
+    //         } else {
+    //             console.error("Request failed");
+    //         }
+    //     } catch (error) {
+    //         console.error("An error occurred:", error);
+    //     }
+    // }

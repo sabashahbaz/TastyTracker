@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import login_button_image from "../assets/person-circle.svg";
-import logo from "../assets/logo.png";
+import logo from "../assets/Picture1.png";
 function NavBar ({ currentUser, setCurrentUser, logout}) {
     const navigate = useNavigate();
 
@@ -17,12 +17,12 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
             <div className="container-fluid">
                 {currentUser ? (
                     <Link to="/food_log" className="navbar-brand">
-                        <img src={logo} alt="tasty tracker logo" className="logo" width="150" height="150" />
+                        <img src={logo} alt="tasty tracker logo" className="logo" width="320" height="100" />
                     </Link>
 
                 ): (
                     <Link to="/" className="navbar-brand">
-                        <img src={logo} alt="tasty tracker logo" className="logo" width="100" height="100" />
+                        <img src={logo} alt="tasty tracker logo" className="logo" width="320" height="100" />
                     </Link>
                 )}
                 {/* <div class="collapse navbar-collapse justify-content-right" id="navbarSupportedContent"></div> */}

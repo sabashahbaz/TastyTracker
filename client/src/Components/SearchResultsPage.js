@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import SearchFoodBar from './SearchFoodBar';
 import FoodItemsList from './FoodItemsList';
 
-function SearchResultsPage ({setSearchedItems, searchedItems, setCurrentUser, addToFoodList}) {
-
+function SearchResultsPage ({currentUser,setFoodItem, foodItem, selectedMeal, setTotalCaloriesIAte, setSearchedItems, searchedItems, currentFoodResponse, setCurrentUser, addToFoodList}) {
+ 
 
 useEffect(() => {
     fetch('/check_session')
@@ -17,9 +17,8 @@ useEffect(() => {
 //is user is not equal to session id, forbid them 
     return(
         <div>
-            <p>search bar and food results will be displayed here</p>
             <SearchFoodBar setSearchedItems={setSearchedItems} />
-            <FoodItemsList searchedItems={searchedItems} addToFoodList={addToFoodList} />
+            <FoodItemsList setTotalCaloriesIAte={setTotalCaloriesIAte} foodItem={foodItem} setFoodItem={setFoodItem} selectedMeal={selectedMeal} searchedItems={searchedItems} addToFoodList={addToFoodList} currentUser={currentUser} currentFoodResponse={currentFoodResponse} />
 
 
         </div>

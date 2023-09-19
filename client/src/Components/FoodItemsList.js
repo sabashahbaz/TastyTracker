@@ -1,14 +1,13 @@
 import React from 'react';
 import FoodItem from "./FoodItem";
 
-function FoodItemsList({searchedItems,addToFoodList}) {
+function FoodItemsList({searchedItems, foodItem, selectedMeal,setFoodItem, setTotalCaloriesIAte, currentUser, addToFoodList, currentFoodResponse}) {
 
-    // console.log("hi from food items list", items)
-
+    console.log(foodItem)
     return(
         <div>
             {searchedItems.map((item) => (
-                <FoodItem key={item.id} item={item} addToFoodList={addToFoodList}/> ))}
+                <FoodItem key={item.id} item={item} setFoodItem={setFoodItem} foodItem={foodItem} selectedMeal= {selectedMeal} addToFoodList={addToFoodList} currentUser={currentUser} currentFoodResponse={currentFoodResponse} setTotalCaloriesIAte={setTotalCaloriesIAte}/> ))}
         </div>
     )
 }

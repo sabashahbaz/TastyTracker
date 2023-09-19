@@ -3,7 +3,7 @@ import React, { useState, useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CreateAccountPage from './Components/CreateAccountPage.js';
-import FoodDashBoardPage from './Components/FoodDashboardPage'
+import FoodLogPage from './Components/FoodLogPage'
 import Error from './Error';
 import SearchResultsPage from './Components/SearchResultsPage'
 import NavBar from './Components/NavBar'
@@ -16,9 +16,12 @@ function App() {
   const [searchedItems, setSearchedItems] = useState([]) //the food items that are returned from the search 
   const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user 
   const [selectedMeal, setSelectedMeal] = useState("")
-  const [caloriesIAte, setCaloriesIAte] = useState("")
+  const [caloriesIAte, setTotalCaloriesIAte] = useState("")
   const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
   const [currentTdee, setCurrentTdee] = useState("")
+  const [currentFoodResponse, setCurrentFoodResponse] = useState(null);
+
+console.log("hey from app.js", foodItem)
 
   useEffect(() => {
     fetch('/check_session')
@@ -29,27 +32,6 @@ function App() {
       }
     })
   }, [])
-
-function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
-  fetch('/add_to_food_list', {
-      method: 'POST',
-      headers: {
-          "Content-Type": "application/JSON",
-      },
-      body: JSON.stringify({
-                      "name": foodToAdd.name, 
-                      "description": foodToAdd.description,
-                      "calories": foodToAdd.calories,
-                      "meal_type": selectedMeal,
-                      "user_id": currentUser.user_id,
-      })
-    })
-      .then(response => response.json())
-      .then(data => setFoodItem([...foodItem, data]))
-  return foodItem 
-}
-
-
   return (
       <BrowserRouter>
       <NavBar
@@ -60,7 +42,7 @@ function addToFoodList (foodToAdd) {   // add the selected food list to its desi
           <WelcomePage/>}
         />
         <Route path="/food_log" element={
-                <FoodDashBoardPage 
+                <FoodLogPage 
                 setCurrentTdee = {setCurrentTdee}
                 caloriesIAte={caloriesIAte}
                 currentTdee={currentTdee}
@@ -73,9 +55,15 @@ function addToFoodList (foodToAdd) {   // add the selected food list to its desi
                 />} />
           <Route path="search_food" element={
                 <SearchResultsPage 
+                foodItem={foodItem}
+                setFoodItem={setFoodItem}
+                selectedMeal={selectedMeal}
+                setTotalCaloriesIAte={setTotalCaloriesIAte}
+                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 setSearchedItems={setSearchedItems} searchedItems={searchedItems} 
-                addToFoodList={addToFoodList}
+                // addToFoodList={addToFoodList}
+                currentFoodResponse= {currentFoodResponse}
                 />} /> 
           <Route path="tdee_calculator" element={<CreateAccountPage
                                 // create_account_tdee ={createAccountAndTdee}
@@ -103,3 +91,23 @@ export default App;
 
 
 
+// async function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
+//   await fetch('/add_to_food_list', {
+//       method: 'POST',
+//       headers: {
+//           "Content-Type": "application/JSON",
+//       },
+//       body: JSON.stringify({
+//                       "name": foodToAdd.name, 
+//                       "description": foodToAdd.description,
+//                       "calories": foodToAdd.calories,
+//                       "meal_type": selectedMeal,
+//                       "user_id": currentUser.user_id,
+//       })
+//     })
+//       .then(response => response.json())
+//       .then(data =>{ 
+//         setCurrentFoodResponse(data.calories)
+//         setFoodItem([...foodItem, data])})
+//   return foodItem 
+// }

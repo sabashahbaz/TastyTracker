@@ -26,11 +26,11 @@ db.init_app(app)
 @app.get("/check_session")
 def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
-    tdee = user.tdee
+    # tdee = User.tdee.filter(User.id == session.get("user_id")).first()
     if user:
         return user.to_dict(), 200
-    if tdee: 
-        return jsonify({"user": user.to_dict(), "tdee": tdee}), 200
+    # if tdee: 
+        # return jsonify({"user": user.to_dict(), "tdee": tdee.to_dict()}), 200
     else:
         return {"message": "No user logged in"}, 401
 
@@ -98,12 +98,13 @@ def create_account():
 def login():
     data = request.json
     user = User.query.filter(User.username == data["username"]).first()
+    print(data)
 
     if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
         # flash('Logged in successfully!', category='success')
         session["user_id"] = user.id
-        tdee = user.tdee
-        return jsonify({"user": user.to_dict(), "tdee": tdee}), 200
+        # tdee = user.tdee
+        return jsonify({"user": user.to_dict()}), 200
         
     else:
         # flash('Incorrect password, try again.', category='error')
@@ -172,9 +173,8 @@ def search_food_items():
 # POST to food list
 @app.post("/add_to_food_list")
 def post_item_to_food_list():
-    print("are we reaching the backend")
     requested_data = request.json  # get the jsonified requested data
-    print("heyyyyyyy")
+   
     try:
         item = Item(
             name = requested_data["name"],
@@ -185,36 +185,49 @@ def post_item_to_food_list():
         )
         db.session.add(item)
         db.session.commit()
-        print("did we get to the end???", item)
         
         return item.to_dict()
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "the backend is broken"}), 400)
+
 #ADD calories eaten + UPDATE calories left 
-# @app.patch("/update_calories_consumed/<int:user_id>")
-# def update_calories_consumed(user_id):
-#     requested_data = request.json
+@app.patch('/update_calories_eaten/<int:user_id>')
+def update_calories_consumed(user_id:int):
+    try:
+        print ("from patch request, heyyyyyyy")
 
-#     try:
-#         # Fetch the user's current log
-#         current_log = Current_Day_Log.query.filter_by(user_id=user_id).first()
+        current_log = Current_Day_Log.query.filter_by(user_id=user_id).first()
+        if not current_log: #error it there is no match 
+            return make_response(
+                jsonify({'error': 'user not found'}),404)
 
-#         if current_log:
-#             # Calculate the new total daily calories eaten by adding the calories from the food item
-#             # you posted earlier to the existing total
-#             new_calories_eaten = current_log.total_daily_calories_eaten + requested_data["calories"]
+        requested_data = request.get_json()
+        print ("from patch request", requested_data)
 
-#             # Update the current log with the new total calories eaten
-#             current_log.total_daily_calories_eaten = new_calories_eaten
-#             db.session.commit()
+        if current_log:
+            new_calories_eaten = current_log.total_daily_calories_eaten + requested_data["calories"]
 
-#             return jsonify({"message": "Calories consumed updated successfully"}), 200
-#         else:
-#             return jsonify({"error": "User not found"}), 404
+            # Update the current log with the new total calories eaten
+            current_log.total_daily_calories_eaten = new_calories_eaten
+            print("did they add up", new_calories_eaten)
+            db.session.commit()
 
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
+            return jsonify({"message": "Calories consumed updated successfully"}), 200
+        else:
+            return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        print("Error:", e)
+        return make_response(jsonify({"error": "the backend is broken"}), 400)
+
+    # except Exception as e:
+    #     return jsonify({"error": str(e)}), 500
+
+
+
+
+
+
     
 
 @app.route("/")

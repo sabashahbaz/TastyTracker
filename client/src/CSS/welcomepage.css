@@ -4,4 +4,40 @@
     width: 100%;
     min-height: 100vh;
     background-size: cover;
+    resize: both;
+    overflow: auto;
+}
+
+.title{
+    margin-left: 1226px;
+    margin-top: 200px;
+    font-family: "Gill Sans Extrabold", sans-serif;
+    font-size: 40px;
+    color: #43B25D;
+    transform: scale(1.7);
+    
+}
+
+.welcome-page-text{
+    margin-top: 70px;
+    float: right;
+    resize: both;
+    overflow: auto;
+}
+
+.get-started-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    right: 90px;
+    /* margin-left: 1001px; */
+    /* margin-top: 70px; */
+    margin-right: auto;
+    border-radius: 9px;
+    display: inline-block;
 }

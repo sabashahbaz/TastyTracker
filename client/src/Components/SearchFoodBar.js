@@ -10,7 +10,6 @@ function SearchFood ({setSearchedItems}) {
 
     function handleSubmit (e) {
         e.preventDefault()
-        console.log("I'm in the search bar and this is my newSearch: ", newSearch)
         fetch('/search_food_items', {
             method: 'POST',
             headers: {

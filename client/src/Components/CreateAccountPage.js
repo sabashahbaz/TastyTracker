@@ -149,8 +149,8 @@ return (
                 <div className="form-check form-check-inline ">
                     <label>Gender :</label>
                 </div>
-                <div className="d-flex">
-                    <div className="form-check form-check-inline">
+                <div className="">
+                    <div className="form-check form-check-inline mb-4">
                         <input
                             className="form-check-input"
                             type="radio"
@@ -180,28 +180,30 @@ return (
                     </div>
                 </div>
             </div>
-            <div className="d-flex w-100">
-                <div className="form-check form-check-inline">
-                Age:
-                <input
-                type="text"
-                size="20"
-                className="form-control w-100"
-                id="inputage"
-                aria-describedby="username"
-                onChange={(e) => setAge(e.target.value)}
-                value={age}
-                // onChange={handleAgeChange}
-                />
+            <div className="d-flex w-100 ms-4">
+                <label className="form-check-label form-check-inline">Age: </label>
+                    <div className="form-check form-check-inline mb-4">
+        
+                    <input
+                    type="text"
+                    size="20"
+                    className="form-control w-100 "
+                    id="inputage"
+                    aria-describedby="username"
+                    onChange={(e) => setAge(e.target.value)}
+                    value={age}
+                    // onChange={handleAgeChange}
+                    />
                 </div>
             </div>
-            <div className = "height-input">
-                Height:
+            <div className = "d-flex w-100 ms-4">
+            <label className="form-check-label form-check-inline">Height: </label>
                 <select
+                class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
                 name="height"
+                className="form-control "
                 value={selectedHeight}
                 onChange={(e) => setSelectedHeight(e.target.value)}
-                // size="10"
                 >
                 <option value="">Select Height</option>
                 {heightOptions.map((option) => (
@@ -212,24 +214,27 @@ return (
                 </select>
             </div>
 
-            <div className= "weight-input">
-                Weight:
+            <div className= "d-flex w-100 ms-4">
+            <label className="form-check-label form-check-inline">Weight: </label>
                 <input
                 type="text"
+                className="form-control w-50"
+                id="inputage"
+                aria-describedby="weight"
                 name="weight"
                 onChange={(e) => setWeight(e.target.value)}
                 value={weight}
                 />
             </div>
 
-            <div className = "activity-input">
-
-                Activity Level
+            <div className = "d-flex w-100 ms-4">
+            <label className="form-check-label form-check-inline">Activity Level: </label>
                 <select
+                class="form-select form-check-inline form-select-sm mb-4"  aria-label="Default select example"
                 name="activity"
+                className="form-control "
+                value={selectedActivity}
                 onChange={(e) => setSelectedActivity(e.target.value)}
-                // defaultValue="1"
-                // onChange={handleActivityChange}
                 >
                 <option value="1">Sedentary (little or no exercise)</option>
                 <option value="2">Lightly active (light exercise or sports 1-3 days a week)</option>
@@ -237,9 +242,8 @@ return (
                 <option value="4">Very active (hard exercise or sports 6-7 days a week)</option>
                 <option value="5">Super active (very hard exercise, physical job, or training)</option>
                 </select>
-
             </div>
-            <input className="submit-button" type="submit" value="calculate" />
+                <button type="submit" class="btn btn-light btn-light ms-3 "   >Logout</button>
             </form>   
         )    
     } 
