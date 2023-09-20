@@ -14,7 +14,7 @@ function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
 
     async  function handleSubmit (e) {
         e.preventDefault();
-        console.log(username, password)
+        // console.log(username, password)
         let currentUserResponse;
         await fetch('/login', {
             method: 'POST',
@@ -28,7 +28,8 @@ function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
         .then(data => {
             currentUserResponse = data;
             setCurrentUser(data);
-            // setCurrentTdee(data.tdee)
+            setCurrentTdee(data.user.tdee)
+
         });
         if (!currentUserResponse.error) navigate('/food_log')
         }

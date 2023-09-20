@@ -79,7 +79,7 @@ class Item_Current_Day_Log_Association(db.Model):
 
 #associate user and current log
 class User_Current_Log_Association(db.Model):
-    __table_name__ = "item_and_log_association_table"
+    __tablename__ = "user_and_log_association_table"
 
     id = db.Column(db.Integer, primary_key= True )
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
@@ -96,7 +96,7 @@ class Current_Day_Log(db.Model):
 
     id = db.Column(db.Integer, primary_key= True ) 
     total_daily_calories_eaten = db.Column(db.Integer, nullable = False) #tracking the total calories user has eaten (calculated in app.py)
-    date= db.Column(db.DateTime(timezone=True), default=func.now(), nullable = False) #keeping track of the day 
+    date= db.Column(db.Date(), nullable = False) #keeping track of the day 
 
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id")) #connect the log to the specific user
     item_id = db.Column(db.Integer, db.ForeignKey("item_table.id")) #connect the items to the log

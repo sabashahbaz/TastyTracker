@@ -62,7 +62,6 @@ async function handleSubmitAccountForm (e) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         accountResponse= data;
         setCurrentUser(data.user.username)
         setCurrentTdee(data.user.tdee)
@@ -243,7 +242,7 @@ return (
                 <option value="5">Super active (very hard exercise, physical job, or training)</option>
                 </select>
             </div>
-                <button type="submit" class="btn btn-light btn-light ms-3 "   >Logout</button>
+                <button type="submit" class="btn btn-light btn-light ms-3 "  >Create Account</button>
             </form>   
         )    
     } 

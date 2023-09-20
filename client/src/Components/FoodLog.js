@@ -7,20 +7,19 @@ import DisplayDinnerItems from "./DisplayDinnerItems"
 import DisplaySnackItems from "./DisplaySnackItems"
 
 
-function FoodLog ({foodItem, setSelectedMeal}) {
+function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
 
-    console.log("Hey from fooditems list", foodItem)
-    console.log("heyyyyyyyyyyy :) ")
-
+    function refreshPage() {
+        window.location.reload(false);
+    }
     return (
 
         <div className = "food-log">
-            <div class="card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
+
+            <div class="breakfast card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
                 <h5 class="card-header">Breakfast</h5>
                 <div class="card-body">
-                    {/* <h5 class="card-title">Breakfast</h5> */}
-                    <p class="card-text">calories </p>
-                    <Link to="/search_food"><button onClick={() => setSelectedMeal("Breakfast")}>Add Breakfast</button></Link>
+                    <p class="card-text">{currentTdee * .20} calories </p>
                     <div className = "breakfast-list">
                             {foodItem.map((item) => {
                                 if (item.meal_type == "Breakfast") {
@@ -31,12 +30,15 @@ function FoodLog ({foodItem, setSelectedMeal}) {
                                         />
                                     )}})}
                     </div>
+                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Breakfast")}>Add Breakfast</button></Link>
             </div>
             </div>
-            {/* <div className= "Lunch-container">
-                <h2>Lunch</h2>
-                <Link to="/search_food"><button onClick={() => setSelectedMeal("Lunch")}>Add Lunch</button></Link>
-                <div className = "lunch-list">
+
+            <div class=" lunch-card card border-light primary mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
+                <h5 class="card-header">Lunch</h5>
+                <div class="card-body">
+                    <p class="card-text">{Math.round(currentTdee * 0.25)} calories </p>
+                    <div className = "lunch-list">
                     {foodItem.map((item) => {
                                 if (item.meal_type == "Lunch") {
                                     return (
@@ -45,12 +47,16 @@ function FoodLog ({foodItem, setSelectedMeal}) {
                                             item={item}
                                         />
                                     )}})}
-                </div>
+                    </div>
+                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Lunch")}>Add Lunch</button></Link>
             </div>
-            <div className= "dinner-container">
-                <h2>Dinner</h2>
-                <Link to="/search_food"><button onClick={() => setSelectedMeal("Dinner")}>Add Dinner</button></Link>
-                <div className = "dinner-list">
+            </div>
+
+            <div class=" dinner-card card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
+                <h5 class="card-header">Dinner</h5>
+                <div class="card-body">
+                    <p class="card-text"> {Math.round(currentTdee * 0.35)} calories </p>
+                    <div className = "dinner-list">
                     {foodItem.map((item) => {
                                     if (item.meal_type == "Dinner") {
                                         return (
@@ -60,21 +66,27 @@ function FoodLog ({foodItem, setSelectedMeal}) {
                                             />
                                         )}})}
                 </div>
+                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Dinner")}>Add Dinner</button></Link>
             </div>
-            <div className= "snack-container">
-                <h2>Snacks</h2>
-                <Link to="/search_food"><button onClick={() => setSelectedMeal("Snack")}>Add Snacks</button></Link>
-                <div className = "snack-list">
+            </div>
+
+            <div class=" snack-card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
+                <h5 class="card-header">Snack</h5>
+                <div class="card-body">
+                    <p class="card-text"> {currentTdee * .20} calories </p>
+                    <div className = "snack-list">
                     {foodItem.map((item) => {
-                                        if (foodItem.meal_type == "Snack") {
-                                            return (
-                                                <DisplaySnackItems 
-                                                    key={item.id}
-                                                    item={item}
-                                                />
-                                            )}})}
+                                    if (item.meal_type == "Snack") {
+                                        return (
+                                            <DisplaySnackItems 
+                                                key={item.id}
+                                                item={item}
+                                            />
+                                        )}})}
                 </div>
-            </div> */}
+                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Snack")}>Add Snack</button></Link>
+            </div>
+            </div>
             </div>
     )
 }

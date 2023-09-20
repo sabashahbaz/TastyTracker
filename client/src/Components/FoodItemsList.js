@@ -1,9 +1,10 @@
 import React from 'react';
 import FoodItem from "./FoodItem";
+import searchpage from "../CSS/searchpage.css"
 
 function FoodItemsList({searchedItems, foodItem, selectedMeal,setFoodItem, setTotalCaloriesIAte, currentUser, addToFoodList, currentFoodResponse}) {
 
-    console.log(foodItem)
+    // console.log(foodItem)
     return(
         <div>
             {searchedItems.map((item) => (

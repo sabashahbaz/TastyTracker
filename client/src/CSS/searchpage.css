@@ -1,0 +1,75 @@
+/* .search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ensures it takes the full viewport height */
+/* } */
+
+.food-search-container {
+  text-align: center; /* Centers the text within the container */
+  background-color: #f0f0f0; /* Add your desired background color */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(67, 178, 93, 0.5);
+  margin: 100px;
+}
+
+.search-title {
+  font-size: 24px; /* Adjust the font size as needed */
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  /* Add any other styles you want for the search bar */
+} 
+
+/* .list-group-item{
+    justify-content: center;
+    text-align: center
+} */
+
+.searched-items {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    height: 100vh; /* Make the container full height of the viewport */
+  }
+  
+  .list-group {
+    max-width: 50%; /* Set a maximum width for the list */
+  }
+  
+  .list-group-item {
+    text-align: center; /* Center text within list items */
+  }
+
+  .search-list{
+    /* justify-content: center; */
+    align-content: center;
+    justify-self: center;
+  }
+
+  .please-work{
+    justify-content: center;
+    align-self: center;
+  }
+
+  .search-bg-img{
+    background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
+    height:100%;
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+  }
+
+  .the-searched-items{
+    /* justify-content: center; */
+    text-align:center;
+    margin-left: 350px;
+    width: 700px;
+    background-color: green
+  }

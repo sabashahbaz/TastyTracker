@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import searchpage from "../CSS/searchpage.css"
 
 function SearchFood ({setSearchedItems}) {
 
@@ -24,15 +25,17 @@ function SearchFood ({setSearchedItems}) {
 
 
     return (
-        <form  className="food-search-container" onSubmit={handleSubmit} >
-            <h2>Search for food here</h2>
-            <input
-            className="search-bar"
-            type="text"
-            placeholder="search food"
-            onChange={handleChange}
-            value={newSearch}
-            />
+        <form  className="search-container" onSubmit={handleSubmit} >
+            <div  className="food-search-container justify-content-center w-50 mx-auto ">
+                <h3 className="search-title">Search for food here</h3>
+                <input
+                className="search-bar"
+                type="text"
+                placeholder="search food"
+                onChange={handleChange}
+                value={newSearch}
+                />
+            </div>
         </form>
 
         

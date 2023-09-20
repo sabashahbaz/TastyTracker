@@ -21,8 +21,7 @@ function App() {
   const [currentTdee, setCurrentTdee] = useState("")
   const [currentFoodResponse, setCurrentFoodResponse] = useState(null);
 
-console.log("hey from app.js", foodItem)
-
+  // console.log("currentUser",currentUser.user.user_id)
   useEffect(() => {
     fetch('/check_session')
     .then(response => {
@@ -43,6 +42,7 @@ console.log("hey from app.js", foodItem)
         />
         <Route path="/food_log" element={
                 <FoodLogPage 
+                setTotalCaloriesIAte={setTotalCaloriesIAte}
                 setCurrentTdee = {setCurrentTdee}
                 caloriesIAte={caloriesIAte}
                 currentTdee={currentTdee}

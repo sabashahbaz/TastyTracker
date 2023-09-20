@@ -4,9 +4,10 @@ import "../CSS/DisplayBreakfastItems.css";
 function DisplayBreakfastItems({item}) {
 
     return (
-        <div className="breakfast-item">
-            <h2>{item.name}</h2>
-            <h3>{item.calories}</h3>
+        <div className="breakfast-item list-group-item list-group-item-action list-group-item-primary justify-content-center w-100">
+            <b class="fs-5">{item.name}</b>
+            <br></br>
+            <small>{item.calories} calories</small>
         </div>
 
     )
