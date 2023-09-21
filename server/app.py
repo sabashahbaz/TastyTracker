@@ -25,10 +25,11 @@ db.init_app(app)
 
 @app.get("/check_session")
 def check_session():
+    print("Looking up the user table for an id that equals the current user's id")
     user = User.query.filter(User.id == session.get("user_id")).first()
-
-    total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == Current_Day_Log.user_id).first()
-
+    print("what is check session user.id", session.get("user_id"))
+    print("Looking up the calorie log table for a user id that equals the current user's id")
+    total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id") ).first()
 
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
@@ -40,6 +41,7 @@ def check_session():
 @app.post("/create_account")
 def create_account():
     data = request.json
+    print("AAAAAAAAAAAAAAAAAa", current_date)
 
     weight = data.get("weight")
     height = data.get("height")
@@ -79,21 +81,22 @@ def create_account():
     try:
         db.session.commit()  # Commit new_user to get an ID from the database
         session["user_id"] = new_user.id  # Assign the user_id to the session
-    
+        print("what is the new_user.id",new_user.id)
         print("this better work", new_user.id)
         # Now create and add new_user_log with the correct user_id
         new_user_log = Current_Day_Log(
             total_daily_calories_eaten="0",
             user_id=new_user.id,
-            date = current_date
+            date = tomorrow
         )
+        print("is the create account page working wtf", new_user_log.user_id)
         db.session.add(new_user_log)
         db.session.commit()  # Commit new_user_log
         print("did it work??", new_user_log)
 
         return jsonify({"message": "Account created successfully", "user": new_user.to_dict()}), 201
     except Exception as e:  # Rollback changes in case of an exception
-        db.session.rollback()
+        # db.session.rollback()
         raise Exception("Adding a user failed")
 
 # login

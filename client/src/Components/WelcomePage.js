@@ -5,6 +5,7 @@ import background from "../assets/background.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import welcomepage from "../CSS/welcomepage.css"
 
+
 function Welcome() {
     return (
         <div className="welcome-container d-flex align-items-center">

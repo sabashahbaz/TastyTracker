@@ -41,6 +41,7 @@ function handleSubmitUserInfo(e) {
 }
 
 async function handleSubmitAccountForm (e) {
+    console.log("WHAT IS WRONG WITH ACCOUNT PAGE")
     e.preventDefault();
     let accountResponse;
     await fetch('/create_account', {
@@ -62,7 +63,8 @@ async function handleSubmitAccountForm (e) {
     })
     .then(response => response.json())
     .then(data => {
-        accountResponse= data;
+        console.log("user created: ", data)
+        accountResponse = data;
         setCurrentUser(data.user.username)
         setCurrentTdee(data.user.tdee)
     });

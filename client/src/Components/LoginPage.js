@@ -6,6 +6,8 @@ import welcomepage from "../CSS/loginpage.css"
 function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
     const navigate = useNavigate();
 
+    console.log({currentUser})
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 

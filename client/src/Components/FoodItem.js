@@ -34,6 +34,7 @@ function FoodItem ({item, selectedMeal, setSearchedItems, setFoodItem, currentUs
         })  
             .then(response => response.json())
             .then(data => {
+                console.log("WTFFFFFF",data)
                 setTotalCaloriesIAte(data)
                 setSearchedItems([])
                 // console.log(data)

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import searchpage from "../CSS/searchpage.css"
 
 function Calories ({currentTdee, caloriesIAte}) {
+    console.log(caloriesIAte)
 
     return (
         <div>

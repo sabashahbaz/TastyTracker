@@ -8,7 +8,7 @@ function DisplayDinnerItems({item}) {
         <b class="fs-5">{item.name}</b>
         <br></br>
         <small>{item.calories} calories</small>
-        <button><i class="bi bi-trash"></i></button>
+        {/* <button><i class="bi bi-trash"></i></button> */}
     </div>
     )
 }

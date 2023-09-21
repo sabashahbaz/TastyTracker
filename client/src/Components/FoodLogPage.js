@@ -16,6 +16,7 @@ function FoodLogPage ({setItems, setSearchedItems, setTotalCaloriesIAte, current
         })
         .then(data => {
             console.log("LALALALA", data)
+            console.log(data.user)
             setCurrentUser(data.user);
             setCurrentTdee(data.user.tdee);
             console.log("AAAAAAAAAAAAAAAAA",data.total_calories_eaten.total_daily_calories_eaten)
@@ -32,7 +33,7 @@ return (
 
                 ): null}
             </div>
-            <FoodLog setItems={setItems} setSearchedItems={setSearchedItems} currentTdee={currentTdee} items={items} setSelectedMeal={setSelectedMeal} setCurrentUser={setCurrentUser}foodItem={foodItem} currentFoodResponse={currentFoodResponse}/>
+            <FoodLog setItems={setItems} setSearchedItems={setSearchedItems}currentTdee={currentTdee} items={items} setSelectedMeal={setSelectedMeal} setCurrentUser={setCurrentUser}foodItem={foodItem} currentFoodResponse={currentFoodResponse}/>
         </div> 
     )
 }

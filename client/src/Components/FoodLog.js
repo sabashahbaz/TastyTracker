@@ -7,9 +7,9 @@ import DisplayDinnerItems from "./DisplayDinnerItems"
 import DisplaySnackItems from "./DisplaySnackItems"
 
 
-function FoodLog ({foodItem, setSearchedItems, currentTdee, setSelectedMeal}) {
-
-
+function FoodLog ({foodItem,currentUser, setSearchedItems, currentTdee, setSelectedMeal}) {
+ 
+    console.log({currentUser})
 
     function deleteItem (e) {
         fetch('/delete_items/<int:user_id>', {
@@ -20,8 +20,6 @@ function FoodLog ({foodItem, setSearchedItems, currentTdee, setSelectedMeal}) {
         };
 
 
-
-
     return (
 
         <div className = "food-log">
@@ -29,7 +27,7 @@ function FoodLog ({foodItem, setSearchedItems, currentTdee, setSelectedMeal}) {
             <div class="breakfast card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
                 <h5 class="card-header">Breakfast</h5>
                 <div class="card-body">
-                    <p class="card-text">{currentTdee * .20} calories </p>
+                    <p class="card-text">{Math.round(currentTdee * .20)} calories </p>
                     <div className = "breakfast-list">
                             {foodItem.map((item) => {
                                 if (item.meal_type == "Breakfast") {
@@ -84,7 +82,7 @@ function FoodLog ({foodItem, setSearchedItems, currentTdee, setSelectedMeal}) {
             <div class=" snack-card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
                 <h5 class="card-header">Snack</h5>
                 <div class="card-body">
-                    <p class="card-text"> {currentTdee * .20} calories </p>
+                    <p class="card-text"> {Math.round(currentTdee * .20)} calories </p>
                     <div className = "snack-list">
                     {foodItem.map((item) => {
                                     if (item.meal_type == "Snack") {
