@@ -7,11 +7,21 @@ import DisplayDinnerItems from "./DisplayDinnerItems"
 import DisplaySnackItems from "./DisplaySnackItems"
 
 
-function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
+function FoodLog ({foodItem, setSearchedItems, currentTdee, setSelectedMeal}) {
 
-    function refreshPage() {
-        window.location.reload(false);
-    }
+
+
+    function deleteItem (e) {
+        fetch('/delete_items/<int:user_id>', {
+            method: 'DELETE',
+        })
+        .then(() => console.log("delete sucessful"))
+        
+        };
+
+
+
+
     return (
 
         <div className = "food-log">
@@ -45,6 +55,7 @@ function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
                                         <DisplayLunchItems 
                                             key={item.id}
                                             item={item}
+                                            deleteItem={deleteItem}
                                         />
                                     )}})}
                     </div>

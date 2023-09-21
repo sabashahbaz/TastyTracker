@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import searchpage from "../CSS/searchpage.css"
 
-function FoodItem ({item, selectedMeal, setFoodItem, currentUser, foodItem, setTotalCaloriesIAte}) {
+function FoodItem ({item, selectedMeal, setSearchedItems, setFoodItem, currentUser, foodItem, setTotalCaloriesIAte}) {
     const navigate = useNavigate()
+    // const [searchedList, setSearchedList] = useState(true)
 
     function postDataAndPatchData() {
         fetch('/add_to_food_list', {
@@ -34,17 +35,19 @@ function FoodItem ({item, selectedMeal, setFoodItem, currentUser, foodItem, setT
             .then(response => response.json())
             .then(data => {
                 setTotalCaloriesIAte(data)
+                setSearchedItems([])
                 // console.log(data)
             })
             // .then(data=> console.log(data))
             .then(navigate('/food_log'))
+
 };
 
 // console.log("from food log page", caloriesIAte)
 
 //Search items column
     return (
-        <div className="searched-items"  class= "list-group justify" onClick={(e) => postDataAndPatchData(e)} >
+        <div className="searched-items-container"  class= "list-group justify" onClick={(e) => postDataAndPatchData(e)} >
             <div className="search-list">
             <ul class="the-searched-items">
                 <b class ="fs-4">{item.name}</b>
@@ -52,9 +55,11 @@ function FoodItem ({item, selectedMeal, setFoodItem, currentUser, foodItem, setT
                 <small>{item.description}</small>
                 <small>Calories: {item.calories} calories</small>
             </ul>
-                
+        
             </div>
         </div> 
+
+        
     )
     }
 

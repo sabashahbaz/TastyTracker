@@ -1,4 +1,4 @@
-from flask import Flask, make_response, jsonify, request, session, flash
+from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os
@@ -26,16 +26,15 @@ db.init_app(app)
 @app.get("/check_session")
 def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
-    print(user.__dict__)
-    print("heyyyyyyy")
 
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == Current_Day_Log.user_id).first()
-    print("WHAT UP BITCHES", total_calories_eaten.total_daily_calories_eaten)
+
 
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
         return {"message": "No user logged in"}, 401
+    
 
 # create account + get TDEE
 @app.post("/create_account")
@@ -106,7 +105,9 @@ def login():
 
 
     if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
-        flash('Logged in successfully!', category='success')
+        # flash('Logged in successfully!', category='success')
+        # import ipdb
+        # ipdb.set_trace()
         session["user_id"] = user.id
 
         existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == Current_Day_Log.user_id).filter(Current_Day_Log.date == current_date).first()
@@ -119,7 +120,7 @@ def login():
 
         return jsonify({"user": user.to_dict()}), 200
     else:
-        flash('Incorrect password, try again.', category='error')
+        # flash('Incorrect password, try again.', category='error')
         return {"error": "invalid username or password"}, 401
 
 # logout
@@ -239,6 +240,16 @@ def update_calories_consumed(user_id:int):
 
     # except Exception as e:
     #     return jsonify({"error": str(e)}), 500
+
+@app.delete('/delete_items/<int:user_id>')
+def delete_item(user_id:int):
+    item = Item.query.filter(Item.id == id, user_id == user_id).first()
+    if not item:
+        return make_response(jsonify({'error': 'item not found, backend broken'}), 404)
+    
+    db.session.delete(item)
+    db.session.commit()
+    return make_response(jsonify({"item is deleted"}), 201)
 
 
 @app.route("/")

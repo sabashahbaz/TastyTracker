@@ -144,7 +144,7 @@ return (
                 <h2>Calculate Total Daily Energy Expenditure (TDEE)</h2>
                 <p>This TDEE calculator tool calculates your daily calories burned to help you achieve your goal weight</p>
             </div>
-            <div className="d-flex">
+            <div className="d-flex p-2">
                 <div className="form-check form-check-inline ">
                     <label>Gender :</label>
                 </div>
@@ -179,7 +179,7 @@ return (
                     </div>
                 </div>
             </div>
-            <div className="d-flex w-100 ms-4">
+            <div className="d-flex w-100 ms-4 p-2">
                 <label className="form-check-label form-check-inline">Age: </label>
                     <div className="form-check form-check-inline mb-4">
         
@@ -195,12 +195,12 @@ return (
                     />
                 </div>
             </div>
-            <div className = "d-flex w-100 ms-4">
+            <div className = "d-flex w-100 ms-4 p-2">
             <label className="form-check-label form-check-inline">Height: </label>
                 <select
                 class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
                 name="height"
-                className="form-control "
+                className="form-control w-50 "
                 value={selectedHeight}
                 onChange={(e) => setSelectedHeight(e.target.value)}
                 >
@@ -213,8 +213,8 @@ return (
                 </select>
             </div>
 
-            <div className= "d-flex w-100 ms-4">
-            <label className="form-check-label form-check-inline">Weight: </label>
+            <div className= "d-flex w-100 ms-4 p-2">
+            <label className="form-check-label form-check-inline ">Weight: </label>
                 <input
                 type="text"
                 className="form-control w-50"
@@ -226,12 +226,12 @@ return (
                 />
             </div>
 
-            <div className = "d-flex w-100 ms-4">
-            <label className="form-check-label form-check-inline">Activity Level: </label>
+            <div className = "d-flex w-100 ms-4 p-3">
+            <label className="form-check-label form-check-inline">Activity: </label>
                 <select
-                class="form-select form-check-inline form-select-sm mb-4"  aria-label="Default select example"
-                name="activity"
-                className="form-control "
+                class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
+                name="acitivity level"
+                className="form-control w-50 "
                 value={selectedActivity}
                 onChange={(e) => setSelectedActivity(e.target.value)}
                 >
@@ -242,7 +242,7 @@ return (
                 <option value="5">Super active (very hard exercise, physical job, or training)</option>
                 </select>
             </div>
-                <button type="submit" class="btn btn-light btn-light ms-3 "  >Create Account</button>
+                <button type="submit" class="btn btn-primary btn-primary ms-4 fs-7 ps-2"  >Create Account</button>
             </form>   
         )    
     } 

@@ -12,18 +12,37 @@
   border-radius: 10px;
   background-color: rgba(67, 178, 93, 0.5);
   margin: 100px;
+  height: 50px;
 }
 
 .search-title {
   font-size: 24px; /* Adjust the font size as needed */
+  text-align: center;
+  margin-top: -15px;
+  border-radius: 20px;
+  font-family: Monospace
+  
 }
 
+
+.search-title-header{
+  padding-top: 7px;
+}
+.search-page{
+  background-color: rgba(67, 178, 93, 0.5);
+  height: 120px;
+  width: 700px;
+  margin-left: 430px;
+  /* justify-content: center; */
+}
 .search-bar {
-  width: 100%;
+  width: 80%;
   padding: 10px;
+  margin-top: 13px;
+  margin-left: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 30px;
   /* Add any other styles you want for the search bar */
 } 
 
@@ -58,18 +77,75 @@
     align-self: center;
   }
 
-  .search-bg-img{
-    background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
-    height:100%;
-    width: 100%;
-    min-height: 100vh;
-    background-size: cover;
-  }
+  /* .search-bg-img{
+    /* background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800"); */
+    /* height:100px;
+    width: 100px; 
+    min-height: 100vh; 
+    background-size: flex;
+  } */ 
 
   .the-searched-items{
-    /* justify-content: center; */
+    justify-content: center;
+    /* margin-top: px; */
     text-align:center;
-    margin-left: 350px;
+    /* margin-left: 480px; */
     width: 700px;
-    background-color: green
+    background-color: rgba(67, 178, 93, .7);
+    opacity: 1;
+    transition: 0.3s;
+  
   }
+
+  .search-bg-image {
+    background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
+    background-size: cover;
+    height: 100vh;
+    min-height: 100vh 
+    /* width: 100%; */ 
+  }
+
+  .progress-bar{
+    width: 2000px;
+  }
+
+  .search-container {
+    max-height: 400px; /* Adjust the max-height to your preference */
+    overflow-y: auto;
+  }
+
+  .searched-items-container{
+    max-height: 400px; /* Adjust the max-height to your preference */
+    overflow-y: auto;
+  }
+
+  .search-list-container-map {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 800px;
+    justify-content: center;
+    /* max-height: 2000px; */
+    overflow-y: auto;
+  }
+
+  .Tdee-display{
+    font-family: "Gill Sans", sans-serif;
+    color:green;
+    width: 400px;
+    /* display: flex; */
+    float: right;
+    padding-right: 50px;
+  }
+
+.calories-eaten-display{
+  font-family: "Gill Sans", sans-serif;
+  color:green;
+  width: 500px;
+  display: flex;
+  padding-left: 300px;
+  /* float: right */
+
+}

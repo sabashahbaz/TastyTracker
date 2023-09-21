@@ -10,6 +10,7 @@ import NavBar from './Components/NavBar'
 import LoginPage from "./Components/LoginPage"
 import WelcomePage from './Components/WelcomePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import searchpage from "./CSS/searchpage.css"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -39,22 +40,29 @@ function App() {
         <Routes>
         <Route path="/" element = {
           <WelcomePage/>}
-        />
-        <Route path="/food_log" element={
-                <FoodLogPage 
-                setTotalCaloriesIAte={setTotalCaloriesIAte}
-                setCurrentTdee = {setCurrentTdee}
-                caloriesIAte={caloriesIAte}
-                currentTdee={currentTdee}
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-                searchedItems={searchedItems}
-                foodItem={foodItem}
-                setSearchedItems={setSearchedItems}
-                setSelectedMeal={setSelectedMeal}
-                />} />
+        /> 
+
+          {currentUser ? (
+            <Route
+              path="/food_log"
+              element={
+                <FoodLogPage
+                  setTotalCaloriesIAte={setTotalCaloriesIAte}
+                  setCurrentTdee={setCurrentTdee}
+                  caloriesIAte={caloriesIAte}
+                  currentTdee={currentTdee}
+                  currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}
+                  searchedItems={searchedItems}
+                  foodItem={foodItem}
+                  setSearchedItems={setSearchedItems}
+                  setSelectedMeal={setSelectedMeal}
+                />
+              }
+            />
+          ) : null}
           <Route path="search_food" element={
-                <SearchResultsPage 
+                <SearchResultsPage className="search-bg-img"
                 foodItem={foodItem}
                 setFoodItem={setFoodItem}
                 selectedMeal={selectedMeal}
@@ -88,26 +96,3 @@ function App() {
 
 export default App;
 
-
-
-
-// async function addToFoodList (foodToAdd) {   // add the selected food list to its designated area
-//   await fetch('/add_to_food_list', {
-//       method: 'POST',
-//       headers: {
-//           "Content-Type": "application/JSON",
-//       },
-//       body: JSON.stringify({
-//                       "name": foodToAdd.name, 
-//                       "description": foodToAdd.description,
-//                       "calories": foodToAdd.calories,
-//                       "meal_type": selectedMeal,
-//                       "user_id": currentUser.user_id,
-//       })
-//     })
-//       .then(response => response.json())
-//       .then(data =>{ 
-//         setCurrentFoodResponse(data.calories)
-//         setFoodItem([...foodItem, data])})
-//   return foodItem 
-// }
