@@ -8,6 +8,7 @@ import SearchResultsPage from './Components/SearchResultsPage'
 import NavBar from './Components/NavBar'
 import LoginPage from "./Components/LoginPage"
 import WelcomePage from './Components/WelcomePage';
+import AboutUs from './Components/AboutUs';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import searchpage from "./CSS/searchpage.css"
 
@@ -38,6 +39,10 @@ function App() {
       <BrowserRouter>
       <NavBar caloriesIAte={caloriesIAte} currentUser={currentUser} setCurrentUser={setCurrentUser}></NavBar>
         <Routes>
+        <Route path="/about_us" element={
+          <AboutUs />
+        }>
+        </Route>
         <Route path="/" element = {
           <WelcomePage/>
         }/> 

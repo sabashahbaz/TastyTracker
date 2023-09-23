@@ -14,6 +14,7 @@ function Welcome() {
             <div className="welcome-page-text" >
                 <h2>Keep track of what you eat while eating that you love</h2>
                 <h4>Get everything you need to make amazing meals and keeping up with your body goals</h4>
+                <p>hey this is a test</p>
             </div>
             <Link to="login">
                 <button type="button" class="get-started-button">Get Started Today!</button>

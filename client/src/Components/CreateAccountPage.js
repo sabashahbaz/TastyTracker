@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function CreateAccountPage({setCurrentUser, setCurrentTdee}) {
 
@@ -134,6 +135,8 @@ return (
                     />
                 </div>
                 <button className="btn btn-primary w-100" type="submit"> Create your Account</button>
+                <Link to="/login"><small className="text-muted fs-6"> Already have an account? Click here to sign in  </small></Link>
+        
             </form>
         )
         : (   /* while step is not 1, user must fill out information to determine TDEE */
