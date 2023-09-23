@@ -1,30 +1,27 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-// import "../CSS/FoodDashboard.css";
 import DisplayBreakfastItems from './DisplayBreakfastItems';
 import DisplayLunchItems from "./DisplayLunchItems"
 import DisplayDinnerItems from "./DisplayDinnerItems"
 import DisplaySnackItems from "./DisplaySnackItems"
 
 
-function FoodLog ({foodItem,currentUser, setSearchedItems, currentTdee, setSelectedMeal}) {
- 
-    console.log({currentUser})
+function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
 
+    //delete a logged food item 
     function deleteItem (e) {
         fetch('/delete_items/<int:user_id>', {
             method: 'DELETE',
         })
         .then(() => console.log("delete sucessful"))
-        
-        };
+    };
 
 
-    return (
+return (
 
         <div className = "food-log">
 
-            <div class="breakfast card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
+            <div class="breakfast-card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem'}}>
                 <h5 class="card-header">Breakfast</h5>
                 <div class="card-body">
                     <p class="card-text">{Math.round(currentTdee * .20)} calories </p>

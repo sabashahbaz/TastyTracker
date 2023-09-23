@@ -24,5 +24,3 @@ function Welcome() {
     );
 }
 export default Welcome;
-
-//https://st2.depositphotos.com/1013886/5744/i/450/depositphotos_57444285-Healthy-food-background.jpg

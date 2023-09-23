@@ -1,12 +1,19 @@
 import React, {useEffect} from "react";
-// import FoodLogForm from './FoodLogForm';
-// import SearchFood from './SearchFoodBar';
 import FoodLog from './FoodLog.js';
 import Calories from './Calories.js'
-import searchpage from "../CSS/searchpage.css"
+import CSS from "../CSS/searchpage.css"
 
-function FoodLogPage ({setItems, setSearchedItems, setTotalCaloriesIAte, currentFoodResponse, items, setCurrentTdee, caloriesIAte, currentTdee, foodItem, setSelectedMeal, currentUser, setCurrentUser}) {
+function FoodLogPage ({ 
+        setTotalCaloriesIAte,  
+        setCurrentTdee, 
+        caloriesIAte, 
+        currentTdee, 
+        foodItem, 
+        setSelectedMeal, 
+        currentUser, 
+        setCurrentUser}) {
 
+    //check user
     useEffect(() => {
         fetch('/check_session')
         .then(response => {
@@ -15,25 +22,24 @@ function FoodLogPage ({setItems, setSearchedItems, setTotalCaloriesIAte, current
             }
         })
         .then(data => {
-            console.log("LALALALA", data)
-            console.log(data.user)
-            setCurrentUser(data.user);
-            setCurrentTdee(data.user.tdee);
-            console.log("AAAAAAAAAAAAAAAAA",data.total_calories_eaten.total_daily_calories_eaten)
+            setCurrentUser(data.user); 
+            setCurrentTdee(data.user.tdee); 
             setTotalCaloriesIAte(data.total_calories_eaten.total_daily_calories_eaten)
         });
     }, []);
         
 return (
-    
         <div>
             <div>
                 {currentUser ? (
-                    <Calories caloriesIAte={caloriesIAte}  currentTdee={ currentTdee}/>
-
+                    <Calories caloriesIAte={caloriesIAte} currentTdee={ currentTdee}/>
                 ): null}
             </div>
-            <FoodLog setItems={setItems} setSearchedItems={setSearchedItems}currentTdee={currentTdee} items={items} setSelectedMeal={setSelectedMeal} setCurrentUser={setCurrentUser}foodItem={foodItem} currentFoodResponse={currentFoodResponse}/>
+            <FoodLog 
+            currentTdee={currentTdee} 
+            setSelectedMeal={setSelectedMeal} 
+            foodItem={foodItem} 
+            />
         </div> 
     )
 }

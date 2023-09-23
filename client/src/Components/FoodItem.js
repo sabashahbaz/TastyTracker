@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import searchpage from "../CSS/searchpage.css"
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
+import CSS from "../CSS/searchpage.css"
 
-function FoodItem ({item, selectedMeal, setSearchedItems, setFoodItem, currentUser, foodItem, setTotalCaloriesIAte}) {
+function FoodItem ({item, 
+    selectedMeal, 
+    setSearchedItems, 
+    setFoodItem, currentUser, 
+    foodItem, 
+    setTotalCaloriesIAte}) {
+    
     const navigate = useNavigate()
-    // const [searchedList, setSearchedList] = useState(true)
 
+    //adding the selected item + updating the calories user ate 
     function postDataAndPatchData() {
         fetch('/add_to_food_list', {
             method: 'POST',
@@ -34,19 +40,16 @@ function FoodItem ({item, selectedMeal, setSearchedItems, setFoodItem, currentUs
         })  
             .then(response => response.json())
             .then(data => {
-                console.log("WTFFFFFF",data)
+                console.log("I have not posted or patched anything",data)
                 setTotalCaloriesIAte(data)
                 setSearchedItems([])
                 // console.log(data)
             })
             // .then(data=> console.log(data))
             .then(navigate('/food_log'))
-
 };
 
-// console.log("from food log page", caloriesIAte)
-
-//Search items column
+    //Searched items 
     return (
         <div className="searched-items-container"  class= "list-group justify" onClick={(e) => postDataAndPatchData(e)} >
             <div className="search-list">
@@ -58,10 +61,8 @@ function FoodItem ({item, selectedMeal, setSearchedItems, setFoodItem, currentUs
             </ul>
         
             </div>
-        </div> 
-
-        
+        </div>    
     )
-    }
+}
 
 export default FoodItem;

@@ -8,7 +8,6 @@ from flask_bcrypt import Bcrypt
 from datetime import date, timedelta
 from sqlalchemy import Date, cast
 today = date.today()
-print("Today's date:", today)
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -25,23 +24,18 @@ db.init_app(app)
 
 @app.get("/check_session")
 def check_session():
-    print("Looking up the user table for an id that equals the current user's id")
     user = User.query.filter(User.id == session.get("user_id")).first()
-    print("what is check session user.id", session.get("user_id"))
-    print("Looking up the calorie log table for a user id that equals the current user's id")
-    total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id") ).first()
+    total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
 
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
         return {"message": "No user logged in"}, 401
     
-
 # create account + get TDEE
 @app.post("/create_account")
 def create_account():
     data = request.json
-    print("AAAAAAAAAAAAAAAAAa", current_date)
 
     weight = data.get("weight")
     height = data.get("height")
@@ -81,49 +75,42 @@ def create_account():
     try:
         db.session.commit()  # Commit new_user to get an ID from the database
         session["user_id"] = new_user.id  # Assign the user_id to the session
-        print("what is the new_user.id",new_user.id)
-        print("this better work", new_user.id)
+  
         # Now create and add new_user_log with the correct user_id
         new_user_log = Current_Day_Log(
             total_daily_calories_eaten="0",
             user_id=new_user.id,
             date = tomorrow
         )
-        print("is the create account page working wtf", new_user_log.user_id)
+    
         db.session.add(new_user_log)
         db.session.commit()  # Commit new_user_log
-        print("did it work??", new_user_log)
 
         return jsonify({"message": "Account created successfully", "user": new_user.to_dict()}), 201
-    except Exception as e:  # Rollback changes in case of an exception
-        # db.session.rollback()
+    except Exception as e:  
         raise Exception("Adding a user failed")
 
 # login
 @app.post("/login")
 def login():
-    # current_date = date.today()
     data = request.json
     user = User.query.filter(User.username == data["username"]).first() 
 
-
     if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
-        # flash('Logged in successfully!', category='success')
-        # import ipdb
-        # ipdb.set_trace()
         session["user_id"] = user.id
 
         existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == Current_Day_Log.user_id).filter(Current_Day_Log.date == current_date).first()
-        # import ipdb
-        # ipdb.set_trace()
-        if not existing_food_log:
-            new_food_log = Current_Day_Log(user_id=user.id, date=current_date,  total_daily_calories_eaten=0 )
-            db.session.add(new_food_log)
-            db.session.commit()
 
-        return jsonify({"user": user.to_dict()}), 200
+        return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
+
+    if not existing_food_log:
+        new_food_log = Current_Day_Log(user_id=user.id, date=current_date,  total_daily_calories_eaten=0 )
+        db.session.add(new_food_log)
+        db.session.commit()
+        print("new_food_log",new_food_log.total_daily_calories_eaten )
+        return jsonify({"user": user.to_dict(), "new_day_calories":  new_food_log.to_dict()}), 200
+
     else:
-        # flash('Incorrect password, try again.', category='error')
         return {"error": "invalid username or password"}, 401
 
 # logout
@@ -148,7 +135,6 @@ def get_food_api(userInput):
         "api_key": food_api_key,
     }
 
-    # food_response = requests.get(food_api_url, headers=headers, params=parameters)
     food_response = requests.get(
         f"https://api.nal.usda.gov/fdc/v1/foods/search?query={userInput}&API_KEY={food_api_key}"
     )
@@ -162,8 +148,6 @@ def get_food_api(userInput):
 # POST search
 @app.post("/search_food_items")
 def search_food_items():
-    print("post")
-
     requested_food_data = get_food_api(request.json["query"])
 
     arrayOfItems = []
@@ -189,8 +173,7 @@ def search_food_items():
 # POST to food list
 @app.post("/add_to_food_list")
 def post_item_to_food_list():
-    requested_data = request.json  # get the jsonified requested data
-    print("sabalabadingdong")
+    requested_data = request.json  
     try:
         item = Item(
             name = requested_data["name"],
@@ -201,7 +184,7 @@ def post_item_to_food_list():
         )
         db.session.add(item)
         db.session.commit()
-        print(item)
+
         return item.to_dict()
     except Exception as e:
         print("Error:", e)
@@ -211,27 +194,21 @@ def post_item_to_food_list():
 @app.patch('/update_calories_eaten/<int:user_id>')
 def update_calories_consumed(user_id:int):
     try:
-        current_date_log = Current_Day_Log.query.filter_by(user_id=user_id).first()
+        current_date_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
         
-        if not current_date_log: #error it there is no match 
+        if not current_date_log: 
             return make_response(
                 jsonify({'error': 'user not found'}),404)
 
         requested_data = request.get_json()
-        print ("from patch request", requested_data)
-
         
         if current_date_log:
             new_calories_eaten = current_date_log.total_daily_calories_eaten + requested_data["calories"]
 
             # Update the current log with the new total calories eaten
-            # current_log.total_daily_calories_eaten = new_calories_eaten
             current_date_log.total_daily_calories_eaten = new_calories_eaten
-            print("did they add up", new_calories_eaten)
+            
             db.session.commit()
-
-            print("new_calories_eaten",new_calories_eaten)
-
             return jsonify(new_calories_eaten), 200
         
         else:
@@ -240,20 +217,6 @@ def update_calories_consumed(user_id:int):
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "the backend is broken"}), 400)
-
-    # except Exception as e:
-    #     return jsonify({"error": str(e)}), 500
-
-@app.delete('/delete_items/<int:user_id>')
-def delete_item(user_id:int):
-    item = Item.query.filter(Item.id == id, user_id == user_id).first()
-    if not item:
-        return make_response(jsonify({'error': 'item not found, backend broken'}), 404)
-    
-    db.session.delete(item)
-    db.session.commit()
-    return make_response(jsonify({"item is deleted"}), 201)
-
 
 @app.route("/")
 def index():

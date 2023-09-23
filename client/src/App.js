@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useState, useEffect} from "react";
-import {useNavigate} from 'react-router-dom';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CreateAccountPage from './Components/CreateAccountPage.js';
 import FoodLogPage from './Components/FoodLogPage'
@@ -13,36 +12,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import searchpage from "./CSS/searchpage.css"
 
 function App() {
+  //Setting state variables 
   const [currentUser, setCurrentUser] = useState(null)
   const [searchedItems, setSearchedItems] = useState([]) //the food items that are returned from the search 
-  const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user 
-  const [selectedMeal, setSelectedMeal] = useState("")
-  const [caloriesIAte, setTotalCaloriesIAte] = useState("")
-  const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
-  const [currentTdee, setCurrentTdee] = useState("")
+  const [foodItem, setFoodItem] = useState([]) //the food item that is selected by user to add to food log 
+  const [selectedMeal, setSelectedMeal] = useState("") //setting the meal type for the meal selected by the user 
+  const [caloriesIAte, setTotalCaloriesIAte] = useState("") //cumulation of the total calories user ate
+  // const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
+  const [currentTdee, setCurrentTdee] = useState("") 
   const [currentFoodResponse, setCurrentFoodResponse] = useState(null);
 
-  // console.log("currentUser",currentUser.user.user_id)
-  useEffect(() => {
-    fetch('/check_session')
-    .then(response => {
-      if(response.ok) {
-        response.json()
-        .then(user => setCurrentUser(user))
-      }
-    })
-  }, [])
+    //check if user is logged in 
+    useEffect(() => {
+      fetch('/check_session')
+      .then(response => {
+        if(response.ok) {
+          response.json()
+          .then(user => setCurrentUser(user))
+        }
+      })
+    }, [])
+
+
   return (
       <BrowserRouter>
-      <NavBar
-        caloriesIAte={caloriesIAte} totalCaloriesRemaining={totalCaloriesRemaining}
-        currentUser={currentUser} setCurrentUser={setCurrentUser}>Navbar</NavBar>
+      <NavBar caloriesIAte={caloriesIAte} currentUser={currentUser} setCurrentUser={setCurrentUser}></NavBar>
         <Routes>
         <Route path="/" element = {
-          <WelcomePage/>}
-        /> 
-
-          {currentUser ? (
+          <WelcomePage/>
+        }/> 
+          {currentUser 
+          ? (
             <Route
               path="/food_log"
               element={
@@ -55,35 +55,35 @@ function App() {
                   setCurrentUser={setCurrentUser}
                   searchedItems={searchedItems}
                   foodItem={foodItem}
-                  setSearchedItems={setSearchedItems}
                   setSelectedMeal={setSelectedMeal}
                 />
               }
             />
-          ) : null}
+          ) 
+          : null}
           <Route path="search_food" element={
-                <SearchResultsPage className="search-bg-img"
-                foodItem={foodItem}
-                setFoodItem={setFoodItem}
-                selectedMeal={selectedMeal}
-                setTotalCaloriesIAte={setTotalCaloriesIAte}
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-                setSearchedItems={setSearchedItems} searchedItems={searchedItems} 
-                // addToFoodList={addToFoodList}
-                currentFoodResponse= {currentFoodResponse}
-                />} /> 
-          <Route path="tdee_calculator" element={<CreateAccountPage
-                                // create_account_tdee ={createAccountAndTdee}
-                                setCurrentUser={setCurrentUser}
-                                // calculate_tdee={calculate_tdee} 
-                                setCurrentTdee={setCurrentTdee}/>}
-                                /> 
+              <SearchResultsPage className="search-bg-img"
+              foodItem={foodItem}
+              setFoodItem={setFoodItem}
+              selectedMeal={selectedMeal}
+              setTotalCaloriesIAte={setTotalCaloriesIAte}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              setSearchedItems={setSearchedItems} 
+              searchedItems={searchedItems} 
+              currentFoodResponse= {currentFoodResponse}
+              />} /> 
+          <Route path="create_account" element={
+            <CreateAccountPage
+              setCurrentUser={setCurrentUser}
+              setCurrentTdee={setCurrentTdee}/>}
+              /> 
           <Route path="login" element={
             <LoginPage
             setCurrentTdee={setCurrentTdee}
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
+            setTotalCaloriesIAte={setTotalCaloriesIAte}
             />} />
           <Route path="*" element={<Error/>}/>
         </Routes>

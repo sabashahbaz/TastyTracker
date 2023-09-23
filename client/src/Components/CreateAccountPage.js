@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 
-function CreateAccountPage({currentTdee, setCurrentUser, setCurrentTdee, calculate_tdee, create_account_tdee}) {
+function CreateAccountPage({setCurrentUser, setCurrentTdee}) {
 
 const navigate = useNavigate();
 
@@ -21,63 +21,60 @@ const handleChangePassword = e => setPassword(e.target.value)
 const handleChangeFirstName = e => setFirstName(e.target.value)
 const handleChangeLastName = e => setLastName(e.target.value)
 
-const heightOptions = [];
-for ( let feet = 4; feet <= 7; feet++) {
-for (let inches = 0; inches <= 11; inches ++) {
-const heightInInches = feet * 12 + inches;
-heightOptions.push({
-    value: heightInInches.toString(),
-    label: `${feet} ft  ${inches} in`
-})}};
+    //height range user can select from 
+    const heightOptions = [];
+    for ( let feet = 4; feet <= 7; feet++) {
+    for (let inches = 0; inches <= 11; inches ++) {
+    const heightInInches = feet * 12 + inches;
+    heightOptions.push({
+        value: heightInInches.toString(),
+        label: `${feet} ft  ${inches} in`
+    })}};
 
-function handleSubmitUserInfo(e) {
-    e.preventDefault();
-    if (firstName && lastName && username && password)  {
-        setStep(2);
-    } else {
-        alert("Please complete all required fields")
+    //allow user to proceed to the next form after filling out user info
+    function handleSubmitUserInfo(e) {
+        e.preventDefault();
+        if (firstName && lastName && username && password)  {
+            setStep(2);
+        } else {
+            alert("Please complete all required fields")
+        }
+        
     }
-    
-}
 
-async function handleSubmitAccountForm (e) {
-    console.log("WHAT IS WRONG WITH ACCOUNT PAGE")
-    e.preventDefault();
-    let accountResponse;
-    await fetch('/create_account', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        'Accepts': 'application/json'
-        },
-        body: JSON.stringify({
-            "gender": selectedGender,
-            "age": Number(age),
-            "weight": Number(weight),
-            "height": Number(selectedHeight),
-            "activity_level" : Number(selectedActivity),
-            "first_name": firstName, 
-            "last_name": lastName,
-            "username": username, 
-            "password": password })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("user created: ", data)
-        accountResponse = data;
-        setCurrentUser(data.user.username)
-        setCurrentTdee(data.user.tdee)
-    });
-    if (accountResponse) navigate('/food_log')
-    // .catch(error => {console.log("front-end is broken", error)})  
-    };
+    //create account + calculate TDEE 
+    async function handleSubmitAccountForm (e) {
+        e.preventDefault();
+        let accountResponse;
+        await fetch('/create_account', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Accepts': 'application/json'
+            },
+            body: JSON.stringify({
+                "gender": selectedGender,
+                "age": Number(age),
+                "weight": Number(weight),
+                "height": Number(selectedHeight),
+                "activity_level" : Number(selectedActivity),
+                "first_name": firstName, 
+                "last_name": lastName,
+                "username": username, 
+                "password": password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            accountResponse = data;
+            setCurrentUser(data.user.username)
+            setCurrentTdee(data.user.tdee)
+        });
+        if (accountResponse) navigate('/food_log') 
+        };
 
 return (
-
 <div className="container d-flex justify-content-center align-items-center">
-
-{step === 1 
-
+    {step === 1 /* while step =1, user must fill out account information */
         ? (
             <form className="create-account-container w-50" onSubmit={handleSubmitUserInfo}>
             <div className="header text-center">
@@ -139,8 +136,7 @@ return (
                 <button className="btn btn-primary w-100" type="submit"> Create your Account</button>
             </form>
         )
-    
-        : (   
+        : (   /* while step is not 1, user must fill out information to determine TDEE */
             <form className="tdee-calculator-container w-50" onSubmit={handleSubmitAccountForm}>
             <div className="header text-center">
                 <h2>Calculate Total Daily Energy Expenditure (TDEE)</h2>
@@ -193,7 +189,6 @@ return (
                     aria-describedby="username"
                     onChange={(e) => setAge(e.target.value)}
                     value={age}
-                    // onChange={handleAgeChange}
                     />
                 </div>
             </div>
@@ -249,7 +244,6 @@ return (
         )    
     } 
     </div>
-    
     );
 }
     

@@ -88,9 +88,6 @@ class User_Current_Log_Association(db.Model):
     user_log = db.relationship("User", back_populates="user_log_association")
     current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
 
-### don't need a user and current log association table becauseone user has many logs ### 
-##one log will have one user 
-
 class Current_Day_Log(db.Model):
     __tablename__ = "current_day_log_table"
 

@@ -3,10 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import welcomepage from "../CSS/loginpage.css"
 
-function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
+function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
     const navigate = useNavigate();
-
-    console.log({currentUser})
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -14,9 +12,9 @@ function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
     const handleChangeUsername = e => setUsername(e.target.value)
     const handleChangePassword = e => setPassword(e.target.value)
 
+    //submit login function 
     async  function handleSubmit (e) {
         e.preventDefault();
-        // console.log(username, password)
         let currentUserResponse;
         await fetch('/login', {
             method: 'POST',
@@ -31,12 +29,10 @@ function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
             currentUserResponse = data;
             setCurrentUser(data);
             setCurrentTdee(data.user.tdee)
-
+            setTotalCaloriesIAte(data.new_day_calories.total_daily_calories_eaten)
         });
         if (!currentUserResponse.error) navigate('/food_log')
         }
-
-
 
     return (
         <div className="container d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
@@ -68,7 +64,7 @@ function LoginPage({setCurrentTdee, currentUser, setCurrentUser}) {
                         <button type="submit" className="btn btn-primary w-100 fs-5">Login</button>
                     </div>
                     <div className="col-6">
-                        <Link to="/tdee_calculator" className="nav-link fs-5">
+                        <Link to="/create_account" className="nav-link fs-5">
                             <p>New user? Create an account!</p>
                         </Link>
                     </div>
