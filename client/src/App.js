@@ -22,6 +22,7 @@ function App() {
   // const [totalCaloriesRemaining, setTotalCaloriesRemaining] = useState("")
   const [currentTdee, setCurrentTdee] = useState("") 
   const [currentFoodResponse, setCurrentFoodResponse] = useState(null);
+  const [currentFoodLog, setCurrentFoodLog] = useState("")
 
     //check if user is logged in 
     useEffect(() => {
@@ -52,6 +53,8 @@ function App() {
               path="/food_log"
               element={
                 <FoodLogPage
+                  setFoodItem = {setFoodItem}
+                  setCurrentFoodLog={setCurrentFoodLog}
                   setTotalCaloriesIAte={setTotalCaloriesIAte}
                   setCurrentTdee={setCurrentTdee}
                   caloriesIAte={caloriesIAte}
@@ -71,12 +74,14 @@ function App() {
               foodItem={foodItem}
               setFoodItem={setFoodItem}
               selectedMeal={selectedMeal}
+              setCurrentFoodLog={ setCurrentFoodLog}
               setTotalCaloriesIAte={setTotalCaloriesIAte}
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
               setSearchedItems={setSearchedItems} 
               searchedItems={searchedItems} 
               currentFoodResponse= {currentFoodResponse}
+              currentFoodLog={currentFoodLog}
               />} /> 
           <Route path="create_account" element={
             <CreateAccountPage

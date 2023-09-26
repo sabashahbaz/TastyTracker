@@ -1,8 +1,9 @@
 from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
+# import psycopg2
 import os
-from models import db, Item, User, Current_Day_Log
+from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from datetime import date, timedelta
@@ -12,6 +13,8 @@ today = date.today()
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost:5432/app.db'
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.secret_key = os.getenv("SECRET_KEY")
@@ -27,11 +30,36 @@ def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
 
+    print(total_calories_eaten)
+
+
+    if user:
+        user_id = user.id  # Replace with the actual user ID
+
+        # Query the specific Current_Day_Log for the user and the current date
+        current_day_log = Current_Day_Log.query.filter(
+            Current_Day_Log.user_id == user_id,
+            Current_Day_Log.date == current_date
+        ).first()
+
+        if current_day_log:
+            # Retrieve all items associated with the specific Current_Day_Log
+            items_associated = Item.query.join(Item_Current_Day_Log_Association).filter(
+                Item_Current_Day_Log_Association.user_id == user_id,
+                Item_Current_Day_Log_Association.current_day_log_id == current_day_log.id
+            ).all()
+
+            return {
+                "user": user.to_dict(),
+                "total_calories_eaten": current_day_log.to_dict(),
+                "items_associated": [item.to_dict() for item in items_associated]
+            }, 200
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
         return {"message": "No user logged in"}, 401
-    
+
+
 # create account + get TDEE
 @app.post("/create_account")
 def create_account():
@@ -80,7 +108,7 @@ def create_account():
         new_user_log = Current_Day_Log(
             total_daily_calories_eaten="0",
             user_id=new_user.id,
-            date = tomorrow
+            date = current_date
         )
     
         db.session.add(new_user_log)
@@ -98,11 +126,11 @@ def login():
 
     if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
         session["user_id"] = user.id
-
+        print("current day log", Current_Day_Log)
         existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == Current_Day_Log.user_id).filter(Current_Day_Log.date == current_date).first()
-
+        print("what is happening", user, existing_food_log)
         return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
-
+    
     if not existing_food_log:
         new_food_log = Current_Day_Log(user_id=user.id, date=current_date,  total_daily_calories_eaten=0 )
         db.session.add(new_food_log)
@@ -184,8 +212,22 @@ def post_item_to_food_list():
         )
         db.session.add(item)
         db.session.commit()
+        print("why is post broken")
 
+
+        current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == requested_data["user_id"]).first()
+        if current_log:
+            item_log_associtation = Item_Current_Day_Log_Association(
+                current_day_log_id = current_log.id,
+                item_id = item.id,
+                user_id = requested_data["user_id"] 
+            )
+            print("did it go through here", )
+            db.session.add(item_log_associtation)
+            db.session.commit()
+        
         return item.to_dict()
+    
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "the backend is broken"}), 400)
@@ -217,10 +259,22 @@ def update_calories_consumed(user_id:int):
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "the backend is broken"}), 400)
+    
+#ADD to item and current day log association table 
+# @app.post('/add_to_user_log_association_table/<int:user_id>')
+# def update_item_log_assocation_table(user_id:int):
+#     try:
+
+
+
+
 
 @app.route("/")
 def index():
     return "TastyTracker"
+
+# if __name__ == "__main__":
+#     app.run()
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

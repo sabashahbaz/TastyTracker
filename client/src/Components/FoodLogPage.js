@@ -4,6 +4,7 @@ import Calories from './Calories.js'
 import CSS from "../CSS/searchpage.css"
 
 function FoodLogPage ({ 
+        setCurrentFoodLog,
         setTotalCaloriesIAte,  
         setCurrentTdee, 
         caloriesIAte, 
@@ -11,6 +12,7 @@ function FoodLogPage ({
         foodItem, 
         setSelectedMeal, 
         currentUser, 
+        setFoodItem,
         setCurrentUser}) {
 
     //check user
@@ -22,9 +24,12 @@ function FoodLogPage ({
             }
         })
         .then(data => {
+            console.log("did it finally work?",data.items_associated)
             setCurrentUser(data.user); 
             setCurrentTdee(data.user.tdee); 
             setTotalCaloriesIAte(data.total_calories_eaten.total_daily_calories_eaten)
+            setFoodItem(data.items_associated)
+            // setCurrentFoodLog(data.total_calories_eaten.id)
         });
     }, []);
         

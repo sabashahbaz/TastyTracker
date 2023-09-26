@@ -3,6 +3,8 @@ import "../CSS/DisplayBreakfastItems.css";
 
 function DisplayBreakfastItems({item}) {
 
+    console.log("do i get the id",item)
+
     return (
         <div className="breakfast-item list-group-item list-group-item-action list-group-item-primary justify-content-center w-100">
             <b class="fs-5">{item.name}</b>

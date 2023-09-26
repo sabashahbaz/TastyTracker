@@ -7,10 +7,13 @@ function FoodItem ({item,
     setSearchedItems, 
     setFoodItem, currentUser, 
     foodItem, 
+    currentFoodLog,
     setTotalCaloriesIAte}) {
     
+        console.log("stop being annoying",currentUser)
     const navigate = useNavigate()
-
+    
+    console.log("is this updating",currentFoodLog)
     //adding the selected item + updating the calories user ate 
     function postDataAndPatchData() {
         fetch('/add_to_food_list', {
@@ -24,10 +27,13 @@ function FoodItem ({item,
                 "calories": item.calories,
                 "meal_type": selectedMeal,
                 "user_id": currentUser.user.user_id,
+                "current_day_log_id": currentFoodLog
             })
         })
             .then(response => response.json())
-            .then(data =>setFoodItem([...foodItem, data]))
+            .then(data =>{
+                console.log(data)
+                setFoodItem([...foodItem, data])})
         
         fetch(`/update_calories_eaten/${currentUser.user.user_id}`, {
             method: 'PATCH',
@@ -45,8 +51,24 @@ function FoodItem ({item,
                 setSearchedItems([])
                 // console.log(data)
             })
-            // .then(data=> console.log(data))
+            .then(data=> console.log(data))
             .then(navigate('/food_log'))
+
+            // fetch(`/add_to_user_log_association_table/${item.id}`, {
+            //     method: "POST",
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         "item_id": item.id 
+            //     })
+            // }) 
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         console.log("what did i add to association table", data)
+            //         //do something to the table here 
+            //         //needs to come back as a list that is rendered at the front
+            //     })
 };
 
     //Searched items 

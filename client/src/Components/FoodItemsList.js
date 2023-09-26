@@ -10,6 +10,7 @@ function FoodItemsList({
     setFoodItem, 
     setTotalCaloriesIAte, 
     currentUser, 
+    currentFoodLog,
     currentFoodResponse}) {
 
 
@@ -19,6 +20,7 @@ function FoodItemsList({
             {searchedItems.map((item) => (
                 <FoodItem key={item.id}  
                 item={item} 
+                currentFoodLog={currentFoodLog}
                 setFoodItem={setFoodItem} 
                 foodItem={foodItem} 
                 selectedMeal= {selectedMeal} 

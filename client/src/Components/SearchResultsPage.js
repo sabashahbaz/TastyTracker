@@ -13,15 +13,23 @@ function SearchResultsPage ({
     searchedItems, 
     currentFoodResponse, 
     setCurrentUser,
+    setCurrentFoodLog,
+    currentFoodLog
     }) {
     
+        // const [currentFoodLog, setCurrentFoodLog] = useState("")
     //check user login 
     useEffect(() => {
         fetch('/check_session')
         .then(response => {
             if(response.ok) {
             response.json()
-            .then(user => setCurrentUser(user))
+            .then(data => {
+                console.log("what is the data",data.total_calories_eaten.id)
+                setCurrentUser(data)
+                setCurrentFoodLog(data.total_calories_eaten.id)
+            })
+
             }
         })
     }, [])
@@ -39,7 +47,8 @@ function SearchResultsPage ({
                 selectedMeal={selectedMeal}
                 searchedItems={searchedItems}  
                 currentUser={currentUser} 
-                currentFoodResponse={currentFoodResponse} />
+                currentFoodResponse={currentFoodResponse}
+                currentFoodLog={currentFoodLog} />
             </div>
         </div>
     )
