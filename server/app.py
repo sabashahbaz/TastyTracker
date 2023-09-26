@@ -260,12 +260,40 @@ def update_calories_consumed(user_id:int):
         print("Error:", e)
         return make_response(jsonify({"error": "the backend is broken"}), 400)
     
-#ADD to item and current day log association table 
-# @app.post('/add_to_user_log_association_table/<int:user_id>')
-# def update_item_log_assocation_table(user_id:int):
-#     try:
+#DELETE item
+@app.delete('/delete_food_item/<int:item_id>')
+def delete_food_item(item_id:int):
+    print ("please work")
 
+    try:
+        item = Item.query.get(item_id)
 
+        if item:
+            # Calculate calories of the item before deletion
+            deleted_item_calories = item.calories
+
+            # Retrieve the associated Current_Day_Log
+            current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
+
+            if current_log:
+                # Subtract the item's calories from total_daily_calories_eaten
+                current_log.total_daily_calories_eaten -= deleted_item_calories
+
+                # Update the total_daily_calories_eaten in the database
+                db.session.commit()
+
+                # Now, you can delete the item
+                db.session.delete(item)
+                db.session.commit()
+
+                return {"message": "Food item deleted successfully"}, 200
+            else:
+                return {"message": "Current Day Log not found"}, 404
+        else:
+            return {"message": "Food item not found"}, 404
+    except Exception as e:
+        print("Error:", e)
+        return make_response(jsonify({"error": "The backend is broken"}), 500)
 
 
 

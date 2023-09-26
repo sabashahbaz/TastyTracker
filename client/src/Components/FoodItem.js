@@ -53,22 +53,6 @@ function FoodItem ({item,
             })
             .then(data=> console.log(data))
             .then(navigate('/food_log'))
-
-            // fetch(`/add_to_user_log_association_table/${item.id}`, {
-            //     method: "POST",
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         "item_id": item.id 
-            //     })
-            // }) 
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         console.log("what did i add to association table", data)
-            //         //do something to the table here 
-            //         //needs to come back as a list that is rendered at the front
-            //     })
 };
 
     //Searched items 

@@ -8,13 +8,23 @@ import DisplaySnackItems from "./DisplaySnackItems"
 
 function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
 
-    //delete a logged food item 
-    function deleteItem (e) {
-        fetch('/delete_items/<int:user_id>', {
-            method: 'DELETE',
-        })
-        .then(() => console.log("delete sucessful"))
-    };
+    // function deleteItem() {
+    //     fetch(`/delete_food_item/${item.id}`, {
+    //         method: 'DELETE',
+    //     })
+    //     // .then((data) => console.log(data))
+    //     .then(response => {
+    //         if (response.status === 200) {
+    //             console.log("Food item deleted successfully");
+    //             window.location.reload();
+    //         } else if (response.status === 404) {
+    //             console.log("Food item not found");
+    //         } else {
+    //             console.error("Error:", response.statusText);
+    //         }
+    //     })
+    //     .catch(error => console.error("Error:", error));
+    // }
 
 
 return (
@@ -50,7 +60,7 @@ return (
                                         <DisplayLunchItems 
                                             key={item.id}
                                             item={item}
-                                            deleteItem={deleteItem}
+                                            // deleteItem={deleteItem}
                                         />
                                     )}})}
                     </div>
