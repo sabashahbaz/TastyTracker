@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar'
 import LoginPage from "./Components/LoginPage"
 import WelcomePage from './Components/WelcomePage';
 import AboutUs from './Components/AboutUs';
+import { ProgressBar } from './Components/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import searchpage from "./CSS/searchpage.css"
 
@@ -41,7 +42,7 @@ function App() {
       <NavBar caloriesIAte={caloriesIAte} currentUser={currentUser} setCurrentUser={setCurrentUser}></NavBar>
         <Routes>
         <Route path="/about_us" element={
-          <AboutUs />
+          <AboutUs currentUser={currentUser} />
         }>
         </Route>
         <Route path="/" element = {

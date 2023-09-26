@@ -2,7 +2,8 @@ import React from "react";
 import image from "../assets/meal-planning.png";
 import footer from "../assets/horizontal-food.jpeg";
 
-function AboutUs () {
+
+function AboutUs ({currentUser}) {
 
     return (
     <div className="about-us-page">
@@ -36,7 +37,16 @@ function AboutUs () {
                 We are your go-to platform for achieving a healthy lifestyle while relishing the foods you love. Whether you're looking to shed a few pounds, maintain a balanced life, or simply explore new culinary adventures, Tasty Tracker has you covered. With our intuitive calorie tracking tools and a vast collection of delicious recipes, you'll have everything you need to make informed choices about your nutrition, all while enjoying the flavors you adore. Join our community today, take control of your health journey, and savor the taste of success. Sign up now and embark on a flavorful path to a healthier you!
                 </p>
                 <p className="card-text">
-                <a href="/create_account" class="btn btn-success">Join Us Today!</a>
+                {currentUser 
+                ? (
+                    <a href="/food_log" class="btn btn-success">Log Your Meals Today!</a>
+                ) 
+                : (
+                    <a href="/create_account" class="btn btn-success">Join Us Today!</a>
+                )
+
+                }
+                
                 </p>
             </div>
             </div>

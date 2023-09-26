@@ -1,0 +1,36 @@
+
+/* *{
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #eef6f8;
+    font-family: "Roboto", sans serif;
+} */
+
+.container {
+    /* justify-content: center;
+    align-items: center; */
+    width: 250px;
+    margin-top: 100px;
+
+}
+
+.bar {
+    width: 1000px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.fill {
+    height: 100%;
+    border-radius: 10px;
+    background-color: #2ecc71;
+    transition: width 0.5s ease-out;
+}
+
+/* .label{
+    margin-top: 10px;
+    font
+} */

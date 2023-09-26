@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import FoodLog from './FoodLog.js';
 import Calories from './Calories.js'
 import CSS from "../CSS/searchpage.css"
+import ProgressBar from "./ProgressBar.js";
 
 function FoodLogPage ({ 
         setCurrentFoodLog,
@@ -35,6 +36,7 @@ function FoodLogPage ({
         
 return (
         <div>
+            <ProgressBar caloriesIAte={caloriesIAte} currentTdee={ currentTdee}/>
             <div>
                 {currentUser ? (
                     <Calories caloriesIAte={caloriesIAte} currentTdee={ currentTdee}/>

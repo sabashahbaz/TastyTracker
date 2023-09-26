@@ -40,12 +40,13 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
                                 </li>
 
                                 <li class="nav-item  me-4 fs-4">
-                                <a class="nav-link" href="#">About Us</a>
+                                <a class="nav-link" href="/about_us">About Us</a>
                                 </li>
 
                                 <li class="nav-item  me-4 fs-4">
                                 {/* <p>Welcome {currentUser} !</p> */}
                                 </li>
+
 
                                 <li class="nav-item me-2 fs-4">
                                 <a><button type="button" class="btn btn-light btn-sm" onClick={logout}>Logout</button></a>
@@ -59,7 +60,7 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
                                     </li>
 
                                     <li class="nav-item fs-4">
-                                    <a class="nav-link" href="about_us">About Us</a>
+                                    <a class="nav-link active" href="/about_us">About Us</a>
                                     </li>
 
                                     <li class="nav-item fs-4">
