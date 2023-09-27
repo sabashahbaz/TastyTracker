@@ -4,8 +4,20 @@
 /node_modules
 /.pnp
 .pnp.js
-.env
+
+# Locked Version States for Python
+Pipfile.lock
+*/Pipfile.lock
+
+# Locked Version States for Node/React
+package-lock.json
+*/package-lock.json
+
+# Virtual Environment Stuffs
+.env 
 */.env
+.venv
+*/.venv
 
 # testing
 /coverage
