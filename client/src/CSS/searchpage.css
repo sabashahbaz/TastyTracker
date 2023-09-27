@@ -134,7 +134,7 @@
   .Tdee-display{
     font-family: "Gill Sans", sans-serif;
     color:green;
-    width: 400px;
+    width: 530px;
     /* display: flex; */
     float: right;
     padding-right: 50px;
@@ -143,9 +143,9 @@
 .calories-eaten-display{
   font-family: "Gill Sans", sans-serif;
   color:green;
-  width: 500px;
+  width: 600px;
   display: flex;
-  padding-left: 300px;
+  padding-left: 360px;
   /* float: right */
 
 }

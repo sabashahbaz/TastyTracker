@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import searchpage from "../CSS/searchpage.css"
 
 function Calories ({currentTdee, caloriesIAte}) {
-    console.log(caloriesIAte)
-
+    console.log(currentTdee - caloriesIAte)
+    //My TDEE: {currentTdee}
     return (
         <div>
             <div className="Tdee-display">
-                <h3> My TDEE: {currentTdee}</h3>
+                <h3> I have {currentTdee - caloriesIAte} calories left to eat today</h3>
             </div>
             {/* <div className="progress-bar">
                 <progress></progress>

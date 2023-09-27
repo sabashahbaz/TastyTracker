@@ -123,23 +123,35 @@ def create_account():
 def login():
     data = request.json
     user = User.query.filter(User.username == data["username"]).first() 
-
-    if user and bcrypt.check_password_hash(user.password_hash, data["password"]):
+    existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == user.id).filter(Current_Day_Log.date == current_date).first()
+    # print(user)
+    if user and bcrypt.check_password_hash(user.password_hash, data["password"]) and existing_food_log:
         session["user_id"] = user.id
-        print("current day log", Current_Day_Log)
-        existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == Current_Day_Log.user_id).filter(Current_Day_Log.date == current_date).first()
-        print("what is happening", user, existing_food_log)
+        # print("current day log", Current_Day_Log)
+        # return jsonify({"user": user.to_dict()}), 200
         return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
     
-    if not existing_food_log:
-        new_food_log = Current_Day_Log(user_id=user.id, date=current_date,  total_daily_calories_eaten=0 )
+    
+    # existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == user.id).filter(Current_Day_Log.date == current_date).first()
+    # elif existing_food_log:
+    #     return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
+    
+    # if not existing_food_log:
+    #     new_food_log = Current_Day_Log(user_id=user.id, date=current_date,  total_daily_calories_eaten=0 )
+    #     db.session.add(new_food_log)
+    #     db.session.commit()
+    #     print("new_food_log",new_food_log.total_daily_calories_eaten )
+    #     return jsonify({"user": user.to_dict(), "new_day_calories":  new_food_log.to_dict()}), 200
+    
+    else: 
+        new_food_log = Current_Day_Log(user_id=user.id, date=current_date, total_daily_calories_eaten=0)
         db.session.add(new_food_log)
         db.session.commit()
-        print("new_food_log",new_food_log.total_daily_calories_eaten )
-        return jsonify({"user": user.to_dict(), "new_day_calories":  new_food_log.to_dict()}), 200
+        existing_food_log = new_food_log  # Update existing_food_log
+        print("Aaaaaaaaaaaaa", new_food_log.total_daily_calories_eaten )
+        return jsonify({"user": user.to_dict(), "new_day_calories": new_food_log.to_dict()}), 200
 
-    else:
-        return {"error": "invalid username or password"}, 401
+    return {"error": "invalid username or password"}, 401
 
 # logout
 @app.delete("/logout")

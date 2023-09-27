@@ -26,7 +26,7 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data.user)
+            console.log(data)
             currentUserResponse = data;
             setCurrentUser(data);
             setCurrentTdee(data.user.tdee)
