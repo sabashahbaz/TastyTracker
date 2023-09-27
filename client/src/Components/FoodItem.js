@@ -10,10 +10,8 @@ function FoodItem ({item,
     currentFoodLog,
     setTotalCaloriesIAte}) {
     
-        console.log("stop being annoying",currentUser)
     const navigate = useNavigate()
     
-    console.log("is this updating",currentFoodLog)
     //adding the selected item + updating the calories user ate 
     function postDataAndPatchData() {
         fetch('/add_to_food_list', {
@@ -32,9 +30,9 @@ function FoodItem ({item,
         })
             .then(response => response.json())
             .then(data =>{
-                console.log(data)
+                console.log("something new everyday", data)
                 setFoodItem([...foodItem, data])})
-        
+                
         fetch(`/update_calories_eaten/${currentUser.user.user_id}`, {
             method: 'PATCH',
             headers: {
@@ -46,7 +44,6 @@ function FoodItem ({item,
         })  
             .then(response => response.json())
             .then(data => {
-                console.log("I have not posted or patched anything",data)
                 setTotalCaloriesIAte(data)
                 setSearchedItems([])
                 // console.log(data)

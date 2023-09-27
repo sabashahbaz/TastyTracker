@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect} from "react";
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
 import CreateAccountPage from './Components/CreateAccountPage.js';
 import FoodLogPage from './Components/FoodLogPage'
 import Error from './Error';
@@ -10,8 +10,16 @@ import LoginPage from "./Components/LoginPage"
 import WelcomePage from './Components/WelcomePage';
 import AboutUs from './Components/AboutUs';
 import { ProgressBar } from './Components/ProgressBar';
+import MyRecipesPage from './Components/MyRecipesPage'
+import BreakfastRecipes from './Components/BreakfastRecipes';
+import LunchRecipes from './Components/LunchRecipes';
+import DinnerRecipes from './Components/DinnerRecipes';
+import DrinksRecipes from './Components/DrinksRecipes';
+import DessertRecipes from './Components/DessertRecipes';
+import AppetizersRecipes from './Components/AppetizersRecipes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import searchpage from "./CSS/searchpage.css"
+
 
 function App() {
   //Setting state variables 
@@ -44,6 +52,14 @@ function App() {
         <Route path="/about_us" element={
           <AboutUs currentUser={currentUser} />
         }>
+        </Route>
+        <Route path="my_recipes" element={<MyRecipesPage />}>
+            <Route path='breakfast' element={<BreakfastRecipes />} />
+            <Route path='lunch' element={<LunchRecipes />} />
+            <Route path='dinner' element={<DinnerRecipes />} />
+            <Route path='dessert' element={<DessertRecipes />} />
+            <Route path='drinks' element={<DrinksRecipes />} />
+            <Route path='appetizers' element={<AppetizersRecipes />} />
         </Route>
         <Route path="/" element = {
           <WelcomePage/>

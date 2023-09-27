@@ -8,6 +8,7 @@ import DisplaySnackItems from "./DisplaySnackItems"
 
 function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
 
+    console.log("please lord help me bc i can't do this anymore", foodItem)
 return (
 
         <div className = "food-log">

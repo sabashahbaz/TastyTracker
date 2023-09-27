@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import login_button_image from '../assets/person-circle.svg';
 import logo from "../assets/Picture1.png";
+import CSS from "../CSS/recipe.css";
+
 function NavBar ({ currentUser, setCurrentUser, logout}) {
     const navigate = useNavigate();
 
@@ -31,12 +33,30 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
                             {currentUser 
                             ? (
                             <>
+
+                                <li class="nav-item fs-4">
+                                    <form  className="recipe-search-container"  >
+                                    <div>
+                                        <div  className="recipe-search-title">
+                                            <h3 className="recipe-search-title-header"></h3>
+                                            <input
+                                            className="recipe-search-bar fs-6"
+                                            type="text"
+                                            placeholder="search recepies"
+                                            // onChange={handleChange}
+                                            // value={newSearch}
+                                            />
+                                        </div>
+                                    </div>
+                                    </form>
+                                </li>
+
                                 <li class="nav-item  me-4 fs-3 fs-4">
                                 <a class="nav-link active" aria-current="page" href="food_log">My Food Log</a>
                                 </li>
 
                                 <li class="nav-item  me-4 fs-4">
-                                <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
+                                <a class="nav-link active" aria-current="page" href="my_recipes">My Recipes</a>
                                 </li>
 
                                 <li class="nav-item  me-4 fs-4">
@@ -55,6 +75,24 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
                             ) 
                             : (
                                 <>
+
+                                    <li class="nav-item fs-4">
+                                        <form  className="search-container"  >
+                                        <div>
+                                            <div  className="search-title">
+                                                <h3 className="search-title-header"></h3>
+                                                <input
+                                                className="search-bar"
+                                                type="text"
+                                                placeholder="search recepies"
+                                                // onChange={handleChange}
+                                                // value={newSearch}
+                                                />
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </li>
+                                    
                                     <li class="nav-item fs-4">
                                     <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
                                     </li>
@@ -65,7 +103,10 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
 
                                     <li class="nav-item fs-4">
                                     <a class="nav-link" href="/login"><img src={login_button_image} alt="Login" width="40" height="40" /> </a>
-                                    </li> 
+                                    </li>
+                                    
+
+
                                 </>
                             )}
                         </ul>

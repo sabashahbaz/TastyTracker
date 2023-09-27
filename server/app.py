@@ -38,14 +38,15 @@ def check_session():
 
         # Query the specific Current_Day_Log for the user and the current date
         current_day_log = Current_Day_Log.query.filter(
-            Current_Day_Log.user_id == user_id,
+            Current_Day_Log.user_id == session.get("user_id"),
             Current_Day_Log.date == current_date
         ).first()
+        print()
 
         if current_day_log:
             # Retrieve all items associated with the specific Current_Day_Log
             items_associated = Item.query.join(Item_Current_Day_Log_Association).filter(
-                Item_Current_Day_Log_Association.user_id == user_id,
+                Item_Current_Day_Log_Association.user_id == session.get("user_id"),
                 Item_Current_Day_Log_Association.current_day_log_id == current_day_log.id
             ).all()
 
@@ -227,14 +228,15 @@ def post_item_to_food_list():
         print("why is post broken")
 
 
-        current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == requested_data["user_id"]).first()
+        current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == requested_data["user_id"], Current_Day_Log.date == current_date).first()
+        print("what is the current log",current_log)
         if current_log:
             item_log_associtation = Item_Current_Day_Log_Association(
                 current_day_log_id = current_log.id,
                 item_id = item.id,
                 user_id = requested_data["user_id"] 
             )
-            print("did it go through here", )
+            print("did it go through here", item_log_associtation.current_day_log_id)
             db.session.add(item_log_associtation)
             db.session.commit()
         
