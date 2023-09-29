@@ -1,11 +1,12 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
+import RecipeSearchBar from "./RecipeSearchBar";
 import login_button_image from '../assets/person-circle.svg';
 import logo from "../assets/Picture1.png";
 import CSS from "../CSS/recipe.css";
 
-function NavBar ({ currentUser, setCurrentUser, logout}) {
+function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
     const navigate = useNavigate();
 
     function logout () {
@@ -20,8 +21,6 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
             {currentUser ? (
                 <Link to="/food_log" className="navbar-brand"><img src={logo} alt="tasty tracker logo" className="logo" width="320" height="100" /></Link>
 
-                
-
             ): (
                 <Link to="/" className="navbar-brand"><img src={logo} alt="tasty tracker logo" className="logo" width="320" height="100" /></Link>
             )}
@@ -35,20 +34,7 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
                             <>
 
                                 <li class="nav-item fs-4">
-                                    <form  className="recipe-search-container"  >
-                                    <div>
-                                        <div  className="recipe-search-title">
-                                            <h3 className="recipe-search-title-header"></h3>
-                                            <input
-                                            className="recipe-search-bar fs-6"
-                                            type="text"
-                                            placeholder="search recepies"
-                                            // onChange={handleChange}
-                                            // value={newSearch}
-                                            />
-                                        </div>
-                                    </div>
-                                    </form>
+                                    <RecipeSearchBar setSearchedRecipes={setSearchedRecipes}/>
                                 </li>
 
                                 <li class="nav-item  me-4 fs-3 fs-4">
@@ -77,20 +63,8 @@ function NavBar ({ currentUser, setCurrentUser, logout}) {
                                 <>
 
                                     <li class="nav-item fs-4">
-                                        <form  className="search-container"  >
-                                        <div>
-                                            <div  className="search-title">
-                                                <h3 className="search-title-header"></h3>
-                                                <input
-                                                className="search-bar"
-                                                type="text"
-                                                placeholder="search recepies"
-                                                // onChange={handleChange}
-                                                // value={newSearch}
-                                                />
-                                            </div>
-                                        </div>
-                                        </form>
+
+                                        <RecipeSearchBar setSearchedRecipes={setSearchedRecipes}/>
                                     </li>
                                     
                                     <li class="nav-item fs-4">

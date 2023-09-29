@@ -1,7 +1,6 @@
 from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
-# import psycopg2
 import os
 from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association
 from flask_migrate import Migrate
@@ -13,7 +12,6 @@ today = date.today()
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost:5432/app.db'
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -30,7 +28,7 @@ def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
 
-    print(total_calories_eaten)
+    # print(total_calories_eaten)
 
 
     if user:
@@ -41,7 +39,7 @@ def check_session():
             Current_Day_Log.user_id == session.get("user_id"),
             Current_Day_Log.date == current_date
         ).first()
-        print()
+        # print()
 
         if current_day_log:
             # Retrieve all items associated with the specific Current_Day_Log
@@ -59,7 +57,6 @@ def check_session():
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
         return {"message": "No user logged in"}, 401
-
 
 # create account + get TDEE
 @app.post("/create_account")
@@ -149,7 +146,7 @@ def login():
         db.session.add(new_food_log)
         db.session.commit()
         existing_food_log = new_food_log  # Update existing_food_log
-        print("Aaaaaaaaaaaaa", new_food_log.total_daily_calories_eaten )
+        # print("Aaaaaaaaaaaaa", new_food_log.total_daily_calories_eaten )
         return jsonify({"user": user.to_dict(), "new_day_calories": new_food_log.to_dict()}), 200
 
     return {"error": "invalid username or password"}, 401
@@ -179,7 +176,7 @@ def get_food_api(userInput):
     food_response = requests.get(
         f"https://api.nal.usda.gov/fdc/v1/foods/search?query={userInput}&API_KEY={food_api_key}"
     )
-    print(food_response.status_code)
+    # print(food_response.status_code)
     if food_response.status_code == 200:
         food_data = food_response.json()
         return food_data
@@ -225,11 +222,11 @@ def post_item_to_food_list():
         )
         db.session.add(item)
         db.session.commit()
-        print("why is post broken")
+        # print("why is post broken")
 
 
         current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == requested_data["user_id"], Current_Day_Log.date == current_date).first()
-        print("what is the current log",current_log)
+        # print("what is the current log",current_log)
         if current_log:
             item_log_associtation = Item_Current_Day_Log_Association(
                 current_day_log_id = current_log.id,
@@ -277,7 +274,7 @@ def update_calories_consumed(user_id:int):
 #DELETE item
 @app.delete('/delete_food_item/<int:item_id>')
 def delete_food_item(item_id:int):
-    print ("please work")
+    # print ("please work")
 
     try:
         item = Item.query.get(item_id)
@@ -309,14 +306,57 @@ def delete_food_item(item_id:int):
         print("Error:", e)
         return make_response(jsonify({"error": "The backend is broken"}), 500)
 
+    
+#GET Recipes
+def get_recipes_from_api(userInput):        
+
+    url = "https://tasty.p.rapidapi.com/recipes/list"
+    recipe_api_key = os.getenv("RECIPE_API")
+  
+
+    querystring = {"from":"0","size":"100","q":userInput}
+
+    headers = {
+        "X-RapidAPI-Key": recipe_api_key,
+        "X-RapidAPI-Host": "tasty.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    print(response.status_code)
+    # print("the response I am getting from the api",response.json())
+
+    if response.status_code == 200:
+        recipe_data = response.json()
+        return recipe_data
+    else:
+        raise Exception("recipe api request failed")
+
+
+#search for recipes
+@app.get('/search_recipes/<string:userInput>')
+def search_recipe(userInput: str):
+
+    requested_recipe_data = get_recipes_from_api(userInput)
+    
+    array_of_recipes = []
+
+    for recipe in requested_recipe_data["results"]:
+        cook_time = recipe.get("cook_time_minutes", "")
+        instructions = recipe.get("instructions", "")
+        name = recipe.get("name", "")
+        image = recipe.get("thumbnail_url", "")
+    
+        array_of_recipes.append(
+            {"name": name, "image": image}
+        )
+
+    return jsonify(array_of_recipes), 200
 
 
 @app.route("/")
 def index():
     return "TastyTracker"
-
-# if __name__ == "__main__":
-#     app.run()
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

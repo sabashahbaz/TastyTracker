@@ -17,6 +17,7 @@ import DinnerRecipes from './Components/DinnerRecipes';
 import DrinksRecipes from './Components/DrinksRecipes';
 import DessertRecipes from './Components/DessertRecipes';
 import AppetizersRecipes from './Components/AppetizersRecipes';
+import RecipeSearchedResults from './Components/RecipeSearchedResults' 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import searchpage from "./CSS/searchpage.css"
 
@@ -32,6 +33,7 @@ function App() {
   const [currentTdee, setCurrentTdee] = useState("") 
   const [currentFoodResponse, setCurrentFoodResponse] = useState(null);
   const [currentFoodLog, setCurrentFoodLog] = useState("")
+  const [searchedRecipes, setSearchedRecipes] = useState("")
 
     //check if user is logged in 
     useEffect(() => {
@@ -47,7 +49,11 @@ function App() {
 
   return (
       <BrowserRouter>
-      <NavBar caloriesIAte={caloriesIAte} currentUser={currentUser} setCurrentUser={setCurrentUser}></NavBar>
+      <NavBar caloriesIAte={caloriesIAte} 
+              currentUser={currentUser} 
+              setCurrentUser={setCurrentUser}
+              setSearchedRecipes={setSearchedRecipes}>
+              </NavBar>
         <Routes>
         <Route path="/about_us" element={
           <AboutUs currentUser={currentUser} />
@@ -113,6 +119,9 @@ function App() {
             setTotalCaloriesIAte={setTotalCaloriesIAte}
             />} />
           <Route path="*" element={<Error/>}/>
+          <Route path="recipe_results" element={
+            <RecipeSearchedResults searchedRecipes={searchedRecipes}/>
+          }></Route>
         </Routes>
       </BrowserRouter>
 
