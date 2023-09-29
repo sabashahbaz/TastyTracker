@@ -314,7 +314,7 @@ def get_recipes_from_api(userInput):
     recipe_api_key = os.getenv("RECIPE_API")
   
 
-    querystring = {"from":"0","size":"100","q":userInput}
+    querystring = {"from":"0","size":"1","q":userInput}
 
     headers = {
         "X-RapidAPI-Key": recipe_api_key,
@@ -343,12 +343,21 @@ def search_recipe(userInput: str):
 
     for recipe in requested_recipe_data["results"]:
         cook_time = recipe.get("cook_time_minutes", "")
-        instructions = recipe.get("instructions", "")
         name = recipe.get("name", "")
         image = recipe.get("thumbnail_url", "")
+        description = recipe.get("description", "")
+
+        instructions = []
+        for instruction in recipe.get("instructions", []):
+            
+            display_text = instruction.get("display_text",   "")
+            instructions.append(display_text)
+
+            instructions_text = "\n".join(instructions)
+
     
         array_of_recipes.append(
-            {"name": name, "image": image}
+            {"name": name, "image": image, "description":description, "instructions": instructions_text,  }
         )
 
     return jsonify(array_of_recipes), 200

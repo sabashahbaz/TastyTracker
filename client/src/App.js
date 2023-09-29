@@ -17,7 +17,8 @@ import DinnerRecipes from './Components/DinnerRecipes';
 import DrinksRecipes from './Components/DrinksRecipes';
 import DessertRecipes from './Components/DessertRecipes';
 import AppetizersRecipes from './Components/AppetizersRecipes';
-import RecipeSearchedResults from './Components/RecipeSearchedResults' 
+import RecipeSearchedResults from './Components/RecipeSearchedResults'
+import FeaturedRecipe from './Components/FeaturedRecipe'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import searchpage from "./CSS/searchpage.css"
 
@@ -34,6 +35,7 @@ function App() {
   const [currentFoodResponse, setCurrentFoodResponse] = useState(null);
   const [currentFoodLog, setCurrentFoodLog] = useState("")
   const [searchedRecipes, setSearchedRecipes] = useState("")
+  const [featuredRecipe, setFeaturedRecipe] = useState({})
 
     //check if user is logged in 
     useEffect(() => {
@@ -119,9 +121,12 @@ function App() {
             setTotalCaloriesIAte={setTotalCaloriesIAte}
             />} />
           <Route path="*" element={<Error/>}/>
-          <Route path="recipe_results" element={
-            <RecipeSearchedResults searchedRecipes={searchedRecipes}/>
-          }></Route>
+          <Route path="recipe_results" element={<RecipeSearchedResults 
+              searchedRecipes={searchedRecipes}
+              setFeaturedRecipe={setFeaturedRecipe}
+            />}>
+          </Route>
+          <Route path='featured_recipe' element={<FeaturedRecipe featuredRecipe={featuredRecipe} />} />
         </Routes>
       </BrowserRouter>
 
