@@ -201,7 +201,7 @@ def search_food_items():
                 and nutrient.get("unitName", "") == "KCAL"
             ):
                 calories = nutrient.get("value")
-
+        print("inside food search ")
         arrayOfItems.append(
             {"name": name, "description": description, "calories": calories}
         )
@@ -314,7 +314,7 @@ def get_recipes_from_api(userInput):
     recipe_api_key = os.getenv("RECIPE_API")
   
 
-    querystring = {"from":"0","size":"1","q":userInput}
+    querystring = {"from":"0","size":"20","q":userInput}
 
     headers = {
         "X-RapidAPI-Key": recipe_api_key,
@@ -338,7 +338,7 @@ def get_recipes_from_api(userInput):
 def search_recipe(userInput: str):
 
     requested_recipe_data = get_recipes_from_api(userInput)
-    
+    print("inside recipe search bar")
     array_of_recipes = []
 
     for recipe in requested_recipe_data["results"]:
@@ -357,11 +357,14 @@ def search_recipe(userInput: str):
 
     
         array_of_recipes.append(
-            {"name": name, "image": image, "description":description, "instructions": instructions_text,  }
+            {"name": name, "image": image, "description":description, "instructions": instructions_text,}
         )
 
     return jsonify(array_of_recipes), 200
 
+#curl -X GET -H "Content-Type: application/json" -d '{ "query": "apple" }' localhost:5555/search_recipes/<string:userInput>
+
+# this should delete the 
 
 @app.route("/")
 def index():

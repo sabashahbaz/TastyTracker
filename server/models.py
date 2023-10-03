@@ -24,6 +24,9 @@ class User(db.Model):
     #user and current log + item association
     user_item_log_association = db.relationship("Item_Current_Day_Log_Association", back_populates="user_object_for_asso_table")
 
+    # user and recipe association
+    user_selected_recipe = db.relationship("User_Recipe_Associtation", back_populates="user_obj_for_recipe")
+
     def to_dict(self):
         return{"user_id": self.id, 
             "username": self.username,
@@ -87,6 +90,15 @@ class Current_Day_Log(db.Model):
             "user_id": self.user_id,
             # "item_id": self.item_id,
         }
+#saved recipes   
+class Recipe(db.Model):
+    __tablename__ = "recipe_table"
+
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(200), nullable=False)
+    recipe_meal_type = db.Column(db.String(50), nullable = False)
+
+    recipe_selected= db.relationship("User_Recipe_Associtation", back_populates="recipe_of_user")
 
 # associate item and user
 class Item_User_Association(db.Model):  #associates the items to users 
@@ -124,6 +136,18 @@ class User_Current_Log_Association(db.Model):
 
     user_log = db.relationship("User", back_populates="user_log_association")
     current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
+
+#recipe and user association table 
+class User_Recipe_Associtation(db.Model):
+    __tablename__ = "user_recipe_association_table"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
+    recipe_id = db.Column(db.Integer, db.ForeignKey("recipe_table.id"))
+
+    user_obj_for_recipe = db.relationship("User", back_populates="user_selected_recipe")
+    recipe_of_user = db.relationship("Recipe", back_populates="recipe_selected")
+    
 
 
 
