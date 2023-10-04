@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {Link} from 'react-router-dom';
-// import welcomepage from "../../CSS/loginpage.css"
+import {useNavigate, Link} from 'react-router-dom';
+import CSS from "../../CSS/loginpage.css"
+
+
 
 function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
     const navigate = useNavigate();
@@ -36,8 +37,9 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
         }
 
     return (
-        <div className="container-justify-content-center align-items-center position-absolute top-50 start-50 w-50 translate-middle">
-            <form className="login-page-container " onSubmit={handleSubmit}>
+        <div className="login-page">
+            <div className="d-flex " style={{ height: '700px', width: '100%' }}>
+            <form className="login-page-container w-50" onSubmit={handleSubmit}>
                 <div className="mb-3 p-2">
                     <label htmlFor="inputUsername" className="username-label fs-2 ">Username</label>
                     <input
@@ -70,6 +72,10 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
                 </div>
             </form>
         </div>
+
+
+        </div>
+    
     );
 }
 
