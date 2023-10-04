@@ -1,0 +1,5 @@
+//Receiving the uploaded image from the user.
+
+//Generating a unique filename for the uploaded image to prevent conflicts.
+
+//Saving the uploaded image to the specified directory (e.g., "recipe_uploads" or "recipe_images") on your server's filesystem.

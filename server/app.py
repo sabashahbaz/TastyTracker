@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os
-from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association
+from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association, Recipe, User_Recipe_Associtation
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from datetime import date, timedelta
@@ -101,7 +101,7 @@ def create_account():
     try:
         db.session.commit()  # Commit new_user to get an ID from the database
         session["user_id"] = new_user.id  # Assign the user_id to the session
-  
+
         # Now create and add new_user_log with the correct user_id
         new_user_log = Current_Day_Log(
             total_daily_calories_eaten="0",
@@ -314,7 +314,7 @@ def get_recipes_from_api(userInput):
     recipe_api_key = os.getenv("RECIPE_API")
   
 
-    querystring = {"from":"0","size":"20","q":userInput}
+    querystring = {"from":"0","size":"40","q":userInput}
 
     headers = {
         "X-RapidAPI-Key": recipe_api_key,
@@ -364,7 +364,38 @@ def search_recipe(userInput: str):
 
 #curl -X GET -H "Content-Type: application/json" -d '{ "query": "apple" }' localhost:5555/search_recipes/<string:userInput>
 
-# this should delete the 
+@app.post('/post_selected_recipe')
+def post_selected_recipe():
+    requested_data = request.json
+
+    try:
+        recipe = Recipe (
+            name = requested_data["name"],
+            image_url = requested_data["image"],
+            description = requested_data["description"],
+            recipe_meal_type = requested_data["selectedRecipeMeal"],
+            user_id = requested_data["user_id"],
+        )
+
+        db.session.add(recipe)
+        db.session.commit()
+
+        user_recipe_association = User_Recipe_Associtation(
+            user_id = requested_data["user_id"],
+            recipe_id = recipe.id,
+        )
+
+        print(user_recipe_association)
+        db.session.add(user_recipe_association)
+        db.session.commit()
+
+        print(recipe.to_dict())
+        return recipe.to_dict()
+        
+    
+    except Exception as e:
+        print("Error:", e)
+        return make_response(jsonify({"error": "function post_selected_recipe is broken"}), 400)
 
 @app.route("/")
 def index():

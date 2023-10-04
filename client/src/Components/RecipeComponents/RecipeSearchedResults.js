@@ -1,8 +1,18 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {useNavigate, Outlet} from 'react-router-dom';
 
-function RecipeSearchedResults ({searchedRecipes, setFeaturedRecipe}) {
+function RecipeSearchedResults ({searchedRecipes, setFeaturedRecipe, setCurrentUser}) {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch('/check_session')
+        .then(response => {
+            if(response.ok) {
+            response.json()
+            .then(user => setCurrentUser(user))
+            }
+        })
+    }, [])
     
     function handleClickedRecipe (recipe) {
         setFeaturedRecipe(recipe)

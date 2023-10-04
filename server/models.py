@@ -96,9 +96,23 @@ class Recipe(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+    image_url = db.Column(db.String(1000), nullable=False)
     recipe_meal_type = db.Column(db.String(50), nullable = False)
+    
+    user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
+
 
     recipe_selected= db.relationship("User_Recipe_Associtation", back_populates="recipe_of_user")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "recipe_meal_type": self.recipe_meal_type,
+            "user_id": self.user_id
+        }
 
 # associate item and user
 class Item_User_Association(db.Model):  #associates the items to users 

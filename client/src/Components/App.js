@@ -35,7 +35,9 @@ function App() {
   const [searchedRecipes, setSearchedRecipes] = useState("")
   const [featuredRecipe, setFeaturedRecipe] = useState({})
   const [selectedRecipeMeal, setSelectedRecipeMeal] = useState("")
-  const [recipes, setRecipes] = useState("")
+  const [recipes, setRecipes] = useState([])
+
+  console.log("are the recipes set",recipes)
 
     //check if user is logged in 
     useEffect(() => {
@@ -67,7 +69,7 @@ function App() {
             <Route path='dinner' element={<DinnerRecipes recipes={recipes} />} />
             <Route path='dessert' element={<DessertRecipes recipes={recipes} />} />
             <Route path='drinks' element={<DrinksRecipes recipes={recipes} />} />
-            <Route path='appetizers' element={<AppetizersRecipes recipes={recipes} />} />
+            <Route path='appetizers' element={<AppetizersRecipes recipes={recipes} />} /> 
         </Route>
         <Route path="/" element = {
           <WelcomePage/>
@@ -125,6 +127,8 @@ function App() {
             <RecipeSearchedResults 
               searchedRecipes={searchedRecipes}
               setFeaturedRecipe={setFeaturedRecipe}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
             />}>
           </Route>
           <Route path='featured_recipe' element={
@@ -134,6 +138,8 @@ function App() {
               selectedRecipeMeal={selectedRecipeMeal}
               recipes={recipes}
               setRecipes={setRecipes} 
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
               />} />
         </Routes>
       </BrowserRouter>

@@ -30,7 +30,7 @@ function FoodItem ({item,
         })
             .then(response => response.json())
             .then(data =>{
-                console.log("something new everyday", data)
+                // console.log("something new everyday", data)
                 setFoodItem([...foodItem, data])})
                 
         fetch(`/update_calories_eaten/${currentUser.user.user_id}`, {

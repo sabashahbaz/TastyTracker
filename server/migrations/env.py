@@ -11,6 +11,12 @@ from alembic import context
 # access to the values within the .ini file in use.
 config = context.config
 
+class Config(object):
+    # Other config settings...
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///your_database.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {"use_batch_mode": True} 
+    
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
