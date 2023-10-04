@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import RecipesNavbar from '../RecipeComponents/RecipesNavbar';
 import BreakfastRecipes from '../RecipeComponents/BreakfastRecipes';
 import { Outlet } from 'react-router-dom';
 
-function RecipesPage() {
+function RecipesPage({setCurrentUser}) {
+
+    useEffect(() => {
+        fetch('/check_session')
+        .then(response => {
+          if(response.ok) {
+            response.json()
+            .then(user => setCurrentUser(user))
+          }
+        })
+      }, [])
+
     return (
         <div>
             <RecipesNavbar />

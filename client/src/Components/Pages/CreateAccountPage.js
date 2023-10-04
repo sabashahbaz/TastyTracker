@@ -74,7 +74,7 @@ const handleChangeLastName = e => setLastName(e.target.value)
         };
 
 return (
-<div className="container d-flex justify-content-center align-items-center">
+<div className="container d-flex justify-content-center align-items-center w-75">
     {step === 1 /* while step =1, user must fill out account information */
         ? (
             <form className="create-account-container w-50" onSubmit={handleSubmitUserInfo}>
@@ -83,7 +83,7 @@ return (
                 <p>To keep track of your food and view saved recipies</p>
             </div>
             <div className="mb-3 p-2">
-                    <label className="first-name-label">First Name</label>
+                    <label className="first-name-label">First Name:</label>
                     <input
                         type="text"
                         size="20"
@@ -96,7 +96,7 @@ return (
                     />
                 </div>
                 <div className="mb-3 p-2">
-                    <label className="last-name-label">Last Name</label>
+                    <label className="last-name-label">Last Name:</label>
                     <input
                         type="text"
                         size="20"
@@ -109,7 +109,7 @@ return (
                     />
                 </div>
                 <div className="mb-3 p-2">
-                    <label className="username-label">Username</label>
+                    <label className="username-label">Username:</label>
                     <input
                         type="text"
                         size="20"
@@ -122,7 +122,7 @@ return (
                     />
                 </div>
                 <div className="mb-3 p-2">
-                    <label className="password-label"> Password</label>
+                    <label className="password-label"> Password:</label>
                     <input
                         type="password"
                         size="20"
@@ -134,18 +134,18 @@ return (
                         value={password}
                     />
                 </div>
-                <button className="btn btn-primary w-100" type="submit"> Create your Account</button>
+                <button className="btn btn-primary w-100 mb-2" type="submit"> Create your Account</button>
                 <Link to="/login"><small className="text-muted fs-6"> Already have an account? Click here to sign in  </small></Link>
         
             </form>
         )
         : (   /* while step is not 1, user must fill out information to determine TDEE */
-            <form className="tdee-calculator-container w-50" onSubmit={handleSubmitAccountForm}>
+            <form className="tdee-calculator-container w-100 justify-content-center" onSubmit={handleSubmitAccountForm}>
             <div className="header text-center">
                 <h2>Calculate Total Daily Energy Expenditure (TDEE)</h2>
                 <p>This TDEE calculator tool calculates your daily calories burned to help you achieve your goal weight</p>
             </div>
-            <div className="d-flex p-2">
+            <div className="d-flex justify-content-center">
                 <div className="form-check form-check-inline ">
                     <label>Gender :</label>
                 </div>
@@ -180,13 +180,13 @@ return (
                     </div>
                 </div>
             </div>
-            <div className="d-flex w-100 ms-4 p-2">
+            <div className="d-flex w-100 ms-3 p-2 justify-content-center">
                 <label className="form-check-label form-check-inline">Age: </label>
                     <div className="form-check form-check-inline mb-4">
         
                     <input
                     type="text"
-                    size="20"
+                    size="56"
                     className="form-control w-100 "
                     id="inputage"
                     aria-describedby="username"
@@ -195,7 +195,7 @@ return (
                     />
                 </div>
             </div>
-            <div className = "d-flex w-100 ms-4 p-2">
+            <div className = "d-flex w-100 ms-2 p-2 mb-3  justify-content-center">
             <label className="form-check-label form-check-inline">Height: </label>
                 <select
                 class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
@@ -213,11 +213,12 @@ return (
                 </select>
             </div>
 
-            <div className= "d-flex w-100 ms-4 p-2">
+            <div className= "d-flex w-100 ms-2 p-2 mb-3 justify-content-center">
             <label className="form-check-label form-check-inline ">Weight: </label>
                 <input
                 type="text"
-                className="form-control w-50"
+                size="35"
+                className="form-control w-50 "
                 id="inputage"
                 aria-describedby="weight"
                 name="weight"
@@ -226,7 +227,7 @@ return (
                 />
             </div>
 
-            <div className = "d-flex w-100 ms-4 p-3">
+            <div className = "d-flex w-100 ms-1 p-3 justify-content-center">
             <label className="form-check-label form-check-inline">Activity: </label>
                 <select
                 class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
@@ -242,7 +243,10 @@ return (
                 <option value="5">Super active (very hard exercise, physical job, or training)</option>
                 </select>
             </div>
-                <button type="submit" class="btn btn-primary btn-primary ms-4 fs-7 ps-2"  >Create Account</button>
+                
+            <div class="text-center">
+                 <button type="submit" class="btn btn-primary btn-primary fs-7 w-75 mt-4 mx-100">Create Account</button>
+            </div>
             </form>   
         )    
     } 

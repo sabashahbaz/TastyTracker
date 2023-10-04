@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import CSS from '../../CSS/recipe.css'
 
-function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes, recipes, selectedRecipeMeal, setSelectedRecipeMeal: addSelectedRecipeHandler}) {
-
+function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes, recipes, selectedRecipeMeal, setSelectedRecipeMeal}) {
+    const navigate = useNavigate();
     useEffect(() => {
         fetch('/check_session')
         .then(response => {
@@ -13,10 +14,10 @@ function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes
         })
     }, [])
 
-    function  handleAddSelectedRecipe() {
+    function  handleAddSelectedRecipe(mealType) {
 
-        addSelectedRecipeHandler(selectedRecipeMeal)
-      
+        setSelectedRecipeMeal(mealType)
+        console.log("bitch wtf is the selected meal type ",mealType)
         fetch('/post_selected_recipe',{
             method: 'POST',
             headers: {
@@ -26,7 +27,7 @@ function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes
                 "name": featuredRecipe.name, 
                 "image":featuredRecipe.image,
                 "description": featuredRecipe.description,
-                "selectedRecipeMeal": selectedRecipeMeal,
+                "selectedRecipeMeal": mealType,
                 "user_id": currentUser.user.user_id
             })
         })
@@ -34,6 +35,8 @@ function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes
             .then(data =>{
                 console.log("the recipe I added", data)
                 setRecipes([...recipes, data])})
+            
+            
     }
 
     return (

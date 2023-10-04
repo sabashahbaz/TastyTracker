@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os
-from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association, Recipe, User_Recipe_Associtation
+from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association, Recipe, User_Recipe_Association
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from datetime import date, timedelta
@@ -27,8 +27,9 @@ db.init_app(app)
 def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
+    saved_recipes = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id") )
 
-    # print(total_calories_eaten)
+    print("SAVED RECIPES",saved_recipes)
 
 
     if user:
@@ -41,6 +42,10 @@ def check_session():
         ).first()
         # print()
 
+        user_recipes = Recipe.query.join(User_Recipe_Association).filter(
+            User_Recipe_Association.user_id == session.get("user_id")
+        ).all()
+
         if current_day_log:
             # Retrieve all items associated with the specific Current_Day_Log
             items_associated = Item.query.join(Item_Current_Day_Log_Association).filter(
@@ -51,8 +56,10 @@ def check_session():
             return {
                 "user": user.to_dict(),
                 "total_calories_eaten": current_day_log.to_dict(),
-                "items_associated": [item.to_dict() for item in items_associated]
+                "items_associated": [item.to_dict() for item in items_associated],
+                "user_recipes": [recipe.to_dict() for recipe in user_recipes]
             }, 200
+        
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
@@ -377,9 +384,12 @@ def post_selected_recipe():
             user_id = requested_data["user_id"],
         )
 
+        
+
         db.session.add(recipe)
         db.session.commit()
 
+        print("meal- type",recipe.recipe_meal_type)
         user_recipe_association = User_Recipe_Associtation(
             user_id = requested_data["user_id"],
             recipe_id = recipe.id,

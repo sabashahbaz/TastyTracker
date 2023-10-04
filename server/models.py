@@ -152,7 +152,7 @@ class User_Current_Log_Association(db.Model):
     current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
 
 #recipe and user association table 
-class User_Recipe_Associtation(db.Model):
+class User_Recipe_Association(db.Model):
     __tablename__ = "user_recipe_association_table"
 
     id = db.Column(db.Integer, primary_key=True)
