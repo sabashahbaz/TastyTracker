@@ -64,7 +64,7 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
                 </div>
                 <div className="row p-2">
                     <div className="col-6">
-                        <button type="submit" className="btn btn-primary w-100 fs-5">Login</button>
+                        <button type="submit" className="btn btn-success w-100 fs-5">Login</button>
                     </div>
                     <div className="col-6">
                         <Link to="/create_account"><small className="text-muted fs-6"> New user? Create an account!  </small></Link>
