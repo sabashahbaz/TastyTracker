@@ -111,6 +111,7 @@ class Recipe(db.Model):
             "name": self.name,
             "description": self.description,
             "recipe_meal_type": self.recipe_meal_type,
+            "image_url": self.image_url,
             "user_id": self.user_id
         }
 

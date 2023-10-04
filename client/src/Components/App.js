@@ -63,7 +63,7 @@ function App() {
           <AboutUs currentUser={currentUser} />
         }>
         </Route>
-        <Route path="my_recipes" element={<MyRecipesPage setCurrentUser={setCurrentUser}  recipes={recipes}/>}>
+        <Route path="my_recipes" element={<MyRecipesPage setCurrentUser={setCurrentUser} setRecipes={setRecipes} recipes={recipes}/>}>
             {/* <Route path='breakfast' element={<BreakfastRecipes recipes={recipes}  />} />
             <Route path='lunch' element={<LunchRecipes recipes={recipes}  />} />
             <Route path='dinner' element={<DinnerRecipes recipes={recipes} />} />

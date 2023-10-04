@@ -4,7 +4,7 @@ import BreakfastRecipes from '../RecipeComponents/BreakfastRecipes';
 import { Outlet } from 'react-router-dom';
 import CSS from '../../CSS/recipepage.css'
 
-function RecipesPage({setCurrentUser, recipes }) {
+function RecipesPage({setCurrentUser, setRecipes, recipes }) {
 
   const [breakfast, setBreakfast] = useState("")
   const [lunch, setLunch] = useState("")
@@ -18,7 +18,7 @@ function RecipesPage({setCurrentUser, recipes }) {
         .then(response => {
           if(response.ok) {
             response.json()
-            .then(user => console.log(user.user_recipes))
+            .then(user => setRecipes(user.user_recipes))
           }
         })
       }, [])
@@ -52,7 +52,7 @@ function RecipesPage({setCurrentUser, recipes }) {
                     <div className="card-body" >
                     <h5 className="card-title fs-6">{recipe.name}</h5>
                         <img
-                            src={recipe.image}
+                            src={recipe.image_url}
                             className="card-img-bottom rounded mx-auto d-block"
                             style={{ width: "260px", height: "250px" }}
                             alt="recipe image"
