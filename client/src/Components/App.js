@@ -19,7 +19,7 @@ import DessertRecipes from './RecipeComponents/DessertRecipes';
 import AppetizersRecipes from './RecipeComponents/AppetizersRecipes';
 import RecipeSearchedResults from './RecipeComponents/RecipeSearchedResults'
 import FeaturedRecipe from './RecipeComponents/FeaturedRecipe'; 
-// import searchpage from "../CSS/searchpage.css"
+import searchpage from "../CSS/searchpage.css"
 
 
 function App() {
@@ -63,13 +63,13 @@ function App() {
           <AboutUs currentUser={currentUser} />
         }>
         </Route>
-        <Route path="my_recipes" element={<MyRecipesPage setCurrentUser={setCurrentUser} />}>
-            <Route path='breakfast' element={<BreakfastRecipes recipes={recipes}  />} />
+        <Route path="my_recipes" element={<MyRecipesPage setCurrentUser={setCurrentUser}  recipes={recipes}/>}>
+            {/* <Route path='breakfast' element={<BreakfastRecipes recipes={recipes}  />} />
             <Route path='lunch' element={<LunchRecipes recipes={recipes}  />} />
             <Route path='dinner' element={<DinnerRecipes recipes={recipes} />} />
             <Route path='dessert' element={<DessertRecipes recipes={recipes} />} />
             <Route path='drinks' element={<DrinksRecipes recipes={recipes} />} />
-            <Route path='appetizers' element={<AppetizersRecipes recipes={recipes} />} /> 
+            <Route path='appetizers' element={<AppetizersRecipes recipes={recipes} />} />  */}
         </Route>
         <Route path="/" element = {
           <WelcomePage/>

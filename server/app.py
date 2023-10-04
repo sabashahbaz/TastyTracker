@@ -27,9 +27,12 @@ db.init_app(app)
 def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
-    saved_recipes = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id") )
+    # saved_recipes = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id") )
+    user_recipe_associations = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id")).all() #get all the recipes associated with the current user
+    recipe_ids = [association.recipe_id for association in user_recipe_associations] ## get the recipe id from the selected association table 
+    saved_recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all() #select all of the recipes from the tablr
 
-    print("SAVED RECIPES",saved_recipes)
+
 
 
     if user:
@@ -57,9 +60,9 @@ def check_session():
                 "user": user.to_dict(),
                 "total_calories_eaten": current_day_log.to_dict(),
                 "items_associated": [item.to_dict() for item in items_associated],
-                "user_recipes": [recipe.to_dict() for recipe in user_recipes]
+                "user_recipes": [recipe.to_dict() for recipe in saved_recipes], 
             }, 200
-        
+        #convert reach recipe object to a list of dictionary 
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
@@ -68,7 +71,7 @@ def check_session():
 # create account + get TDEE
 @app.post("/create_account")
 def create_account():
-    data = request.json
+    data = request.jsonxfs
 
     weight = data.get("weight")
     height = data.get("height")

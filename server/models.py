@@ -25,7 +25,7 @@ class User(db.Model):
     user_item_log_association = db.relationship("Item_Current_Day_Log_Association", back_populates="user_object_for_asso_table")
 
     # user and recipe association
-    user_selected_recipe = db.relationship("User_Recipe_Associtation", back_populates="user_obj_for_recipe")
+    user_selected_recipe = db.relationship("User_Recipe_Association", back_populates="user_obj_for_recipe")
 
     def to_dict(self):
         return{"user_id": self.id, 
@@ -103,7 +103,7 @@ class Recipe(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
 
 
-    recipe_selected= db.relationship("User_Recipe_Associtation", back_populates="recipe_of_user")
+    recipe_selected= db.relationship("User_Recipe_Association", back_populates="recipe_of_user")
 
     def to_dict(self):
         return {
