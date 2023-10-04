@@ -6,50 +6,50 @@ import CSS from '../../CSS/recipepage.css'
 
 function RecipesPage({setCurrentUser, setRecipes, recipes }) {
 
-  const [breakfast, setBreakfast] = useState("")
-  const [lunch, setLunch] = useState("")
-  const [dinner, setDinner] = useState("")
-  const [dessert, setDessert] = useState("")
-  const [appetizers, setAppetizers] = useState("")
-  const [drinks, setDrinks ] = useState("")
+  const [selectedMealType, setSelectedMealType] = useState('Breakfast');
+  const [savedRecipes, setSavedRecipes] = useState([])
 
     useEffect(() => {
         fetch('/check_session')
         .then(response => {
           if(response.ok) {
             response.json()
-            .then(user => setRecipes(user.user_recipes))
+            .then(data => {
+              // console.log("pleasework",user)
+              setCurrentUser(data.user)
+              setSavedRecipes(data.saved_recipes)})
           }
         })
+        
       }, [])
 
-      console.log(recipes)
+      console.log("saved recipes",savedRecipes)
 
-    return (
+      function handleMealButton (meal) {
+        console.log(meal)
+        setSelectedMealType(meal)
+      }
+      
+      return (
         <div>
-          <div className="container">
-              <div className="row">
-                  <div className="col">
-                      <div className="d-flex mt-3">
-                          <button type="button" className="btn btn-light btn-lg m-4 ">
-                          <span className="d-flex">🥞 Breakfast</span>
-                          </button>
-                          <button type="button" className="btn btn-light btn-lg m-4">Lunch</button>
-                          <button type="button" className="btn btn-light btn-lg m-4">Dinner</button>
-                          <button type="button" className="btn btn-light btn-lg m-4">Dessert</button>
-                          <button type="button" className="btn btn-light btn-lg m-4">Appetizers</button>
-                          <button type="button" className="btn btn-light btn-lg m-4">Drinks</button>
-                      </div>
-                  </div>
-              </div>
+          <div className="">
+            <div className="buttons-container">
+              <button className="button" onClick={() => handleMealButton('Breakfast')}> 🥞 Breakfast 🥞 </button>
+              <button className="button" onClick={() => handleMealButton('Lunch')}> 🥙 Lunch 🥙 </button>
+              <button className="button" onClick={() => handleMealButton('Dinner')}>🍝 Dinner 🍝</button>
+              <button className="button" onClick={() => handleMealButton('Dessert')}>🧁 Dessert 🧁</button>
+              <button className="button" onClick={() => handleMealButton('Appetizers')}> 🍤 Appetizers 🍤</button>
+              <button className="button" onClick={() => handleMealButton('Drinks')}> 🍹 Drinks 🍹</button>
+            </div>
           </div>
-          <div>
-
+        
           <div className="row">
-            {recipes.map((recipe, index) => (
-                <div className="col-md-3 mb-3" key={index}>
-                <div className="card border-light" style={{ width: "300px" }}>
-                    <div className="card-body" >
+            {savedRecipes.map((recipe) => {
+            if (recipe.recipe_meal_type == selectedMealType) 
+                return (
+                  <div className="col-md-3 mb-3" key={recipe.id}>
+                  <div className="card border-light" style={{ width: "300px" }}>
+                    <div className="card-body">
                     <h5 className="card-title fs-6">{recipe.name}</h5>
                         <img
                             src={recipe.image_url}
@@ -60,22 +60,29 @@ function RecipesPage({setCurrentUser, setRecipes, recipes }) {
                 </div>
                 </div>
                 </div>
-            ))}
-            </div>
-
+              );
+            })}
           </div>
         </div>
-    )
-}
+      )}
 
 export default RecipesPage;
 
 
 
-{/* <RecipesNavbar /> */}
-            {/* <Route path='breakfast' element={<BreakfastRecipes recipes={recipes}  />} />
-            <Route path='lunch' element={<LunchRecipes recipes={recipes}  />} />
-            <Route path='dinner' element={<DinnerRecipes recipes={recipes} />} />
-            <Route path='dessert' element={<DessertRecipes recipes={recipes} />} />
-            <Route path='drinks' element={<DrinksRecipes recipes={recipes} />} />
-            <Route path='appetizers' element={<AppetizersRecipes recipes={recipes} />} /> */}
+
+{/* <div className="col-md-3 mb-3" key={recipe.id}>
+        //           <div className="card border-light" style={{ width: "300px" }}>
+        //             <div className="card-body">
+        //               <h5 className="card-title fs-6">{recipe.name}</h5>
+        //               <img
+        //                 src={recipe.image_url}
+        //                 className="card-img-bottom rounded mx-auto d-block"
+        //                 style={{ width: "260px", height: "250px" }}
+        //                 alt="recipe image"
+        //               />
+        //             </div>
+        //           </div>
+        //         </div>
+        //       ))}
+        //   </div> */}

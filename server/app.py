@@ -27,13 +27,12 @@ db.init_app(app)
 def check_session():
     user = User.query.filter(User.id == session.get("user_id")).first()
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
-    # saved_recipes = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id") )
-    user_recipe_associations = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id")).all() #get all the recipes associated with the current user
-    recipe_ids = [association.recipe_id for association in user_recipe_associations] ## get the recipe id from the selected association table 
-    saved_recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all() #select all of the recipes from the tablr
 
+    filtered_recipes = Recipe.query.filter(Recipe.user_id==session.get("user_id")).all()
+    for recipe in filtered_recipes:
+        print("Recipe name:", recipe.name, "meal type", recipe.recipe_meal_type)
 
-
+    
 
     if user:
         user_id = user.id  # Replace with the actual user ID
@@ -45,10 +44,10 @@ def check_session():
         ).first()
         # print()
 
-        user_recipes = Recipe.query.join(User_Recipe_Association).filter(
-            User_Recipe_Association.user_id == session.get("user_id")
-        ).all()
-
+        # user_recipes = Recipe.query.join(User_Recipe_Association).filter(
+        #     User_Recipe_Association.user_id == session.get("user_id")
+        # ).all()
+        
         if current_day_log:
             # Retrieve all items associated with the specific Current_Day_Log
             items_associated = Item.query.join(Item_Current_Day_Log_Association).filter(
@@ -60,8 +59,9 @@ def check_session():
                 "user": user.to_dict(),
                 "total_calories_eaten": current_day_log.to_dict(),
                 "items_associated": [item.to_dict() for item in items_associated],
-                "user_recipes": [recipe.to_dict() for recipe in saved_recipes], 
+                "saved_recipes": [recipe.to_dict() for recipe in filtered_recipes], 
             }, 200
+        
         #convert reach recipe object to a list of dictionary 
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
@@ -71,7 +71,7 @@ def check_session():
 # create account + get TDEE
 @app.post("/create_account")
 def create_account():
-    data = request.jsonxfs
+    data = request.json
 
     weight = data.get("weight")
     height = data.get("height")
@@ -341,8 +341,7 @@ def get_recipes_from_api(userInput):
         return recipe_data
     else:
         raise Exception("recipe api request failed")
-
-
+\
 #search for recipes
 @app.get('/search_recipes/<string:userInput>')
 def search_recipe(userInput: str):
@@ -393,7 +392,7 @@ def post_selected_recipe():
         db.session.commit()
 
         print("meal- type",recipe.recipe_meal_type)
-        user_recipe_association = User_Recipe_Associtation(
+        user_recipe_association = User_Recipe_Association(
             user_id = requested_data["user_id"],
             recipe_id = recipe.id,
         )
@@ -409,6 +408,22 @@ def post_selected_recipe():
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "function post_selected_recipe is broken"}), 400)
+
+# @app.get('/saved_recipes')
+# def get_saved_recipes():
+#     user_id = session.get("user_id")  # Get the user's ID from the session
+#     if user_id is None:
+#         return jsonify({"error": "User not authenticated"}), 401
+
+    # user_recipe_associations = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id")).all() #get all the recipes associated with the current user
+    # recipe_ids = [association.recipe_id for association in user_recipe_associations] ## get the recipe id from the selected association table 
+    # saved_recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all() #select all of the recipes from the table
+
+    # filtered_recipes = Recipe.query.filter(Recipe.user_id==session.get("user_id")).all()
+    # for recipe in filtered_recipes:
+    #     print("Recipe name:", recipe.name, "meal type", recipe.recipe_meal_type)
+
+    # return [recipe.to_dict() for recipe in filtered_recipes]
 
 @app.route("/")
 def index():
