@@ -73,7 +73,7 @@ function UserInfoForm({setStep, handleSubmitUserInfo, firstName, setFirstName, l
                     value={password}
                 />
             </div>
-            <button className="account-button" type="submit"> Create your Account</button>
+            <button className="account-button" type="submit"> submit user info</button>
             <div className="message">
                 {/* <Link to="/login"><small className="text-muted fs-6"> Already have an account? Click here!  </small></Link> */}
                 <a href="/login" class="my-link">Already have an account? Login here!</a>

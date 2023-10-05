@@ -6,12 +6,12 @@
 }
 
 .login-page-container{
-    margin-top: 160px;
+    margin-top: 180px;
     float: left;
     margin-left: 150px;
     background-color: rgba(113, 191, 113, 0.508);
-    height: 400px;
-    width: 500px;
+    height: 340px;
+    width: 450px;
     border-radius: 20px;
     border-color: rgb(0, 2, 128);
     border-width: 200px;
@@ -20,7 +20,7 @@
 }
 
 .custom-username{
-    margin-top: 40px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -41,4 +41,29 @@
 .custom-link{
     margin-top: 40px;
     margin-left: 35%;
+}
+
+.login-button{
+    margin-left: 160px;
+    background-color: rgba(0, 170, 122, 0.661); 
+    border: 2px solid rgb(35, 24, 187);
+    border-radius: 15px;
+    border-color: rgb(13, 120, 44);
+    height: 40px;
+    color: #fff;
+    font-weight: bold; 
+    width: 140px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.my-link {
+    text-decoration: none;
+    color: green;
+    font-weight: bold;
 }

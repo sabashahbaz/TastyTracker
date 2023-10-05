@@ -61,14 +61,10 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
                         value={password}
                     />
                 </div>
-                <div className="">
-                    <div className="custom-button">
-                        <button type="submit" className="btn btn-success w-75 fs-5">Login</button>
+                    <button type="submit" className="login-button">Login</button>
+                    <div className="message">
+                        <a href="/create_account" class="my-link">New user? Click here!</a>
                     </div>
-                    <div className="custom-link">
-                        <Link to="/create_account"><small className="text-muted fs-6"> New user? Click here!  </small></Link>
-                    </div>
-                </div>
             </form>
         </div>
     </div>

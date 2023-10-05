@@ -1,6 +1,4 @@
 .user-info-container{
-    /* float: left; */
-    
     background-color: rgba(113, 191, 113, 0.508);
     height: 600px;
     width: 500px;
@@ -15,13 +13,12 @@
 
 .custom-header{
     height: 100px;
-    /* background-color: pink; */
     text-align: center;
 }
 
 .header-text{
     font-size: 20px;
-    margin-top: -15px;
+    margin-top: -10px;
 }
 
 .header-body{
@@ -107,11 +104,13 @@
     font-weight: bold; 
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: -20px;
+    margin-bottom: 10px;
 }
 
 .message{
     text-align: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .my-link {

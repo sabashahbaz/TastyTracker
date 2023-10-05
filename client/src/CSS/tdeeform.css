@@ -7,12 +7,161 @@
   border-width: 200px;
   border: 23px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+  position: relative; 
+  top: 80px;
+  left: 13%
 }
 
-.p{
+.tdee-text-header{
+  margin-top: 30px;
+  height: 100px;
+  text-align: center;
+  font-size: medium;
+}
+
+.tdee-header-text{
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.tdee-header-body{
+  font-size: 17px;
   font-style: italic;
+  font-weight: 400;
 }
 
 .tdee-form-content{
   margin-left: 20px;
+}
+
+.tdee-input {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1px;
+  align-items: flex-start; /* Align items to the left within the column */
+  margin-bottom: 13px; 
+  margin-left: 60px;
+  cursor: pointer;
+  width: 400px;
+}
+
+/* Styling for radio buttons */
+.tdee-input input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+/* Styling for labels of radio buttons */
+.tdee-input label {
+  /* font-weight: bold; */
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+/* .tdee-input label[for="flexRadioDefault2"] {
+  margin-left: 5px;
+} */
+
+.male{
+  width: 100px;
+  display: flex;
+  position: absolute;
+  left: 170px;
+  font-size: 20px;
+}
+
+.female{
+  width: 100px;
+  position: absolute;
+  left: 270px;
+  top: 113px;
+  font-size: 20px;
+}
+
+/* Styling for the Age input */
+.tdee-input input[type="text"] {
+    
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline-color: green;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* Styling for the Height select */
+.tdee-input select[name="height"] {
+  width: 336px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 5px;
+  height: 40px;
+}
+
+/* Styling for the Weight input */
+.tdee-input input[type="text"] {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline-color: green;
+  height: 40px;
+  cursor: pointer;
+  height: 40px;
+}
+
+/* Styling for the Activity select */
+.tdee-input select[name="acitivity level"] {
+  width: 85%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 5px;
+  height: 40px;
+}
+
+/* Styling for the Create Account button */
+.tdee-input button {
+  width: 75%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Add a hover effect to the button */
+.tdee-input button:hover {
+  background-color: #0056b3;
+}
+
+.create-account-button{
+  margin-left: 33%;
+  background-color: rgba(0, 170, 122, 0.661); 
+  border: 2px solid rgb(35, 24, 187);
+  border-radius: 15px;
+  border-color: rgb(13, 120, 44);
+  height: 40px;
+  color: #fff;
+  font-weight: bold; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.message{
+  text-align: center;
+  margin-top: 10px;
+}
+
+.my-link {
+  text-decoration: none;
+  color: green;
+  font-weight: bold;
 }
