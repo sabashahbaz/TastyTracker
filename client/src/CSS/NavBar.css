@@ -18,7 +18,7 @@
 .custom-navbar{
     background-color: rgba(133, 201, 133, 0.633);
     max-height: 90px;
-    box-shadow: 4px 4px 6px rgba(67, 187, 20, 0.466); 
+    box-shadow: 1px 20px 10px rgba(67, 187, 10, 0.466); 
     text-shadow: 20px;
 }
 

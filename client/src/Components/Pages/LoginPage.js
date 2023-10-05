@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import CSS from "../../CSS/loginpage.css"
 
-
-
+//login page
 function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
     const navigate = useNavigate();
 
@@ -34,10 +33,10 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
             setTotalCaloriesIAte(data.new_day_calories.total_daily_calories_eaten)
         });
         if (!currentUserResponse.error) navigate('/food_log')
-        }
+    };
 
-    return (
-        <div className="login-page">
+    return ( //login form 
+        <div className="login-page"> 
             <div className="d-flex " style={{ height: '700px', width: '100%' }}>
             <form className="login-page-container w-50" onSubmit={handleSubmit}>
                 <div className="mb-3 p-2">
@@ -72,12 +71,8 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
                 </div>
             </form>
         </div>
-
-
-        </div>
-    
+    </div>
     );
-}
-
+};
 
 export default LoginPage;
