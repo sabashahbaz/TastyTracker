@@ -1,5 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import CSS from "../CSS/userform.css"
+
 
 function UserInfoForm({setStep, handleSubmitUserInfo, firstName, setFirstName, lastName, setLastName, username, setUsername, password, setPassword}) {
 
@@ -20,67 +22,66 @@ function UserInfoForm({setStep, handleSubmitUserInfo, firstName, setFirstName, l
     const handleChangeLastName = e => setLastName(e.target.value)
 
     return (
-        <form className="create-account-container w-50" onSubmit={handleSubmitUserInfo}>
-                    <div className="header text-center">
-                        <h2>Create your Account</h2>
-                        <p>To keep track of your food and view saved recipies</p>
-                    </div>
-                    <div className="mb-3 p-2">
-                            <label className="first-name-label">First Name:</label>
-                            <input
-                                type="text"
-                                size="20"
-                                className="form-control w-100"
-                                id="inputFirstname"
-                                aria-describedby="firstname"
-                                onChange={handleChangeFirstName}
-                                placeholder=""
-                                value={firstName}
-                            />
-                        </div>
-                        <div className="mb-3 p-2">
-                            <label className="last-name-label">Last Name:</label>
-                            <input
-                                type="text"
-                                size="20"
-                                className="form-control w-100"
-                                id="inputLastname"
-                                aria-describedby="lastname"
-                                onChange={handleChangeLastName}
-                                placeholder=""
-                                value={lastName}
-                            />
-                        </div>
-                        <div className="mb-3 p-2">
-                            <label className="username-label">Username:</label>
-                            <input
-                                type="text"
-                                size="20"
-                                className="form-control w-100"
-                                id="inputusername"
-                                aria-describedby="username"
-                                onChange={handleChangeUsername}
-                                placeholder=""
-                                value={username}
-                            />
-                        </div>
-                        <div className="mb-3 p-2">
-                            <label className="password-label"> Password:</label>
-                            <input
-                                type="password"
-                                size="20"
-                                className="form-control w-100"
-                                id="inputpasswordname"
-                                aria-describedby="password"
-                                onChange={handleChangePassword}
-                                placeholder=""
-                                value={password}
-                            />
-                        </div>
-                        <button className="btn btn-success w-100 mb-2" type="submit"> Create your Account</button>
-                        <Link to="/login"><small className="text-muted fs-6"> Already have an account? Click here to sign in  </small></Link>
+        <form className="create-account-container" onSubmit={handleSubmitUserInfo}>
+            <div className="user-info-container">
+            <div className="header custom-header">
+                <div className="header-text">
+                    <h3>Create Account</h3>
+                </div>
+                <div className="header-body">
+                    <p>To keep track of your food and view saved recipies</p>
+                </div>
+            </div>
+            <div className="user-form-content ">
+            <div className="user-input">
+                    <label className="user-label">First Name:</label>
+                    <input
+                        type="text"
+                        className="first-name"
+                        onChange={handleChangeFirstName}
+                        placeholder="first name"
+                        value={firstName}
+                    />
+            </div>
+            <div className="user-input">
+                    <label className="">Last Name:</label>
+                    <input
+                        type="text"
+                        size="20"
+                        className=""
+                        onChange={handleChangeLastName}
+                        placeholder="last name"
+                        value={lastName}
+                    />
+            </div>
+            <div className="user-input">
+                <label className="">Username:</label>
+                <input
+                    type="text"
+                    className=""
+                    onChange={handleChangeUsername}
+                    placeholder="must be unique"
+                    value={username}
+                />
+            </div>
+            <div className="password-input">
+                <label className=""> Password:</label>
+                <input
+                    type="password"
+                    onChange={handleChangePassword}
+                    placeholder="password"
+                    value={password}
+                />
+            </div>
+            <button className="account-button" type="submit"> Create your Account</button>
+            <div className="message">
+                {/* <Link to="/login"><small className="text-muted fs-6"> Already have an account? Click here!  </small></Link> */}
+                <a href="/login" class="my-link">Already have an account? Login here!</a>
+            </div>
                 
-                    </form>
+            </div>
+        </div>
+    </form>
     )
 }
 export default UserInfoForm;

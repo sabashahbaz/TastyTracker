@@ -1,0 +1,18 @@
+.tdee-container{
+  float: left;
+  background-color: rgba(113, 191, 113, 0.508);
+  height: 600px;
+  width: 500px;
+  border-radius: 20px;
+  border-width: 200px;
+  border: 23px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.p{
+  font-style: italic;
+}
+
+.tdee-form-content{
+  margin-left: 20px;
+}

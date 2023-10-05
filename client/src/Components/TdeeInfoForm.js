@@ -1,4 +1,5 @@
 import React from 'react'
+import CSS from "../CSS/tdeeform.css"
 
 function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivity, selectedActivity, setSelectedGender, selectedGender, selectedHeight, setSelectedHeight, setWeight, weight}){
 
@@ -13,47 +14,49 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
     })}};
 
     return (
-        <form className="tdee-calculator-container w-100 justify-content-center" onSubmit={handleSubmitAccountForm}>
-                    <div className="header text-center">
-                        <h2>Calculate Total Daily Energy Expenditure (TDEE)</h2>
-                        <p>This TDEE calculator tool calculates your daily calories burned to help you achieve your goal weight</p>
+        <form className="tdee-calculator-container w-100" onSubmit={handleSubmitAccountForm}>
+            <div className="tdee-container">
+                <div className="text-center p-4">
+                    <h3>Calculate Total Daily Energy Expenditure (TDEE)</h3>
+                    <p className="p">to help achieve your goal weight</p>
+                </div>
+                <div className="form-content">
+                <div className="d-flex ">
+                    <div className="form-check form-check-inline ">
+                        <label>Gender :</label>
                     </div>
-                    <div className="d-flex justify-content-center">
-                        <div className="form-check form-check-inline ">
-                            <label>Gender :</label>
+                    <div className="">
+                        <div className="form-check form-check-inline mb-4">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault1"
+                                value="male"
+                                onChange={(e) => setSelectedGender(e.target.value)}
+                                checked={selectedGender === 'male'}
+                            />
+                            <label className="form-check-label" for="inlineRadio1" htmlFor="flexRadioDefault1">
+                                Male
+                            </label>
                         </div>
-                        <div className="">
-                            <div className="form-check form-check-inline mb-4">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault1"
-                                    value="male"
-                                    onChange={(e) => setSelectedGender(e.target.value)}
-                                    checked={selectedGender === 'male'}
-                                />
-                                <label className="form-check-label" for="inlineRadio1" htmlFor="flexRadioDefault1">
-                                    Male
-                                </label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault2"
-                                    value="female"
-                                    onChange={(e) => setSelectedGender(e.target.value)}
-                                    checked={selectedGender === 'female'}
-                                />
-                                <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                    Female
-                                </label>
-                            </div>
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="flexRadioDefault"
+                                id="flexRadioDefault2"
+                                value="female"
+                                onChange={(e) => setSelectedGender(e.target.value)}
+                                checked={selectedGender === 'female'}
+                            />
+                            <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                Female
+                            </label>
                         </div>
                     </div>
-                    <div className="d-flex w-100 ms-3 p-2 justify-content-center">
+                </div>
+                    <div className="d-flex w-100 ms-3 p-2 ">
                         <label className="form-check-label form-check-inline">Age: </label>
                             <div className="form-check form-check-inline mb-4">
                             <input
@@ -67,7 +70,7 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                             />
                         </div>
                     </div>
-                    <div className = "d-flex w-100 ms-2 p-2 mb-3  justify-content-center">
+                    <div className = "d-flex w-100 ms-2 p-2 mb-3 ">
                     <label className="form-check-label form-check-inline">Height: </label>
                         <select
                         class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
@@ -84,7 +87,7 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                         ))}
                         </select>
                     </div>
-                    <div className= "d-flex w-100 ms-2 p-2 mb-3 justify-content-center">
+                    <div className= "d-flex w-100 ms-2 p-2 ">
                     <label className="form-check-label form-check-inline ">Weight: </label>
                         <input
                         type="text"
@@ -97,13 +100,14 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                         value={weight}
                         />
                     </div>
-                    <div className = "d-flex w-100 ms-1 p-3 justify-content-center">
+                    <div className = "d-flex w-100 ms-2 p-2 ">
                     <label className="form-check-label form-check-inline">Activity: </label>
                         <select
                         class="form-select form-check-inline form-select-sm mb-4 "  aria-label="Default select example"
                         name="acitivity level"
                         className="form-control w-50 "
                         value={selectedActivity}
+                        placeholder='Select Activity'
                         onChange={(e) => setSelectedActivity(e.target.value)}
                         >
                         <option value="1">Sedentary (little or no exercise)</option>
@@ -116,7 +120,9 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary btn-success fs-7 w-75 mt-4 mx-100">Create Account</button>
                     </div>
-                    </form>   
+                </div>
+            </div>
+        </form>   
     )
 }
 export default TdeeInfoForm;

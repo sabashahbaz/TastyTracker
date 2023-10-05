@@ -1,0 +1,119 @@
+.user-info-container{
+    /* float: left; */
+    margin-left: 20%;
+    margin-top: 80px;
+    background-color: rgba(113, 191, 113, 0.508);
+    height: 600px;
+    width: 500px;
+    border-radius: 20px;
+    border-width: 200px;
+    border: 23px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.custom-header{
+    height: 100px;
+    /* background-color: pink; */
+    text-align: center;
+}
+
+.header-text{
+    font-size: 20px;
+    margin-top: -15px;
+}
+
+.header-body{
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.form-container {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    cursor: pointer;
+}
+
+.user-input {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    align-items: flex-start; /* Align items to the left within the column */
+    margin-bottom: 20px; /* Add spacing between input fields */
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+/* Style the label */
+.user-input-label {
+    font-weight: bold;
+    margin-bottom: 8px; /* Add spacing between label and input */
+}
+
+/* Style the input */
+.user-input input[type="text"] {
+    width: 85%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline-color: green;
+    height: 40px;
+    cursor: pointer;
+}
+
+.password-input {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    align-items: flex-start; /* Align items to the left within the column */
+    margin-bottom: 40px; /* Add spacing between input fields */
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+/* Style the label */
+.user-input-label {
+    font-weight: bold;
+    margin-bottom: 8px; /* Add spacing between label and input */
+}
+
+/* Style the input */
+.password-input input[type="password"] {
+    width: 85%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 40px;
+    outline-color: green;
+    cursor: pointer;
+}
+
+.account-button{
+    margin-left: 33%;
+    background-color: rgba(0, 170, 122, 0.661); 
+    border: 2px solid rgb(35, 24, 187);
+    border-radius: 15px;
+    border-color: rgb(13, 120, 44);
+    height: 40px;
+    color: #fff;
+    font-weight: bold; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.my-link {
+    text-decoration: none;
+    color: green;
+    font-weight: bold;
+}

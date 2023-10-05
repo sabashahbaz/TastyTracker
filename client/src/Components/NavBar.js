@@ -35,7 +35,7 @@ function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
                 {currentUser  // when user is present -> show saved recipes, foodlog and logout tabs
                 ? (
                 <>
-                    <li class="nav-item fs-4">
+                    <li class="nav-item fs-4 custom-search-bar">
                         <RecipeSearchBar setSearchedRecipes={setSearchedRecipes}/>
                     </li>
 

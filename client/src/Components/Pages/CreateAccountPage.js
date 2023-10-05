@@ -19,7 +19,7 @@ const [selectedGender, setSelectedGender] = useState("");
 const [age, setAge] = useState("")
 const [selectedHeight, setSelectedHeight] = useState(""); 
 const [weight, setWeight] = useState("")
-const [selectedActivity, setSelectedActivity] = useState(1)
+const [selectedActivity, setSelectedActivity] = useState("")
 
 const [step, setStep] = useState(1)
 
@@ -66,7 +66,7 @@ const [step, setStep] = useState(1)
 
 return (
     <div className="create-account-page"> 
-        <div className="container d-flex w-75" style={{ height: '700px', width: '100%' }}>
+        <div className="user-info-tdee-form-container" style={{ height: '700px', width: '100%' }}>
             {step === 1 /* while step =1, user must fill out account information */
             ? (
             <UserInfoForm 
