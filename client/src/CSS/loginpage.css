@@ -2,9 +2,43 @@
     background-image: url("https://img.freepik.com/free-photo/elevated-view-fresh-raw-tagliatelle-pasta-with-tomato-garlic-black-pepper-white-plank_23-2148194997.jpg?w=2000");
     background-size: cover;
     height: 725px;
+    
 }
 
 .login-page-container{
     margin-top: 190px;
-    margin-left: 120px;
+    float: left;
+    margin-left: 150px;
+    background-color: rgba(113, 191, 113, 0.508);
+    height: 400px;
+    width: 500px;
+    border-radius: 20px;
+    border-color: rgb(0, 2, 128);
+    border-width: 200px;
+    border: 23px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.custom-username{
+    margin-top: 40px;
+    text-align: center;
+}
+
+.custom-password{
+    margin-top: 10px;
+    text-align: center;
+}
+.custom-input{
+    margin-left: 25%;
+}
+
+.custom-button{
+    margin-left: 36%;
+    width: 200px;
+    height: 20px;
+}
+
+.custom-link{
+    margin-top: 40px;
+    margin-left: 35%;
 }

@@ -38,35 +38,35 @@ function LoginPage({setCurrentTdee, setTotalCaloriesIAte, setCurrentUser}) {
     return ( //login form 
         <div className="login-page"> 
             <div className="d-flex " style={{ height: '700px', width: '100%' }}>
-            <form className="login-page-container w-50" onSubmit={handleSubmit}>
-                <div className="mb-3 p-2">
-                    <label htmlFor="inputUsername" className="username-label fs-2 ">Username</label>
+            <form className="login-page-container " onSubmit={handleSubmit}>
+                <div className="mb-3 p-2 custom-username">
+                    <label htmlFor="inputUsername" className="username-label fs-3 ">Username:</label>
                     <input
                         type="text"
                         size="20"
-                        className="form-control w-100"
+                        className="form-control w-50 custom-input"
                         id="inputUsername"
                         aria-describedby="username"
                         onChange={handleChangeUsername}
                         value={username}
                     />
                 </div>
-                <div className="mb-3 p-2">
-                    <label htmlFor="inputPassword" className="password-label fs-2">Password</label>
+                <div className="mb-3 p-2 custom-password">
+                    <label htmlFor="inputPassword" className="password-label fs-3 ">Password:</label>
                     <input
                         type="password"
-                        className="form-control w-100"
+                        className="form-control w-50 custom-input"
                         id="inputPassword"
                         onChange={handleChangePassword}
                         value={password}
                     />
                 </div>
-                <div className="row p-2">
-                    <div className="col-6">
-                        <button type="submit" className="btn btn-success w-100 fs-5">Login</button>
+                <div className="">
+                    <div className="custom-button">
+                        <button type="submit" className="btn btn-success w-75 fs-5">Login</button>
                     </div>
-                    <div className="col-6">
-                        <Link to="/create_account"><small className="text-muted fs-6"> New user? Create an account!  </small></Link>
+                    <div className="custom-link">
+                        <Link to="/create_account"><small className="text-muted fs-6"> New user? Click here!  </small></Link>
                     </div>
                 </div>
             </form>
