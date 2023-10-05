@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../CSS/DisplayBreakfastItems.css";
+import "../../CSS/DisplayItems.css";
 
 function DisplayFoodItems({item}) {
 
@@ -22,11 +22,11 @@ function DisplayFoodItems({item}) {
     }
 
     return (
-        <div className="breakfast-item list-group-item list-group-item-action list-group-item-primary justify-content-center w-100">
+        <div className="list-group-item list-group-item-action list-group-item-success justify-content-center w-100 rounded-4">
             <b class="fs-5">{item.name}</b>
             <br></br>
-            <small>{item.calories} calories</small>
-            <small onClick={() =>deleteItem(item.id)}>🗑️</small>
+            <small className= "calories">{item.calories} calories</small>
+            <small className="delete-button" onClick={() =>deleteItem(item.id)}>🗑️</small>
         </div>
 
     )

@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import RecipeSearchBar from "./RecipeComponents/RecipeSearchBar";
 import login_button_image from '../assets/person-circle.svg';
 import logo from "../assets/Picture1.png";
-import CSS from "../CSS/recipe.css";
+import CSS from "../CSS/NavBar.css";
 
 function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
     const navigate = useNavigate();

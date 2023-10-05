@@ -1,7 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import RecipesNavbar from '../RecipeComponents/RecipesNavbar';
-import BreakfastRecipes from '../RecipeComponents/BreakfastRecipes';
-import { Outlet } from 'react-router-dom';
 import CSS from '../../CSS/recipepage.css'
 
 function RecipesPage({setCurrentUser, setRecipes, recipes }) {

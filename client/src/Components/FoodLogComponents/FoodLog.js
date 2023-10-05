@@ -22,7 +22,7 @@ return (
                                         />
                                     )}})}
                     </div>
-                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Breakfast")}>Add Breakfast</button></Link>
+                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Breakfast")}>Add Breakfast</button></Link>
             </div>
             </div>
 
@@ -40,7 +40,7 @@ return (
                                         />
                                     )}})}
                     </div>
-                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Lunch")}>Add Lunch</button></Link>
+                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Lunch")}>Add Lunch</button></Link>
             </div>
             </div>
 
@@ -58,7 +58,7 @@ return (
                                         />
                                         )}})}
                 </div>
-                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Dinner")}>Add Dinner</button></Link>
+                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Dinner")}>Add Dinner</button></Link>
             </div>
             </div>
 
@@ -76,7 +76,7 @@ return (
                                         />
                                         )}})}
                 </div>
-                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm" onClick={() => setSelectedMeal("Snack")}>Add Snack</button></Link>
+                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Snack")}>Add Snack</button></Link>
             </div>
             </div>
             </div>

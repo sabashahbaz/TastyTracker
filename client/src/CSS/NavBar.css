@@ -1,0 +1,9 @@
+.recipe-search-bar{
+    border-radius: 20px;
+    height: 30px;
+    width: 400px;
+}
+
+.recipe-search-container{
+    width: 460px;
+}
