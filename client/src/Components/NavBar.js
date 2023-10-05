@@ -16,7 +16,7 @@ function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
         }
 // console.log(currentUser)
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-transparent p-md-1 py-0 ">
+        <nav className="navbar navbar-expand-lg navbar-light bg-* p-md-1 py-0 ">
         <div className="container-fluid ">
             {currentUser ? (
                 <Link to="/food_log" className="navbar-brand"><img src={logo} alt="tasty tracker logo" className="logo" width="320" height="100" /></Link>

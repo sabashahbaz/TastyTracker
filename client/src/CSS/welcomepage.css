@@ -1,48 +1,63 @@
-.bg-img{
-    background-image: url("https://img.freepik.com/free-photo/flat-lay-vegetables-white-background-food-diet-concept_169016-20321.jpg?w=2000");
-    height: 100%;
+.bg-img {
+    background-image: url("https://img.freepik.com/free-photo/top-view-vegetables-mix-chicken-drumstick-bowl-with-blank-notebook_23-2148369709.jpg");
+    height: 697px; /* Set the height to 100% of the viewport height */
     width: 100%;
-    min-height: 90vh;
     background-size: cover;
-    /* resize: both;
-    overflow: auto; */
 }
 
-.title{
-    margin-left: 672px;
-    justify-content: center;
-    margin-top: 200px;
-    font-family: "Gill Sans Extrabold", sans-serif;
-    font-size: 40px;
-    color: #43B25D;
-    transform: scale(1.2);
+/* .welcome-page-container{
+    max-width: 40%;
+    height: 400px;
+    margin-left: 900px;
+    background-color: #bceac73e;
+    border-radius: 20px;
     
+} */
+
+.welcome-box{
+    position: absolute;
+    max-width: 35%;
+    height: 450px;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    top: 35vh; /* Center vertically */
+    background-color: rgba(245, 180, 82, 0.482);
+    border-radius: 20px;
 }
 
 .welcome-page-text{
-    margin-top: 40px;
-    margin-left: 600px;
-    float: right;
-    resize: both;
-    /* overflow: auto; */
+    text-align: center;
 }
 
-.get-started-button{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
+.title{
+    padding-top: 50px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    right: 90px;
-    /* margin-left: 1001px; */
-    margin-top: 40px;
-    margin-right: auto;
-    margin-left: 600px;
-    
+    font-size: 60px;
+    color: #237837;
+    transform: scale(1.2);
+}
 
-    border-radius: 9px;
-    display: inline-block;
+.header{
+    padding-top: 38px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    font-size: 30px;
+
+}
+.text-body{
+    text-align: center;
+    font-weight: 100
+}
+
+
+.get-started{
+    text-align: center;
+    padding-top: 40px;
+    padding-right: 50px;
+
+}
+    
+.button{
+    border: green;
+    
 }

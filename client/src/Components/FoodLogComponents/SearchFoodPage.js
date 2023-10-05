@@ -28,7 +28,7 @@ function SearchFood ({setSearchedItems}) {
 
     return (
         <form  className="search-container" onSubmit={handleSubmit} >
-            <div>
+            <div className="search-page-background">
                 <div  className="search-title">
                     <h3 className="search-title-header">search food items</h3>
                     <input

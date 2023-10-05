@@ -60,7 +60,7 @@ function FoodItem ({item,
                 <b class ="fs-4">{item.name}</b>
                 <br></br>
                 <small>{item.description}</small>
-                <small>Calories: {item.calories} calories</small>
+                <small className="food-calories">Calories: {item.calories} calories</small>
             </ul>
         
             </div>

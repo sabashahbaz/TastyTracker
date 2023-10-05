@@ -1,38 +1,33 @@
-/* .search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Ensures it takes the full viewport height */
-/* } */
 
-.food-search-container {
-  text-align: center; /* Centers the text within the container */
-  background-color: #f0f0f0; /* Add your desired background color */
+/* .food-search-container 
+  text-align: center;  Centers the text within the container 
+  background-color: #f0f0f0;  Add your desired background color 
   padding: 20px;
   border-radius: 10px;
   background-color: rgba(67, 178, 93, 0.5);
   margin: 100px;
   height: 50px;
+} */
+.searh-page-background{
+  height: 100%;
 }
+
 
 .search-title {
   font-size: 24px; /* Adjust the font size as needed */
   text-align: center;
-  margin-top: -15px;
   border-radius: 20px;
-  font-family: Monospace
-  
-}
-
-
-.search-title-header{
+  font-family: Monospace;
   padding-top: 7px;
+  margin-top: 20px;
 }
 .search-page{
   background-color: rgba(67, 178, 93, 0.5);
-  height: 120px;
-  width: 700px;
-  margin-left: 430px;
+  height: 100%;
+  width:  100%;
+  background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
+  /* margin-left: 430px;
+  border-radius: 10px; */
   /* justify-content: center; */
 }
 .search-bar {
@@ -46,16 +41,14 @@
   /* Add any other styles you want for the search bar */
 } 
 
-/* .list-group-item{
-    justify-content: center;
-    text-align: center
-} */
-
-.searched-items {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    height: 100vh; /* Make the container full height of the viewport */
+.search-page{
+  background-color: rgba(67, 178, 93, 0.5);
+  height: 100vh;
+  height: 100%;
+  width:  100%;
+  margin-top: -10px;
+  background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
+  align-items: center; /* Center items vertically */ 
   }
   
   .list-group {
@@ -66,43 +59,25 @@
     text-align: center; /* Center text within list items */
   }
 
-  .search-list{
-    /* justify-content: center; */
-    align-content: center;
-    justify-self: center;
-  }
 
   .please-work{
     justify-content: center;
     align-self: center;
   }
 
-  /* .search-bg-img{
-    /* background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800"); */
-    /* height:100px;
-    width: 100px; 
-    min-height: 100vh; 
-    background-size: flex;
-  } */ 
-
   .the-searched-items{
-    justify-content: center;
-    /* margin-top: px; */
-    text-align:center;
-    /* margin-left: 480px; */
-    width: 700px;
-    background-color: rgba(67, 178, 93, .7);
+
+    margin-left: 420px;  
+    width: 90%;
+    background-color: rgba(97, 164, 112, 0.611);
     opacity: 1;
     transition: 0.3s;
   
   }
 
-  .search-bg-image {
-    background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
-    background-size: cover;
-    height: 100vh;
-    min-height: 100vh 
-    /* width: 100%; */ 
+    .search-list{
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .progress-bar{
@@ -114,22 +89,8 @@
     overflow-y: auto;
   }
 
-  .searched-items-container{
-    max-height: 400px; /* Adjust the max-height to your preference */
-    overflow-y: auto;
-  }
 
-  .search-list-container-map {
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    width: 800px;
-    justify-content: center;
-    /* max-height: 2000px; */
-    overflow-y: auto;
-  }
+
 
   .Tdee-display{
     font-family: "Gill Sans", sans-serif;
@@ -148,4 +109,8 @@
   padding-left: 360px;
   /* float: right */
 
+}
+
+.food-calories{
+  font-weight: 500;
 }

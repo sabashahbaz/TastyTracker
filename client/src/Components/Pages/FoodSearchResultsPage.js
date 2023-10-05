@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import SearchFoodBar from '../FoodLogComponents/SearchFoodBar';
+import SearchFoodBar from '../FoodLogComponents/SearchFoodPage';
 import FoodItem from "../FoodLogComponents/FoodItem";
 import CSS from "../../CSS/searchpage.css"
 
