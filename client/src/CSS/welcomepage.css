@@ -1,18 +1,9 @@
 .bg-img {
     background-image: url("https://img.freepik.com/free-photo/top-view-vegetables-mix-chicken-drumstick-bowl-with-blank-notebook_23-2148369709.jpg");
-    height: 697px; /* Set the height to 100% of the viewport height */
+    height: 725px; /* Set the height to 100% of the viewport height */
     width: 100%;
     background-size: cover;
 }
-
-/* .welcome-page-container{
-    max-width: 40%;
-    height: 400px;
-    margin-left: 900px;
-    background-color: #bceac73e;
-    border-radius: 20px;
-    
-} */
 
 .welcome-box{
     position: absolute;

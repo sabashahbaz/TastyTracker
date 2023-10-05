@@ -1,9 +1,43 @@
 .recipe-search-bar{
-    border-radius: 20px;
+    display: flex;
+    border-radius: 10px;
     height: 30px;
     width: 400px;
+    border-color: green;
+    border-width: 3px;
+    outline: none;
+    
 }
 
 .recipe-search-container{
     width: 460px;
+    margin-top: 15px;
+    margin-left: 180px;
+}
+
+.custom-navbar{
+    background-color: rgba(133, 201, 133, 0.633);
+    max-height: 90px;
+    box-shadow: 4px 4px 6px rgba(67, 187, 20, 0.466); 
+    text-shadow: 20px;
+}
+
+.recipe-search-bar{
+    padding-left: 10px;
+    text-align: center;
+}
+
+.custom-ul{ 
+    width: 100%;
+}
+
+.custom-about-us{
+    margin-right: 10px;
+    margin-left: 110px;
+}
+
+.custom-login{
+    margin-right: 10px;
+    margin-left: 20px;
+    color: black;
 }
