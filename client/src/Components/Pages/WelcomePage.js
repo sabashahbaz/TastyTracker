@@ -20,7 +20,7 @@ function Welcome() {
                     </div>
                     <div className="get-started">
                         <Link to="login">
-                            <button className="button">Get Started Today!</button>
+                            <button className="welcome-button">Get Started Today!</button>
                         </Link>
                     </div>
                 </div>

@@ -19,10 +19,9 @@ const [selectedGender, setSelectedGender] = useState("");
 const [age, setAge] = useState("")
 const [selectedHeight, setSelectedHeight] = useState(""); 
 const [weight, setWeight] = useState("")
-const [selectedActivity, setSelectedActivity] = useState("")
+const [selectedActivity, setSelectedActivity] = useState(1)
 
 const [step, setStep] = useState(1)
-
 
     //allow user to proceed to the next part of the form after filling out user info
     function handleSubmitUserInfo(e) {

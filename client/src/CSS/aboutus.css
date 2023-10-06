@@ -1,0 +1,25 @@
+
+.about-us-body {
+    display: flex;
+    align-items: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+
+.eating-image {
+    max-width: 250px;
+    margin-left: 80px;
+}
+
+.meal-image{
+    max-width: 250px;
+    margin-left: 70px;
+}
+
+.about-card-body-text {
+    
+    width: 600px;
+    text-align: center;
+    margin-left: 110px;
+}

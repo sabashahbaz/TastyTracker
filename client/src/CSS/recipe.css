@@ -39,3 +39,10 @@
   .dropdown:hover .dropbtn {
     background-color: #3e8e41;
   }
+
+  .featured-recipe-page{
+    margin-top: 40px;
+  }
+.custom-add-recipe-button{
+  margin-left: 19px;
+}

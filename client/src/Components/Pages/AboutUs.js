@@ -1,20 +1,18 @@
 import React from "react";
 import image from "../../assets/meal-planning.png";
-import footer from "../../assets/horizontal-food.jpeg";
+import photo from "../../assets/food.png"
+import CSS from "../../CSS/aboutus.css"
+
 
 
 function AboutUs ({currentUser}) {
 
     return (
     <div className="about-us-page">
-        <div className="card border-light mb-4 center ms-5 border-white" style={{ maxWidth: "1000px" }}>
-        <div className="row g-0">
-            <div className="col-md-4">
-            <img src={image} className="img-fluid rounded-start" style={{ maxWidth: "250px" }} alt="..." />
-            </div>
-            <div className="col-md-8">
-            <br></br>
-            <div className="card-body">
+
+        <div className="about-us-body">
+            <img src={image} className="meal-image" />
+            <div className="about-card-body-text">
                 <h5 className="card-title">Our Mission</h5>
                 <p className="card-text">
                 "Our mission at Tasty Tracker is to empower individuals to achieve their health and fitness goals through personalized nutrition tracking and access to a rich repository of recipes. We strongly believe in achieving a healthy lifestyle, while enjoying the foods you love!"
@@ -23,8 +21,7 @@ function AboutUs ({currentUser}) {
                 <small className="text-muted">- Saba Shahbaz, Founder of Tasty Tracker</small>
                 </p>
             </div>
-            </div>
-        </div>
+            <img src={photo} className="eating-image"  />
         </div>
 
         <div className="about-us-page ">
@@ -52,11 +49,6 @@ function AboutUs ({currentUser}) {
             </div>
         </div>
         </div>
-
-        <div>
-            <img src={footer} class="imge-fluid" height="170 px" width="100%"/>
-        </div>
-     
     </div>
     );
 }

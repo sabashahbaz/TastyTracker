@@ -48,7 +48,14 @@
 
 }
     
-.button{
-    border: rgba(111, 230, 111, 0.782);
-    
+.welcome-button{
+    border: 5px black;
+    border-radius: 10px;
+    background-color: rgba(110, 188, 42, 0.872);
+    padding: 4px;
+    width: 200px;
+    height: 50px;
+    margin-left: 40px;
+    font-size: 20px;
+    font-weight: bold;
 }

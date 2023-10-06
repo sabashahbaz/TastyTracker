@@ -7,13 +7,13 @@ function RecipesPage({setCurrentUser, setRecipes, recipes }) {
   const [selectedMealType, setSelectedMealType] = useState('Breakfast');
   const [savedRecipes, setSavedRecipes] = useState([])
 
+    //checking for current user logged in + dispaying user's saved recipes
     useEffect(() => {
         fetch('/check_session')
         .then(response => {
           if(response.ok) {
             response.json()
             .then(data => {
-              // console.log("pleasework",user)
               setCurrentUser(data.user)
               setSavedRecipes(data.saved_recipes)})
           }

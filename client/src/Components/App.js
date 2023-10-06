@@ -31,8 +31,6 @@ function App() {
   const [selectedRecipeMeal, setSelectedRecipeMeal] = useState("")
   const [recipes, setRecipes] = useState([])
 
-  console.log("are the recipes set",recipes)
-
     //check if user is logged in 
     useEffect(() => {
       fetch('/check_session')

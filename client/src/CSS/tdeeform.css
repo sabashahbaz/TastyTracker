@@ -55,14 +55,9 @@
 
 /* Styling for labels of radio buttons */
 .tdee-input label {
-  /* font-weight: bold; */
   margin-left: 5px;
   font-size: 18px;
 }
-
-/* .tdee-input label[for="flexRadioDefault2"] {
-  margin-left: 5px;
-} */
 
 .male{
   width: 100px;
@@ -76,7 +71,7 @@
   width: 100px;
   position: absolute;
   left: 270px;
-  top: 113px;
+  top: 129px;
   font-size: 20px;
 }
 
