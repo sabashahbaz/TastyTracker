@@ -1,15 +1,9 @@
 
-/* *{
-    margin: 0;
-    box-sizing: border-box;
-    background-color: #eef6f8;
-    font-family: "Roboto", sans serif;
-} */
-
 .container {
+    margin-top:50px;
     justify-content: center;
     align-items: center; 
-    width: 250px;
+    width: 740px;
     margin-top: 10px;
     display: flex;
 
@@ -22,8 +16,6 @@
     background-color: #e6e6e6;
     margin-top: 10px;
     margin-bottom: 10px;
-    /* justify-content: center;
-    align-items: center;  */
 }
 
 .fill {
@@ -33,7 +25,47 @@
     transition: width 0.5s ease-out;
 }
 
-/* .label{
-    margin-top: 10px;
-    font
-} */
+.eaten-bg{
+    width: 400px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.eaten-text{
+    font-family: "Gill Sans", sans-serif;
+    color:green;
+    margin-left: 6px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.food-calories{
+    font-weight: 500;
+}
+
+.calories-eaten-display {
+    display: flex;
+    justify-content: center; /* Horizontally center .eaten-bg and .eaten-text */
+    /* background-color: rgba(129, 200, 140, 0.631); */
+    width:270px;
+    margin-left: 349px;
+    border-radius: 10px;
+    text-align: center;
+    border-color: 30px red;
+    margin-bottom: 10px ;
+    text-align: center;
+}
+
+.Tdee-display{
+    font-family: "Gill Sans", sans-serif;
+    color:green;
+    width: 330px;
+    text-align: center;
+    float: right;
+    margin-right: 320px;
+}
+
+.bar{
+    margin-top: 60px;
+}

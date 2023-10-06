@@ -12,7 +12,6 @@
   height: 100%;
 }
 
-
 .search-title {
   font-size: 24px; /* Adjust the font size as needed */
   text-align: center;
@@ -66,13 +65,11 @@
   }
 
   .the-searched-items{
-
     margin-left: 420px;  
     width: 90%;
     background-color: rgba(97, 164, 112, 0.611);
     opacity: 1;
     transition: 0.3s;
-  
   }
 
     .search-list{
@@ -90,27 +87,3 @@
   }
 
 
-
-
-  .Tdee-display{
-    font-family: "Gill Sans", sans-serif;
-    color:green;
-    width: 530px;
-    /* display: flex; */
-    float: right;
-    padding-right: 50px;
-  }
-
-.calories-eaten-display{
-  font-family: "Gill Sans", sans-serif;
-  color:green;
-  width: 600px;
-  display: flex;
-  padding-left: 360px;
-  /* float: right */
-
-}
-
-.food-calories{
-  font-weight: 500;
-}

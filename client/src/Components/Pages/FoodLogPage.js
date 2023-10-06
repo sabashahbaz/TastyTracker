@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import FoodLog from '../FoodLogComponents/FoodLog.js';
 import Calories from '../FoodLogComponents/Calories.js'
-import CSS from "../../CSS/searchpage.css"
 import ProgressBar from "../FoodLogComponents/ProgressBar.js";
+import CSS from "../../CSS/foodlogpage.css"
 
 function FoodLogPage ({ 
         setCurrentFoodLog,
@@ -35,7 +35,8 @@ function FoodLogPage ({
     }, []);
         
 return (
-        <div>
+    <div className = "food-log-bg">
+        <div className="food-log-container">
             <ProgressBar caloriesIAte={caloriesIAte} currentTdee={ currentTdee}/>
             <div>
                 {currentUser ? (
@@ -48,6 +49,7 @@ return (
             foodItem={foodItem} 
             />
         </div> 
+    </div>
     )
 }
 

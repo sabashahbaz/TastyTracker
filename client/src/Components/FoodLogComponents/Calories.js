@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import searchpage from "../../CSS/searchpage.css"
+import searchpage from "../../CSS/ProgressBar.css"
 
 function Calories ({currentTdee, caloriesIAte}) {
     console.log(currentTdee - caloriesIAte)
@@ -7,13 +7,19 @@ function Calories ({currentTdee, caloriesIAte}) {
     return (
         <div>
             <div className="Tdee-display">
-                <h3> I have {currentTdee - caloriesIAte} calories left to eat today</h3>
+                <div className="tdee-bg">
+                    <div className="tdee-text">
+                        <h3>{currentTdee - caloriesIAte} calories left to eat</h3>
+                    </div>
+                </div>
+                
             </div>
-            {/* <div className="progress-bar">
-                <progress></progress>
-            </div> */}
             <div className="calories-eaten-display">
-            <h3> I ate: {caloriesIAte} calories </h3>
+                <div className="eaten-bg">
+                    <div className="eaten-text">
+                        <h3>{caloriesIAte} calories eaten </h3>
+                    </div>
+                </div>
             </div>
         </div>
     )
