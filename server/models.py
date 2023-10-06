@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func 
 from sqlalchemy.ext.associationproxy import association_proxy
-# from sqlalchemy.dialects.postgresql import ARRAY
 
 db = SQLAlchemy()
 
@@ -125,8 +124,6 @@ class Item_User_Association(db.Model):  #associates the items to users
 
     item_object = db.relationship("Item", back_populates="items_selected_by_user")  #signaling to the items that we are associating
     user_object = db.relationship("User", back_populates="user_that_selected_the_item") 
-
-
 
 #associate item and current log 
 class Item_Current_Day_Log_Association(db.Model): 

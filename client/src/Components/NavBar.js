@@ -6,7 +6,6 @@ import logo from "../assets/Picture1.png";
 import CSS from "../CSS/NavBar.css";
 
 // navbar 
-
 function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
     const navigate = useNavigate();
 
@@ -79,10 +78,8 @@ function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
             </ul>
             </div>
         </div>
-        </nav>                                     
+    </nav>                                     
 )};
-        
-
 
 export default NavBar;
 

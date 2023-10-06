@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import SearchFoodBar from '../FoodLogComponents/SearchFoodPage';
+import React, {useEffect} from 'react';
+import SearchFoodBar from '../FoodLogComponents/FoodSearchBar';
 import FoodItem from "../FoodLogComponents/FoodItem";
 import CSS from "../../CSS/searchpage.css"
 
+//food item search page -> to add to food log
 function SearchResultsPage ({
     currentUser,
     setFoodItem, 
@@ -17,23 +18,17 @@ function SearchResultsPage ({
     currentFoodLog
     }) {
 
-  
-
-    
     useEffect(() => {
         fetch('/check_session')
         .then(response => {
             if(response.ok) {
             response.json()
             .then(data => {
-                console.log("what is the data",data.total_calories_eaten.id)
                 setCurrentUser(data)
                 setCurrentFoodLog(data.total_calories_eaten.id)
-            })
-
-            }
+            })}
         })
-    }, [])
+    }, []);
 
     return (
         <div className="search-bg-image">

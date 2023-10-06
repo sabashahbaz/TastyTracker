@@ -6,8 +6,6 @@ from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Associa
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from datetime import date, timedelta
-from sqlalchemy import Date, cast
-today = date.today()
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -20,33 +18,24 @@ app.secret_key = os.getenv("SECRET_KEY")
 migrate = Migrate(app, db)
 current_date = date.today()
 
-tomorrow = current_date + timedelta(1)
 db.init_app(app)
 
+#check to current user, user TDEE, updated calories user ate, items user added to food log, and recipes user saved 
 @app.get("/check_session")
 def check_session():
-    user = User.query.filter(User.id == session.get("user_id")).first()
-    total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first()
 
-    filtered_recipes = Recipe.query.filter(Recipe.user_id==session.get("user_id")).all()
-    for recipe in filtered_recipes:
-        print("Recipe name:", recipe.name, "meal type", recipe.recipe_meal_type)
-
+    user = User.query.filter(User.id == session.get("user_id")).first() #check user with current user.id 
+    total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first() #select the current day log 
+    filtered_recipes = Recipe.query.filter(Recipe.user_id==session.get("user_id")).all() #select all the recpies saved by the current user
     
-
     if user:
         user_id = user.id  # Replace with the actual user ID
 
-        # Query the specific Current_Day_Log for the user and the current date
+        # Query the specific Current_Day_Log for the current user and current date
         current_day_log = Current_Day_Log.query.filter(
             Current_Day_Log.user_id == session.get("user_id"),
             Current_Day_Log.date == current_date
         ).first()
-        # print()
-
-        # user_recipes = Recipe.query.join(User_Recipe_Association).filter(
-        #     User_Recipe_Association.user_id == session.get("user_id")
-        # ).all()
         
         if current_day_log:
             # Retrieve all items associated with the specific Current_Day_Log
@@ -62,7 +51,6 @@ def check_session():
                 "saved_recipes": [recipe.to_dict() for recipe in filtered_recipes], 
             }, 200
         
-        #convert reach recipe object to a list of dictionary 
     if user and total_calories_eaten:
         return {"user": user.to_dict(), "total_calories_eaten": total_calories_eaten.to_dict()}, 200
     else:
@@ -72,17 +60,18 @@ def check_session():
 @app.post("/create_account")
 def create_account():
     data = request.json
-
+    
+    #get the information from user input 
     weight = data.get("weight")
     height = data.get("height")
     age = data.get("age")
     gender = data.get("gender").lower()
 
-    activity_levels = {1: 1.2, 2: 1.375, 3: 1.46, 4: 1.725, 5: 1.9}
-
+    #make sure user entered correct data
     if weight <= 0 or height <= 0 or age <= 0:
         return jsonify({"error": "invalid user data"}), 400
 
+    #calculate BMR based on gender
     if gender == "male":
         bmr = 66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age)
 
@@ -92,11 +81,15 @@ def create_account():
         return jsonify({"error": "Invalid gender"})
     
     activity_level = data.get("activity_level")
+    activity_levels = {1: 1.2, 2: 1.375, 3: 1.46, 4: 1.725, 5: 1.9}
 
+    #calculate the activity level index, based on user activity level
     activity_level_index = activity_levels.get(activity_level)
 
+    #user BMR and activity level index to calcualte daily_calories needed
     daily_calories_needed = int(bmr * activity_level_index)
 
+    #password hash for save data storage
     password_hash = bcrypt.generate_password_hash(data["password"]).decode("utf-8")
 
     new_user = User(
@@ -107,12 +100,12 @@ def create_account():
                     tdee= daily_calories_needed
                 )
     
-    db.session.add(new_user)
+    db.session.add(new_user) #add to user database
     try:
         db.session.commit()  # Commit new_user to get an ID from the database
         session["user_id"] = new_user.id  # Assign the user_id to the session
 
-        # Now create and add new_user_log with the correct user_id
+        # Now create and add new_user_log with the correct user_id 
         new_user_log = Current_Day_Log(
             total_daily_calories_eaten="0",
             user_id=new_user.id,
@@ -129,38 +122,27 @@ def create_account():
 # login
 @app.post("/login")
 def login():
-    data = request.json
-    user = User.query.filter(User.username == data["username"]).first() 
-    existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == user.id).filter(Current_Day_Log.date == current_date).first()
-    # print(user)
-    if user and bcrypt.check_password_hash(user.password_hash, data["password"]) and existing_food_log:
-        session["user_id"] = user.id
-        # print("current day log", Current_Day_Log)
-        # return jsonify({"user": user.to_dict()}), 200
-        return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
-    
-    
-    # existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == user.id).filter(Current_Day_Log.date == current_date).first()
-    # elif existing_food_log:
-    #     return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
-    
-    # if not existing_food_log:
-    #     new_food_log = Current_Day_Log(user_id=user.id, date=current_date,  total_daily_calories_eaten=0 )
-    #     db.session.add(new_food_log)
-    #     db.session.commit()
-    #     print("new_food_log",new_food_log.total_daily_calories_eaten )
-    #     return jsonify({"user": user.to_dict(), "new_day_calories":  new_food_log.to_dict()}), 200
-    
-    else: 
-        new_food_log = Current_Day_Log(user_id=user.id, date=current_date, total_daily_calories_eaten=0)
-        db.session.add(new_food_log)
-        db.session.commit()
-        existing_food_log = new_food_log  # Update existing_food_log
-        # print("Aaaaaaaaaaaaa", new_food_log.total_daily_calories_eaten )
-        return jsonify({"user": user.to_dict(), "new_day_calories": new_food_log.to_dict()}), 200
 
-    return {"error": "invalid username or password"}, 401
+    try: 
+        data = request.json
+        user = User.query.filter(User.username == data["username"]).first() #check to see if username exists
+        existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == user.id).filter(Current_Day_Log.date == current_date).first() #check to see if there is a current user log
+        #each day, a user will have a new current_day_log (food_log)
 
+        if user and bcrypt.check_password_hash(user.password_hash, data["password"]) and existing_food_log:
+            session["user_id"] = user.id
+            return jsonify({"user": user.to_dict(), "new_day_calories":  existing_food_log.to_dict()}), 200
+        
+        else: 
+            new_food_log = Current_Day_Log(user_id=user.id, date=current_date, total_daily_calories_eaten=0) #if user does not have a current day log, create a new one
+            db.session.add(new_food_log)
+            db.session.commit()
+            existing_food_log = new_food_log  # Update existing_food_log
+            return jsonify({"user": user.to_dict(), "new_day_calories": new_food_log.to_dict()}), 200
+    
+    except Exception as e:
+        print("Error:", e)
+        return make_response(jsonify({"error": "invalid username or password"}), 400)
 # logout
 @app.delete("/logout")
 def logout():
@@ -186,14 +168,13 @@ def get_food_api(userInput):
     food_response = requests.get(
         f"https://api.nal.usda.gov/fdc/v1/foods/search?query={userInput}&API_KEY={food_api_key}"
     )
-    # print(food_response.status_code)
     if food_response.status_code == 200:
         food_data = food_response.json()
         return food_data
     else:
         raise Exception("food api request failed")
 
-# POST search
+# Search for food items to add to food log
 @app.post("/search_food_items")
 def search_food_items():
     requested_food_data = get_food_api(request.json["query"])
@@ -211,17 +192,17 @@ def search_food_items():
                 and nutrient.get("unitName", "") == "KCAL"
             ):
                 calories = nutrient.get("value")
-        print("inside food search ")
-        arrayOfItems.append(
-            {"name": name, "description": description, "calories": calories}
-        )
-
+        arrayOfItems.append( 
+            {"name": name, "description": description, "calories": calories} 
+        ) 
     return jsonify({"items": arrayOfItems}), 200
 
-# POST to food list
+# Add food items to food log  
 @app.post("/add_to_food_list")
 def post_item_to_food_list():
-    requested_data = request.json  
+
+    requested_data = request.json 
+
     try:
         item = Item(
             name = requested_data["name"],
@@ -232,19 +213,17 @@ def post_item_to_food_list():
         )
         db.session.add(item)
         db.session.commit()
-        # print("why is post broken")
 
-
+        #select the current_day_log for the current day, since 1 user can have multiple day logs
         current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == requested_data["user_id"], Current_Day_Log.date == current_date).first()
-        # print("what is the current log",current_log)
-        if current_log:
+
+        if current_log: 
             item_log_associtation = Item_Current_Day_Log_Association(
                 current_day_log_id = current_log.id,
                 item_id = item.id,
                 user_id = requested_data["user_id"] 
             )
-            print("did it go through here", item_log_associtation.current_day_log_id)
-            db.session.add(item_log_associtation)
+            db.session.add(item_log_associtation) #ad to association table 
             db.session.commit()
         
         return item.to_dict()
@@ -284,7 +263,6 @@ def update_calories_consumed(user_id:int):
 #DELETE item
 @app.delete('/delete_food_item/<int:item_id>')
 def delete_food_item(item_id:int):
-    # print ("please work")
 
     try:
         item = Item.query.get(item_id)
@@ -300,10 +278,8 @@ def delete_food_item(item_id:int):
                 # Subtract the item's calories from total_daily_calories_eaten
                 current_log.total_daily_calories_eaten -= deleted_item_calories
 
-                # Update the total_daily_calories_eaten in the database
                 db.session.commit()
 
-                # Now, you can delete the item
                 db.session.delete(item)
                 db.session.commit()
 
@@ -316,13 +292,11 @@ def delete_food_item(item_id:int):
         print("Error:", e)
         return make_response(jsonify({"error": "The backend is broken"}), 500)
 
-    
-#GET Recipes
+#GET Recipes from Tasty Api
 def get_recipes_from_api(userInput):        
 
     url = "https://tasty.p.rapidapi.com/recipes/list"
     recipe_api_key = os.getenv("RECIPE_API")
-  
 
     querystring = {"from":"0","size":"40","q":userInput}
 
@@ -334,24 +308,21 @@ def get_recipes_from_api(userInput):
     response = requests.get(url, headers=headers, params=querystring)
 
     print(response.status_code)
-    # print("the response I am getting from the api",response.json())
 
     if response.status_code == 200:
         recipe_data = response.json()
         return recipe_data
     else:
         raise Exception("recipe api request failed")
-\
+
 #search for recipes
 @app.get('/search_recipes/<string:userInput>')
 def search_recipe(userInput: str):
 
     requested_recipe_data = get_recipes_from_api(userInput)
-    print("inside recipe search bar")
     array_of_recipes = []
 
     for recipe in requested_recipe_data["results"]:
-        cook_time = recipe.get("cook_time_minutes", "")
         name = recipe.get("name", "")
         image = recipe.get("thumbnail_url", "")
         description = recipe.get("description", "")
@@ -361,9 +332,7 @@ def search_recipe(userInput: str):
             
             display_text = instruction.get("display_text",   "")
             instructions.append(display_text)
-
             instructions_text = "\n".join(instructions)
-
     
         array_of_recipes.append(
             {"name": name, "image": image, "description":description, "instructions": instructions_text,}
@@ -371,8 +340,7 @@ def search_recipe(userInput: str):
 
     return jsonify(array_of_recipes), 200
 
-#curl -X GET -H "Content-Type: application/json" -d '{ "query": "apple" }' localhost:5555/search_recipes/<string:userInput>
-
+#Add saved recipe 
 @app.post('/post_selected_recipe')
 def post_selected_recipe():
     requested_data = request.json
@@ -385,8 +353,6 @@ def post_selected_recipe():
             recipe_meal_type = requested_data["selectedRecipeMeal"],
             user_id = requested_data["user_id"],
         )
-
-        
 
         db.session.add(recipe)
         db.session.commit()
@@ -408,22 +374,6 @@ def post_selected_recipe():
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "function post_selected_recipe is broken"}), 400)
-
-# @app.get('/saved_recipes')
-# def get_saved_recipes():
-#     user_id = session.get("user_id")  # Get the user's ID from the session
-#     if user_id is None:
-#         return jsonify({"error": "User not authenticated"}), 401
-
-    # user_recipe_associations = User_Recipe_Association.query.filter(User_Recipe_Association.user_id == session.get("user_id")).all() #get all the recipes associated with the current user
-    # recipe_ids = [association.recipe_id for association in user_recipe_associations] ## get the recipe id from the selected association table 
-    # saved_recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all() #select all of the recipes from the table
-
-    # filtered_recipes = Recipe.query.filter(Recipe.user_id==session.get("user_id")).all()
-    # for recipe in filtered_recipes:
-    #     print("Recipe name:", recipe.name, "meal type", recipe.recipe_meal_type)
-
-    # return [recipe.to_dict() for recipe in filtered_recipes]
 
 @app.route("/")
 def index():

@@ -3,13 +3,11 @@ import image from "../../assets/meal-planning.png";
 import photo from "../../assets/food.png"
 import CSS from "../../CSS/aboutus.css"
 
-
-
+//About Us page
 function AboutUs ({currentUser}) {
 
     return (
     <div className="about-us-page">
-
         <div className="about-us-body">
             <img src={image} className="meal-image" />
             <div className="about-card-body-text">
@@ -23,7 +21,6 @@ function AboutUs ({currentUser}) {
             </div>
             <img src={photo} className="eating-image"  />
         </div>
-
         <div className="about-us-page ">
         <div className="card border-light mb-4 text-center d-flex justify-content-center align-items-center border-white" style={{ width: "20px;" }}>
             <div className="col-md-8" style={{ width: "100%;" }}>
@@ -40,17 +37,14 @@ function AboutUs ({currentUser}) {
                 ) 
                 : (
                     <a href="/create_account" class="btn btn-success">Join Us Today!</a>
-                )
-
-                }
-                
+                )}
                 </p>
             </div>
             </div>
         </div>
         </div>
     </div>
-    );
+);
 }
 
 export default AboutUs;

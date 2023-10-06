@@ -52,7 +52,7 @@
 /* Style the label */
 .user-input-label {
     font-weight: bold;
-    margin-bottom: 8px; /* Add spacing between label and input */
+    margin-bottom: 8px; 
 }
 
 /* Style the input */
@@ -70,8 +70,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    align-items: flex-start; /* Align items to the left within the column */
-    margin-bottom: 40px; /* Add spacing between input fields */
+    align-items: flex-start; 
+    margin-bottom: 40px; 
     margin-left: 60px;
     cursor: pointer;
 }
@@ -79,7 +79,7 @@
 /* Style the label */
 .user-input-label {
     font-weight: bold;
-    margin-bottom: 8px; /* Add spacing between label and input */
+    margin-bottom: 8px; 
 }
 
 /* Style the input */

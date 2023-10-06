@@ -16,19 +16,18 @@ const getColor = () => {
 };
 
 return (
-<div className="container">
-    <div className="bar">
-    <div
-        className="fill"
-        style={{
-        width: `${percentage}%`,
-        backgroundColor: getColor(),
-        }}
-    ></div>
-    </div>
-</div>
-);
-}
+  <div className="container">
+      <div className="bar">
+        <div
+            className="fill"
+            style={{
+            width: `${percentage}%`,
+            backgroundColor: getColor(),
+            }}>
+        </div>
+      </div>
+  </div>
+)};
 
 export default ProgressBar;
 

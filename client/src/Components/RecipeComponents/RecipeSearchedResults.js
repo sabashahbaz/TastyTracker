@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import {useNavigate, Outlet} from 'react-router-dom';
 import CSS from "../../CSS/searchedrecipes.css"
 
+//results from recipe search
 function RecipeSearchedResults ({searchedRecipes, setFeaturedRecipe, setCurrentUser}) {
     const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ function RecipeSearchedResults ({searchedRecipes, setFeaturedRecipe, setCurrentU
         })
     }, [])
     
+    //when user clicks a recipe, will navgiate to featured recipe page to allow user to see more details about the recipe
     function handleClickedRecipe (recipe) {
         setFeaturedRecipe(recipe)
         navigate('/featured_recipe')
@@ -43,6 +45,6 @@ function RecipeSearchedResults ({searchedRecipes, setFeaturedRecipe, setCurrentU
             </div>
         </div>
     )
-}
+};
 
 export default RecipeSearchedResults;

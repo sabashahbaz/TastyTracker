@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import CSS from "../../CSS/searchpage.css"
 
+//the list of searched food items, when clicked are added to the food log
 function FoodItem ({item, 
     selectedMeal, 
     setSearchedItems, 
@@ -30,7 +31,6 @@ function FoodItem ({item,
         })
             .then(response => response.json())
             .then(data =>{
-                // console.log("something new everyday", data)
                 setFoodItem([...foodItem, data])})
                 
         fetch(`/update_calories_eaten/${currentUser.user.user_id}`, {
@@ -62,12 +62,10 @@ function FoodItem ({item,
                 <small className="food-calories">Calories: {item.calories} calories</small>
                 <br></br>
                 <small>{item.description}</small>
-                
             </ul>
-        
             </div>
         </div>    
     )
-}
+};
 
 export default FoodItem;

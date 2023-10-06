@@ -1,6 +1,7 @@
 import React from 'react'
 import CSS from "../CSS/tdeeform.css"
 
+//form user inputs information for TDEE
 function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivity, selectedActivity, setSelectedGender, selectedGender, selectedHeight, setSelectedHeight, setWeight, weight}){
 
     //height range user can select from 
@@ -23,9 +24,7 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                     <div className="tdee-header-body">
                         <p className="p">total calories your body burns</p>
                     </div>
-        
                 </div>
-
             <div className="tdee-form-content">
                 <div className="tdee-input">
                     <label>Gender: </label>
@@ -52,7 +51,6 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                         </label>
                     </div>
                 </div>
-
                 <div className="tdee-input">
                     <label>Age: </label>
                         <input
@@ -62,7 +60,6 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                         placeholder="enter age"
                         />
                 </div>
-
                 <div className="tdee-input">
                 <label>Height: </label>
                     <select
@@ -78,7 +75,6 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                     ))}
                     </select>
                 </div>
-
                 <div className= "tdee-input">
                 <label className="">Weight: </label>
                     <input
@@ -89,7 +85,6 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
                     value={weight}
                     />
                 </div>
-
                 <div className = "tdee-input">
                 <label className="">Activity: </label>
                     <select
@@ -110,5 +105,5 @@ function TdeeInfoForm ({handleSubmitAccountForm, setAge, age, setSelectedActivit
             </div>
         </form>   
     )
-}
+};
 export default TdeeInfoForm;

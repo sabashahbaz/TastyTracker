@@ -1,16 +1,16 @@
 import React from 'react';
 import "../../CSS/DisplayItems.css";
 
+//display the individual food item on the food log
 function DisplayFoodItems({item}) {
 
+    //delete the added food item from food log 
     function deleteItem() {
         fetch(`/delete_food_item/${item.id}`, {
             method: 'DELETE',
         })
-        // .then((data) => console.log(data))
         .then(response => {
             if (response.status === 200) {
-                console.log("Food item deleted successfully");
                 window.location.reload();
             } else if (response.status === 404) {
                 console.log("Food item not found");
@@ -28,8 +28,7 @@ function DisplayFoodItems({item}) {
             <small className= "calories">{item.calories} calories</small>
             <small className="delete-button" onClick={() =>deleteItem(item.id)}>🗑️</small>
         </div>
-
     )
-}
+};
 
 export default DisplayFoodItems;

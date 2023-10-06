@@ -86,39 +86,24 @@
 }
 
 .nar-bar-user{
-    display: flex; /* Create a flex container */
-    align-items: center; /* Vertically center the items */
-    margin-left: auto; /* Push items to the right */
+    display: flex; 
+    align-items: center; 
+    margin-left: auto; 
 }
 
-/* .user-food-log-tab{
-    width: 120px;
-    height: 30px;
-}
-
-.user-about-us{
-    width: 100px;
-    height: 30px;
-    float: right;
-}
-
-.logout{
-    width: 100px;
-    height: 30px;
-} */
 .nav-user {
     display: flex;
-    justify-content: center; /* Center the search bar horizontally */
-    align-items: center; /* Vertically center the items */
+    justify-content: center; 
+    align-items: center; 
 }
 
 .user-food-log-tab,
 .user-recipe-tab,
 .user-about-us,
 .logout {
-    list-style: none; /* Remove bullet points */
-    margin: 0; /* Remove any default margins */
-    padding: 0; /* Remove any default padding */
+    list-style: none;
+    margin: 0; 
+    padding: 0; 
     font-weight: bold;
     margin-bottom: 10px;
     
@@ -128,7 +113,7 @@
 .user-food-log-tab,
 .user-recipe-tab,
 .user-about-us {
-    margin-left: 10px; /* Add some space between the tabs */
+    margin-left: 10px; 
     width: 120px;
     height: 30px;
 }

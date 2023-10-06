@@ -1,11 +1,10 @@
-import '../CSS/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect} from "react";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CreateAccountPage from './Pages/CreateAccountPage.js';
 import FoodLogPage from './Pages/FoodLogPage'
 import Error from './Error';
-import SearchResultsPage from './Pages/FoodSearchResultsPage'
+import FoodSearchResultsPage from './Pages/FoodSearchResultsPage'
 import NavBar from './NavBar'
 import LoginPage from "./Pages/LoginPage"
 import WelcomePage from './Pages/WelcomePage';
@@ -30,7 +29,7 @@ function App() {
   const [selectedRecipeMeal, setSelectedRecipeMeal] = useState("")
   const [recipes, setRecipes] = useState([])
 
-    //check if user is logged in 
+//check if user is logged in 
     useEffect(() => {
       fetch('/check_session')
       .then(response => {
@@ -41,6 +40,7 @@ function App() {
       })
   }, [])
 
+//routes 
   return (
       <BrowserRouter>
         <NavBar 
@@ -56,81 +56,72 @@ function App() {
             setCurrentUser={setCurrentUser} 
             setRecipes={setRecipes} 
             recipes={recipes}/>}/>
-        <Route path="/" element = {<WelcomePage/>}/> 
-          {currentUser 
-          ? (
-            <Route
-              path="/food_log"
-              element={
-                <FoodLogPage
-                  setFoodItem = {setFoodItem}
-                  setCurrentFoodLog={setCurrentFoodLog}
-                  setTotalCaloriesIAte={setTotalCaloriesIAte}
-                  setCurrentTdee={setCurrentTdee}
-                  caloriesIAte={caloriesIAte}
-                  currentTdee={currentTdee}
-                  currentUser={currentUser}
-                  setCurrentUser={setCurrentUser}
-                  searchedItems={searchedItems}
-                  foodItem={foodItem}
-                  setSelectedMeal={setSelectedMeal}
-                />
-              }
-            />
-          ) 
-          : null} 
-          <Route path="search_food" element={
-              <SearchResultsPage className="search-bg-img"
-              foodItem={foodItem}
-              setFoodItem={setFoodItem}
-              selectedMeal={selectedMeal}
-              setCurrentFoodLog={ setCurrentFoodLog}
-              setTotalCaloriesIAte={setTotalCaloriesIAte}
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              setSearchedItems={setSearchedItems} 
-              searchedItems={searchedItems} 
-              currentFoodResponse= {currentFoodResponse}
-              currentFoodLog={currentFoodLog}
-              />} /> 
-          <Route path="create_account" element={
-            <CreateAccountPage
-              setCurrentUser={setCurrentUser}
-              setCurrentTdee={setCurrentTdee}/>}
-              /> 
-          <Route path="login" element={
-            <LoginPage
+        <Route path="create_account" element={
+          <CreateAccountPage
+            setCurrentUser={setCurrentUser}
+            setCurrentTdee={setCurrentTdee}/>}
+            /> 
+        <Route path="login" element={
+          <LoginPage
             setCurrentTdee={setCurrentTdee}
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
             setTotalCaloriesIAte={setTotalCaloriesIAte}
             />} />
-          <Route path="*" element={<Error/>}/>
-          <Route path="recipe_results" element={
-            <RecipeSearchedResults 
-              searchedRecipes={searchedRecipes}
-              setFeaturedRecipe={setFeaturedRecipe}
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />}>
-          </Route>
-          <Route path='featured_recipe' element={
-            <FeaturedRecipe 
-              setSelectedRecipeMeal={setSelectedRecipeMeal}
-              featuredRecipe={featuredRecipe}
-              selectedRecipeMeal={selectedRecipeMeal}
-              recipes={recipes}
-              setRecipes={setRecipes} 
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              />} />
+        <Route path="/" element = {<WelcomePage/>}/> 
+          {currentUser 
+          ? (
+            <Route path="/food_log" element={
+              <FoodLogPage
+                setFoodItem = {setFoodItem}
+                setCurrentFoodLog={setCurrentFoodLog}
+                setTotalCaloriesIAte={setTotalCaloriesIAte}
+                setCurrentTdee={setCurrentTdee}
+                caloriesIAte={caloriesIAte}
+                currentTdee={currentTdee}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                searchedItems={searchedItems}
+                foodItem={foodItem}
+                setSelectedMeal={setSelectedMeal}/> }/>
+            ) 
+          : null} 
+        <Route path="search_food" element={
+          <FoodSearchResultsPage className="search-bg-img"
+            foodItem={foodItem}
+            setFoodItem={setFoodItem}
+            selectedMeal={selectedMeal}
+            setCurrentFoodLog={ setCurrentFoodLog}
+            setTotalCaloriesIAte={setTotalCaloriesIAte}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            setSearchedItems={setSearchedItems} 
+            searchedItems={searchedItems} 
+            currentFoodResponse= {currentFoodResponse}
+            currentFoodLog={currentFoodLog}
+            />} /> 
+        <Route path="recipe_results" element={
+          <RecipeSearchedResults 
+            searchedRecipes={searchedRecipes}
+            setFeaturedRecipe={setFeaturedRecipe}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+          />}/>
+        <Route path='featured_recipe' element={
+          <FeaturedRecipe 
+            setSelectedRecipeMeal={setSelectedRecipeMeal}
+            featuredRecipe={featuredRecipe}
+            selectedRecipeMeal={selectedRecipeMeal}
+            recipes={recipes}
+            setRecipes={setRecipes} 
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            />} />
+        <Route path="*" element={<Error/>}/>
         </Routes>
       </BrowserRouter>
-
   );
-
-}
-
+};
 
 export default App;
 

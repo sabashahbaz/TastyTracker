@@ -25,7 +25,6 @@ function RecipeSearchBar({setSearchedRecipes}) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("data", data)
             setSearchedRecipes(data);
             navigate('/recipe_results'); //navigate to recipe results page when results are received 
         });

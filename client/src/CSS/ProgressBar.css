@@ -46,8 +46,7 @@
 
 .calories-eaten-display {
     display: flex;
-    justify-content: center; /* Horizontally center .eaten-bg and .eaten-text */
-    /* background-color: rgba(129, 200, 140, 0.631); */
+    justify-content: center; 
     width:270px;
     margin-left: 349px;
     border-radius: 10px;

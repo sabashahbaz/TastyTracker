@@ -2,12 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import DisplayFoodItems from './DisplayFoodItems';
 
+//the food log
 function FoodLog ({foodItem, currentTdee, setSelectedMeal}) {
 
+//display the food item based based on the selected meal type 
 return (
-
         <div className = "food-log">
-
             <div class="breakfast-card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem'}}>
                 <h5 class="card-header">Breakfast</h5>
                 <div class="card-body">
@@ -22,10 +22,9 @@ return (
                                         />
                                     )}})}
                     </div>
-                    <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Breakfast")}>Add Breakfast</button></Link>
+                <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Breakfast")}>Add Breakfast</button></Link>
             </div>
             </div>
-
             <div class=" lunch-card card border-light primary mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
                 <h5 class="card-header">Lunch</h5>
                 <div class="card-body">
@@ -43,7 +42,6 @@ return (
                     <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Lunch")}>Add Lunch</button></Link>
             </div>
             </div>
-
             <div class=" dinner-card card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
                 <h5 class="card-header">Dinner</h5>
                 <div class="card-body">
@@ -61,7 +59,6 @@ return (
                 <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Dinner")}>Add Dinner</button></Link>
             </div>
             </div>
-
             <div class=" snack-card card border-light mb-3 d-flex aligns-items-center justify-content-center w-50 mx-auto" style={{ width: '18rem' }}>
                 <h5 class="card-header">Snack</h5>
                 <div class="card-body">
@@ -78,9 +75,9 @@ return (
                 </div>
                 <Link to="/search_food"><button  type="button" class="btn btn-light btn-sm mt-3" onClick={() => setSelectedMeal("Snack")}>Add Snack</button></Link>
             </div>
-            </div>
-            </div>
-    )
-}
+        </div>
+    </div>
+)
+};
 
 export default FoodLog;

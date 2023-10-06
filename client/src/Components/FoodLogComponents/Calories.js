@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import searchpage from "../../CSS/ProgressBar.css"
 
+//calores displayed on top of foodlog
 function Calories ({currentTdee, caloriesIAte}) {
-    console.log(currentTdee - caloriesIAte)
-    //My TDEE: {currentTdee}
+    
+    
     return (
         <div>
             <div className="Tdee-display">
@@ -23,6 +24,6 @@ function Calories ({currentTdee, caloriesIAte}) {
             </div>
         </div>
     )
-}
+};
 
 export default Calories; 

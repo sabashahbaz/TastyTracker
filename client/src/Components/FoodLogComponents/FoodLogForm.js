@@ -5,7 +5,7 @@ function FoodLogForm () {
     return (
         <form>
             <select
-            name="meals"
+                name="meals"
             >
             <option value="breakfast">Breakfast</option>
             <option value="lunch">Lunch</option>

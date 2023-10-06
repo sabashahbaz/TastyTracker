@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import CSS from '../../CSS/recipe.css'
 
+//featured recipe page
 function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes, recipes, selectedRecipeMeal, setSelectedRecipeMeal}) {
     useEffect(() => {
         fetch('/check_session')
@@ -12,7 +13,7 @@ function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes
     })
 }, [])
 
-    //saving selected recipe
+    //saving selected recipe to database
     function  handleAddSelectedRecipe(mealType) {
         setSelectedRecipeMeal(mealType)
         fetch('/post_selected_recipe',{
@@ -35,9 +36,11 @@ function FeaturedRecipe ({currentUser, setCurrentUser, featuredRecipe,setRecipes
             alert("recipe added")  
     }
 
+    //divide instructions paragraph into seperate sentences 
     function splitIntoSentences(text) {
         return text.split('. ');
     }
+
     return (
         <div className="featured-recipe-page">
             <div class="card mb-3 border border-white" style={{ width: "100%", height: "600px"  }} className="border-none">

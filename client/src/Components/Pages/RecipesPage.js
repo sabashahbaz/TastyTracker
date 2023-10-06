@@ -20,6 +20,7 @@ function RecipesPage({setCurrentUser, setRecipes, recipes }) {
         })
     }, [])
 
+      //set state of meal type to allow for proper meal placement 
       function handleMealButton (meal) {
         setSelectedMealType(meal)
       }

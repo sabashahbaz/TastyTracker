@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import CSS from "../../CSS/searchpage.css"
 
+//search for food items
 function SearchFood ({setSearchedItems}) {
 
     const [newSearch, setNewSearch] = useState("") //users input

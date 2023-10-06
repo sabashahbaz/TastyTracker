@@ -1,11 +1,10 @@
 import React from "react";
-import {Link} from 'react-router-dom';
 import CSS from "../CSS/userform.css"
 
-
+//form user input account information
 function UserInfoForm({setStep, handleSubmitUserInfo, firstName, setFirstName, lastName, setLastName, username, setUsername, password, setPassword}) {
 
-     //allow user to proceed to the next part of the form after filling out user info
+    //allow user to proceed to the next part of the form (tdee) after filling out user info
     function handleSubmitUserInfo(e) {
         e.preventDefault();
         if (firstName && lastName && username && password)  {
@@ -75,7 +74,6 @@ function UserInfoForm({setStep, handleSubmitUserInfo, firstName, setFirstName, l
             </div>
             <button className="account-button" type="submit"> submit user info</button>
             <div className="message">
-                {/* <Link to="/login"><small className="text-muted fs-6"> Already have an account? Click here!  </small></Link> */}
                 <a href="/login" class="my-link">Already have an account? Login here!</a>
             </div>
                 
