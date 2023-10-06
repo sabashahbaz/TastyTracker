@@ -26,7 +26,6 @@ function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
             ): (
                 <Link to="/" className="navbar-brand"><img src={logo} alt="tasty tracker logo" className="logo" width="320" height="100" /></Link>
             )}
-            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,46 +33,48 @@ function NavBar ({ currentUser, setSearchedRecipes, setCurrentUser, logout}) {
             <ul class="navbar-nav custom-ul">
                 {currentUser  // when user is present -> show saved recipes, foodlog and logout tabs
                 ? (
-                <>
-                    <li class="nav-item fs-4 custom-search-bar">
+                <div className = "nav-user">
+                    <li className="custom-user-search-bar">
                         <RecipeSearchBar setSearchedRecipes={setSearchedRecipes}/>
                     </li>
 
-                    <li class="nav-item  me-4 fs-3 fs-4">
+                    <li className="user-food-log-tab">
                     <a class="nav-link active" aria-current="page" href="food_log">My Food Log</a>
                     </li>
 
-                    <li class="nav-item  me-4 fs-4">
+                    <li className="user-recipe-tab">
                     <a class="nav-link active" aria-current="page" href="my_recipes">My Recipes</a>
                     </li>
 
-                    <li class="nav-item  me-4 fs-4">
-                    <a class="nav-link" href="/about_us">About Us</a>
+                    <li className="user-about-us">
+                    <a class="nav-link active" href="/about_us">About Us</a>
                     </li>
 
-                    <li class="nav-item  me-4 fs-4">
-                    {/* <p>Welcome {currentUser} !</p> */}
+                    <li className="logout">
+                    <a><button type="button" className="logout-button" onClick={logout}>Logout</button></a>
                     </li>
-
-                    <li class="nav-item me-2 fs-4">
-                    <a><button type="button" class="btn btn-light btn-sm" onClick={logout}>Logout</button></a>
-                    </li>
-                </>
+                </div>
                 ) 
                 : ( //user is able to search for recipes without signing in
-                    <>
-                        <li class="nav-item fs-4 me-5 custom-search-bar">
-                            <RecipeSearchBar setSearchedRecipes={setSearchedRecipes}/>
-                        </li>
+                    <div className = "nav-no-user">
+                        <div className = "search-no-user" >
+                            <li class="custom-search-bar">
+                                <RecipeSearchBar setSearchedRecipes={setSearchedRecipes}/>
+                            </li>
+                        </div>
                     
-                        <li class="nav-item fs-4 me-10 custom-about-us">
-                        <a class="nav-link active text-dark" href="/about_us">About Us</a>
-                        </li>
+                        <div className = "about-no-user">
+                            <li class="custom-about-us">
+                            <a class="nav-link active text-dark" href="/about_us">About Us</a>
+                            </li>
+                        </div>
 
-                        <li class="nav-item fs-4 custom-login">
-                        <a class="nav-link text-dark" href="/login"><img src={login_button_image} alt="Login" width="40" height="40" /> Login </a>
-                        </li>
-                    </>
+                        <div className = "login-no-user">
+                            <li class="custom-login">
+                            <a class="nav-link text-dark" href="/login"><img src={login_button_image} alt="Login" width="40" height="40" /> Login </a>
+                            </li>
+                        </div>
+                    </div>
                 )}
             </ul>
             </div>

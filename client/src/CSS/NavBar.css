@@ -1,3 +1,5 @@
+
+/* no user */
 .recipe-search-bar{
     display: flex;
     border-radius: 10px;
@@ -5,8 +7,7 @@
     width: 400px;
     border-color: green;
     border-width: 3px;
-    outline: none;
-    
+    outline: none; 
 }
 
 .recipe-search-container{
@@ -28,17 +29,118 @@
     color: green;
 }
 
-.custom-ul{ 
-    width: 100%;
+.search-no-user{
+    text-align: left;
+    width: 400px;
+    margin-left: -260px;
+    cursor: pointer;
+    border-radius: 10px;
+    height: 30px;
+    width: 400px;
+    border-color: green;
+    border-width: 3px;
+    outline: none;
+    margin-bottom: 20px
 }
 
-.custom-about-us{
-    margin-right: 10px;
-    margin-left: 110px;
+.login-no-user{
+    width: 150px; /* Adjust the width as needed */
+    text-align: right; /* Right-align the contents */
+    margin-right: 30px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
-.custom-login{
-    margin-right: 10px;
-    margin-left: 20px;
-    color: black;
+.about-no-user{
+    width: 150px; /* Adjust the width as needed */
+    text-align: right; /* Right-align the contents */
+    margin-right: -210px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.nav-no-user{
+    display: flex;
+    justify-content: space-between; /* Space evenly between items */
+    align-items: center; /* Vertically center items */
+    width: 800px;
+}
+
+/* with user */
+
+.custom-user-search-bar{
+    /* margin-top: 100px; */
+    /* float: left; */
+    /* display: flex; */
+    border-radius: 10px;
+    height: 30px;
+    width: 400px;
+    border-color: green;
+    border-width: 3px;
+    outline: none;
+    align-content: center;
+    margin-right: 200px;
+    margin-bottom: 25px;
+}
+
+.nar-bar-user{
+    display: flex; /* Create a flex container */
+    align-items: center; /* Vertically center the items */
+    margin-left: auto; /* Push items to the right */
+}
+
+/* .user-food-log-tab{
+    width: 120px;
+    height: 30px;
+}
+
+.user-about-us{
+    width: 100px;
+    height: 30px;
+    float: right;
+}
+
+.logout{
+    width: 100px;
+    height: 30px;
+} */
+.nav-user {
+    display: flex;
+    justify-content: center; /* Center the search bar horizontally */
+    align-items: center; /* Vertically center the items */
+}
+
+.user-food-log-tab,
+.user-recipe-tab,
+.user-about-us,
+.logout {
+    list-style: none; /* Remove bullet points */
+    margin: 0; /* Remove any default margins */
+    padding: 0; /* Remove any default padding */
+    font-weight: bold;
+    margin-bottom: 10px;
+    
+
+}
+
+.user-food-log-tab,
+.user-recipe-tab,
+.user-about-us {
+    margin-left: 10px; /* Add some space between the tabs */
+    width: 120px;
+    height: 30px;
+}
+
+.logout {
+    width: 100px;
+    height: 30px;
+    margin-top: 13px; 
+}
+
+.logout-button{
+    background-color: rgba(114, 200, 114, 0.765);
+    border-radius: 10px;
+    border-color: rgb(7, 106, 45);
 }
