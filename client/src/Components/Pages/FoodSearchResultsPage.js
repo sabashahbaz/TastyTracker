@@ -16,6 +16,9 @@ function SearchResultsPage ({
     setCurrentFoodLog,
     currentFoodLog
     }) {
+
+  
+
     
     useEffect(() => {
         fetch('/check_session')
@@ -35,9 +38,8 @@ function SearchResultsPage ({
     return (
         <div className="search-bg-image">
             <div className="search-page">
-            <SearchFoodBar setSearchedItems={setSearchedItems} />
-            {/* the list of searched items */}
-            <div className="search-list-container-map">
+            <SearchFoodBar setSearchedItems={setSearchedItems}/>
+            <div className="search-list-container-map"> {/* the list of searched food items for food log */}
                 {searchedItems.map((item) => (
                 <FoodItem
                     key={item.id}

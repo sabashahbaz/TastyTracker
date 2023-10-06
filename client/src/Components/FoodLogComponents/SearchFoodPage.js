@@ -10,9 +10,8 @@ function SearchFood ({setSearchedItems}) {
     }
 
     //search for food item 
-    function handleSubmit (e) {
-        console.log("inside food search")
-        e.preventDefault()
+    function handleSubmit(e) {
+        e.preventDefault(); 
         fetch('/search_food_items', {
             method: 'POST',
             headers: {
@@ -22,8 +21,8 @@ function SearchFood ({setSearchedItems}) {
             body: JSON.stringify({"query": newSearch})
         })
         .then(response => response.json())
-        .then(filteredFoodObject => setSearchedItems(filteredFoodObject["items"]))
-        }
+        .then(filteredFoodObject => setSearchedItems(filteredFoodObject["items"]));
+    }
 
 
     return (

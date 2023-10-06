@@ -59,8 +59,10 @@ function FoodItem ({item,
             <ul class="the-searched-items">
                 <b class ="fs-4">{item.name}</b>
                 <br></br>
-                <small>{item.description}</small>
                 <small className="food-calories">Calories: {item.calories} calories</small>
+                <br></br>
+                <small>{item.description}</small>
+                
             </ul>
         
             </div>

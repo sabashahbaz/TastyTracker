@@ -1,15 +1,39 @@
 
-/* .food-search-container 
-  text-align: center;  Centers the text within the container 
-  background-color: #f0f0f0;  Add your desired background color 
-  padding: 20px;
-  border-radius: 10px;
-  background-color: rgba(67, 178, 93, 0.5);
-  margin: 100px;
-  height: 50px;
-} */
 .searh-page-background{
   height: 100%;
+}
+
+.search-bg-image{
+  background-image: 
+  url("https://img1.wsimg.com/isteam/stock/3781/:/rs=h:1000,cg:true,m");
+  background-size: cover;
+  height: 100vh;
+  transition: height 0.3s ease;
+}
+
+.search-container {
+  max-height: 400px; 
+  overflow-y: auto;
+}
+
+
+.search-bar {
+  width: 60%;
+  padding: 10px;
+  margin-top: 13px;
+  margin-left: 10px;
+  font-size: 16px;
+  border: 4px solid #75c12a;
+  border-radius: 30px;
+  outline: none;
+  background-color: #c8f1c692;
+} 
+
+.search-list-container-map{
+  margin-top: 20px;
+  max-height: 600px; /* Set a maximum height for the container */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  width: 1300px;
 }
 
 .search-title {
@@ -17,39 +41,10 @@
   text-align: center;
   border-radius: 20px;
   font-family: Monospace;
-  padding-top: 7px;
+  padding-top: 20px;
   margin-top: 20px;
 }
-.search-page{
-  background-color: rgba(67, 178, 93, 0.5);
-  height: 100%;
-  width:  100%;
-  background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
-  /* margin-left: 430px;
-  border-radius: 10px; */
-  /* justify-content: center; */
-}
-.search-bar {
-  width: 80%;
-  padding: 10px;
-  margin-top: 13px;
-  margin-left: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 30px;
-  /* Add any other styles you want for the search bar */
-} 
 
-.search-page{
-  background-color: rgba(67, 178, 93, 0.5);
-  height: 100vh;
-  height: 100%;
-  width:  100%;
-  margin-top: -10px;
-  background-image: url("https://img.freepik.com/premium-photo/fresh-vegetables-ingredients-fruits-arranged-white-wooden-table_23-2148026883.jpg?w=1800");
-  align-items: center; /* Center items vertically */ 
-  }
-  
   .list-group {
     max-width: 50%; /* Set a maximum width for the list */
   }
@@ -70,20 +65,17 @@
     background-color: rgba(97, 164, 112, 0.611);
     opacity: 1;
     transition: 0.3s;
+    border-radius: 10px;
+    border: 2px solid #0e6b1b93;
   }
-
-    .search-list{
+  .food-calories{
+    font-weight: bold;
+    font-size: 17px;
+  }
+  .search-list{
     justify-content: center;
     margin-top: 10px;
   }
 
-  .progress-bar{
-    width: 2000px;
-  }
-
-  .search-container {
-    max-height: 400px; /* Adjust the max-height to your preference */
-    overflow-y: auto;
-  }
 
 

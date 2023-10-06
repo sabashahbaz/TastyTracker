@@ -31,12 +31,12 @@ function RecipesPage({setCurrentUser, setRecipes, recipes }) {
         <div>
           <div className="">
             <div className="buttons-container">
-              <button className="button" onClick={() => handleMealButton('Breakfast')}> 🥞 Breakfast 🥞 </button>
-              <button className="button" onClick={() => handleMealButton('Lunch')}> 🥙 Lunch 🥙 </button>
-              <button className="button" onClick={() => handleMealButton('Dinner')}>🍝 Dinner 🍝</button>
-              <button className="button" onClick={() => handleMealButton('Dessert')}>🧁 Dessert 🧁</button>
-              <button className="button" onClick={() => handleMealButton('Appetizers')}> 🍤 Appetizers 🍤</button>
-              <button className="button" onClick={() => handleMealButton('Drinks')}> 🍹 Drinks 🍹</button>
+              <button className="meal-button" onClick={() => handleMealButton('Breakfast')}> 🥞 Breakfast 🥞 </button>
+              <button className="meal-button" onClick={() => handleMealButton('Lunch')}> 🥙 Lunch 🥙 </button>
+              <button className="meal-button" onClick={() => handleMealButton('Dinner')}>🍝 Dinner 🍝</button>
+              <button className="meal-button" onClick={() => handleMealButton('Dessert')}>🧁 Dessert 🧁</button>
+              <button className="meal-button" onClick={() => handleMealButton('Appetizers')}> 🍤 Appetizers 🍤</button>
+              <button className="meal-button" onClick={() => handleMealButton('Drinks')}> 🍹 Drinks 🍹</button>
             </div>
           </div>
         
