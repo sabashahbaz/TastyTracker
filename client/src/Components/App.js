@@ -1,7 +1,7 @@
 import '../CSS/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect} from "react";
-import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CreateAccountPage from './Pages/CreateAccountPage.js';
 import FoodLogPage from './Pages/FoodLogPage'
 import Error from './Error';
@@ -14,7 +14,6 @@ import MyRecipesPage from './Pages/RecipesPage'
 import RecipeSearchedResults from './RecipeComponents/RecipeSearchedResults'
 import FeaturedRecipe from './RecipeComponents/FeaturedRecipe'; 
 import searchpage from "../CSS/searchpage.css"
-
 
 function App() {
   //Setting state variables 
@@ -40,31 +39,24 @@ function App() {
           .then(user => setCurrentUser(user))
         }
       })
-    }, [])
-
+  }, [])
 
   return (
       <BrowserRouter>
-      <NavBar caloriesIAte={caloriesIAte} 
-              currentUser={currentUser} 
-              setCurrentUser={setCurrentUser}
-              setSearchedRecipes={setSearchedRecipes}>
-              </NavBar>
+        <NavBar 
+          caloriesIAte={caloriesIAte} 
+          currentUser={currentUser} 
+          setCurrentUser={setCurrentUser}
+          setSearchedRecipes={setSearchedRecipes}>
+        </NavBar>
         <Routes>
-        <Route path="/about_us" element={
-          <AboutUs 
-            currentUser={currentUser} />
-        }>
-        </Route>
+          <Route path="/about_us" element={<AboutUs currentUser={currentUser} />}/>
         <Route path="my_recipes" element={
           <MyRecipesPage 
             setCurrentUser={setCurrentUser} 
             setRecipes={setRecipes} 
-            recipes={recipes}/>}>
-        </Route>
-        <Route path="/" element = {
-          <WelcomePage/>
-        }/> 
+            recipes={recipes}/>}/>
+        <Route path="/" element = {<WelcomePage/>}/> 
           {currentUser 
           ? (
             <Route
@@ -86,7 +78,7 @@ function App() {
               }
             />
           ) 
-          : null}
+          : null} 
           <Route path="search_food" element={
               <SearchResultsPage className="search-bg-img"
               foodItem={foodItem}

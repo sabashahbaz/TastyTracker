@@ -1,0 +1,40 @@
+.cat-gif{
+    height: 500px;
+    width: 500px;
+    float: right;
+    margin-right: 40px;
+}
+
+.page-text{
+    float: left;
+    margin-top: 100px;
+    width: 50%;
+    text-align: center;
+}
+
+.error{
+    color: rgb(35, 173, 58);
+    font-size: 70px;
+}
+
+.text{
+    color: rgb(10, 62, 10);
+    font-size: 20px;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px; 
+    background-color: #3dab3b; 
+    color: #fff; 
+    text-decoration: none;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.button-link:hover {
+    background-color: #8ec698; /* Change the background color on hover */
+}
