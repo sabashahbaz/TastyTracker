@@ -1,9 +1,13 @@
-.button{
-    /* color: green;
-    background-color: rgb(246, 249, 246);
-    margin-left: 20px;
-    margin-right: 20px; */
+/* saved recipe page css*/
 
+.saved-recipes-bg{
+    background-color: rgba(244, 248, 243, 0.804);
+    background-size: cover;
+    height: 100vh;
+}
+
+.meal-button{
+    margin-top: 60px;
     display: inline-block;
     outline: 0;
     border:0;
@@ -19,23 +23,20 @@
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 600;
-    box-shadow: rgb(156, 225, 156) -2px -2px 0px 2px, rgb(6, 110, 25) 0px 0px 0px 4px, rgba(242, 238, 238, 0.05) 0px 0px 2px 7px;
+    box-shadow: rgb(156, 225, 156) -2px -2px 0px 2px, rgb(6, 110, 25) 0px 0px 0px 4px, rgba(235, 232, 232, 0.05) 0px 0px 2px 7px;
+    background-color: rgba(240, 245, 246, 0.846);
     transition: all 0.2s;
-    /* hover{
-        box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px, rgb(255, 198, 0) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
-        transform: scale(1.01); */
+    color: rgb(0, 0, 0);
 }
-
-
-
 .buttons-container{
     width: 100%;
     display: flex;
     /* flex-direction: column; */
     justify-content: center; /* Vertically center */
     align-items: center; /* Horizontally center */
-
 }
 
-
-
+.saved-recipes{
+    padding-left: 40px;
+    padding-top: 20px;
+}

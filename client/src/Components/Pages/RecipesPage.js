@@ -3,6 +3,7 @@ import CSS from '../../CSS/recipepage.css'
 
 function RecipesPage({setCurrentUser, setRecipes, recipes }) {
 
+  //saved recipe page 
   const [selectedMealType, setSelectedMealType] = useState('Breakfast');
   const [savedRecipes, setSavedRecipes] = useState([])
 
@@ -17,18 +18,14 @@ function RecipesPage({setCurrentUser, setRecipes, recipes }) {
               setSavedRecipes(data.saved_recipes)})
           }
         })
-        
-      }, [])
-
-      console.log("saved recipes",savedRecipes)
+    }, [])
 
       function handleMealButton (meal) {
-        console.log(meal)
         setSelectedMealType(meal)
       }
       
       return (
-        <div>
+        <div className="saved-recipes-bg">
           <div className="">
             <div className="buttons-container">
               <button className="meal-button" onClick={() => handleMealButton('Breakfast')}> 🥞 Breakfast 🥞 </button>
@@ -39,47 +36,31 @@ function RecipesPage({setCurrentUser, setRecipes, recipes }) {
               <button className="meal-button" onClick={() => handleMealButton('Drinks')}> 🍹 Drinks 🍹</button>
             </div>
           </div>
-        
+        <div className="saved-recipes">
           <div className="row">
-            {savedRecipes.map((recipe) => {
-            if (recipe.recipe_meal_type == selectedMealType) 
-                return (
-                  <div className="col-md-3 mb-3" key={recipe.id}>
-                  <div className="card border-light" style={{ width: "300px" }}>
-                    <div className="card-body">
-                    <h5 className="card-title fs-6">{recipe.name}</h5>
-                        <img
-                            src={recipe.image_url}
-                            className="card-img-bottom rounded mx-auto d-block"
-                            style={{ width: "260px", height: "250px" }}
-                            alt="recipe image"
-                        />
-                </div>
-                </div>
-                </div>
-              );
-            })}
-          </div>
+              {savedRecipes.map((recipe) => {
+              if (recipe.recipe_meal_type == selectedMealType) 
+                  return (
+                    <div className="col-md-3 mb-3" key={recipe.id}>
+                    <div className="card border-light" style={{ width: "300px" }}>
+                      <div className="card-body">
+                      <h5 className="card-title fs-6">{recipe.name}</h5>
+                          <img
+                              src={recipe.image_url}
+                              className="card-img-bottom rounded mx-auto d-block"
+                              style={{ width: "260px", height: "250px" }}
+                              alt="recipe image"
+                          />
+                      </div>
+                  </div>
+                  </div>
+                );
+              })}
+            </div>
         </div>
-      )}
+      </div>
+    )
+  };
 
 export default RecipesPage;
 
-
-
-
-{/* <div className="col-md-3 mb-3" key={recipe.id}>
-        //           <div className="card border-light" style={{ width: "300px" }}>
-        //             <div className="card-body">
-        //               <h5 className="card-title fs-6">{recipe.name}</h5>
-        //               <img
-        //                 src={recipe.image_url}
-        //                 className="card-img-bottom rounded mx-auto d-block"
-        //                 style={{ width: "260px", height: "250px" }}
-        //                 alt="recipe image"
-        //               />
-        //             </div>
-        //           </div>
-        //         </div>
-        //       ))}
-        //   </div> */}
