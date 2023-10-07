@@ -2,7 +2,7 @@ from flask import Flask, make_response, jsonify, request, session
 from flask_cors import CORS
 import requests
 import os
-from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association, Recipe, User_Recipe_Association
+from models import db, Item, User, Current_Day_Log, Item_Current_Day_Log_Association, Recipe, User_Recipe_Association, Item_User_Association
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from datetime import date, timedelta
@@ -23,6 +23,11 @@ db.init_app(app)
 #check to current user, user TDEE, updated calories user ate, items user added to food log, and recipes user saved 
 @app.get("/check_session")
 def check_session():
+
+    user_id = session.get("user_id")
+    
+    if user_id is None:
+        return {"message": "No user logged in"}, 401
 
     user = User.query.filter(User.id == session.get("user_id")).first() #check user with current user.id 
     total_calories_eaten = Current_Day_Log.query.filter(Current_Day_Log.user_id == session.get("user_id")).filter(Current_Day_Log.date == current_date).first() #select the current day log 
@@ -156,7 +161,7 @@ def get_food_api(userInput):
 
     parameters = {
         "query": {"query": userInput},
-        "dataType": ["SR Legacy"],
+        "dataType": ["Foundation"],
         "pageSize": 25,
     }
     headers = {
@@ -214,6 +219,14 @@ def post_item_to_food_list():
         db.session.add(item)
         db.session.commit()
 
+        user_log_association = Item_User_Association(
+            user_id = requested_data["user_id"],
+            item_id = item.id,
+        )
+        db.session.add(user_log_association)
+        db.session.commit()
+        
+
         #select the current_day_log for the current day, since 1 user can have multiple day logs
         current_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == requested_data["user_id"], Current_Day_Log.date == current_date).first()
 
@@ -223,7 +236,7 @@ def post_item_to_food_list():
                 item_id = item.id,
                 user_id = requested_data["user_id"] 
             )
-            db.session.add(item_log_associtation) #ad to association table 
+            db.session.add(item_log_associtation) #add to association table 
             db.session.commit()
         
         return item.to_dict()
@@ -357,20 +370,16 @@ def post_selected_recipe():
         db.session.add(recipe)
         db.session.commit()
 
-        print("meal- type",recipe.recipe_meal_type)
         user_recipe_association = User_Recipe_Association(
             user_id = requested_data["user_id"],
             recipe_id = recipe.id,
         )
 
-        print(user_recipe_association)
         db.session.add(user_recipe_association)
         db.session.commit()
 
-        print(recipe.to_dict())
         return recipe.to_dict()
         
-    
     except Exception as e:
         print("Error:", e)
         return make_response(jsonify({"error": "function post_selected_recipe is broken"}), 400)

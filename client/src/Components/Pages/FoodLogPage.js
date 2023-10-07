@@ -25,6 +25,7 @@ function FoodLogPage ({
             }
         })
         .then(data => {
+            console.log("data",data, "user", data.user)
             setCurrentUser(data.user); 
             setCurrentTdee(data.user.tdee); 
             setTotalCaloriesIAte(data.total_calories_eaten.total_daily_calories_eaten)
