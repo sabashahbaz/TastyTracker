@@ -42,3 +42,8 @@
 
 - **Save Meals:** Users can save their favorite recipes or meals for future reference. This feature helps users quickly access recipes they love.
 
+## Upcoming Features 
+
+- Generate meal based on calories available for given meal  
+- User will be able to input food measurements, for increased accuracy of caloric intake
+- User will be able able to view previous day's food log
