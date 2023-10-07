@@ -45,6 +45,7 @@ yarn-error.log*
 .setupTests.js
 
 .vscode
+*/.vscode 
 
 .gitignore
 */.gitignore
