@@ -42,8 +42,55 @@
 
 - **Save Meals:** Users can save their favorite recipes or meals for future reference. This feature helps users quickly access recipes they love.
 
-## Upcoming Features 
+## Installation: 
 
+1. Clone this repository to your local machine:
+
+```bash
+git clone git@github.com:sabashahbaz/TastyTracker.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd TastyTracker
+```
+
+3. Install the required dependencies using pipenv:
+
+Run the back-end server: 
+
+```bash
+cd server
+```
+```bash
+pipenv install
+```
+```bash
+python python app.py
+```
+
+Run the front-end server: 
+```bash
+cd client
+```
+```bash
+npm start 
+```
+
+
+## Upcoming Features 
 - Generate meal based on calories available for given meal  
 - User will be able to input food measurements, for increased accuracy of caloric intake
 - User will be able able to view previous day's food log
+
+
+## Acknowledgments
+
+My project is a tribute to the transformative impact of the Lose It app, which has greatly helped me reach my body goals and continue a healthy life style.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
