@@ -31,7 +31,7 @@
 
 - Retrieved essential data from two external third-party APIs, specifically designed for **comprehensive food search and recipe searches**, enriching the application with a vast and diverse culinary knowledge base.
 
-- Crafted an i**ntuitive and visually appealing** user interface using with React.js, CSS and Bootstrap framework
+- Crafted an **intuitive and visually appealing** user interface using with React.js, CSS and Bootstrap framework
 
 
 ## Project Features
@@ -82,6 +82,7 @@ npm start
 ## Upcoming Features 
 - Generate meal based on calories available for given meal  
 - User will be able to input food measurements, for increased accuracy of caloric intake
+- User will have specific body goal options such as weight loss or weight gain, with calories generated to help reach body goals
 - User will be able able to view previous day's food log
 
 
