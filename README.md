@@ -21,31 +21,24 @@
     <img src="client/src/assets/tasty-tracker-demo.gif" alt="demo-video" width=80% height=60%/>
 </p>
 
-## Key Functionality 
+## Accomplishments
 
-- **Recipe Search:** Users can search for recipes based on keywords, ingredients, or dietary preferences. The application fetches recipes from external APIs to provide a wide variety of options.
+- Implemented **agile methodology** to develop the design strategy for seamless navigation.
+
+- Enhanced the application's security by implementing **user authentication**, where the Flask-Session library was employed to encrypt and protect sensitive identifying account information.
+
+- Engineered an intricate **RESTful database design** involving multiple models, and skillfully established both one-to-many and many-to-many relationships among them 
+
+- Retrieved essential data from two external third-party APIs, specifically designed for **comprehensive food search and recipe searches**, enriching the application with a vast and diverse culinary knowledge base.
+
+- Crafted an i**ntuitive and visually appealing** user interface using with React.js, CSS and Bootstrap framework
+
+
+## Project Features
 
 - **Calorie Tracking:** TastyTracker enables users to track their daily calorie intake. It calculates and displays the total calories consumed throughout the day.
 
+- **Recipe Search:** Users can search for recipes based on keywords, ingredients, or dietary preferences. The application fetches recipes from external APIs to provide a wide variety of options.
+
 - **Save Meals:** Users can save their favorite recipes or meals for future reference. This feature helps users quickly access recipes they love.
 
-## Project Features 
-
-- Implemented agile methodology to develop the design strategy for seamless navigation.
-
-- Authenticated users at login by encrypting identifying account information at JWT
-
-- Modeled custom database schema and REST API with SQLAlchemy, SQLite, Flask and data retrieved from 2 3rd
-party APIs
-
-- Built seamless user interface with React.js, CSS and Bootstrap framework
-
-
-
-<!-- ## Technologies Used
-
-- **Frontend:** React.js, Bootstrap 5
-- **Backend:** Python (Flask)
-- **APIs:** Integration with recipe and nutrition APIs
-- **Database:** SQLite
-- **Authentication:** User login and registration -->

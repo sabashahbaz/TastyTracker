@@ -18,7 +18,7 @@ class User(db.Model):
     user_that_selected_the_item = db.relationship("Item_User_Association", back_populates="user_object")
 
     #user and current log associatoin
-    user_log_association = db.relationship("User_Current_Log_Association", back_populates="user_log")
+    # user_log_association = db.relationship("User_Current_Log_Association", back_populates="user_log")
 
     #user and current log + item association
     user_item_log_association = db.relationship("Item_Current_Day_Log_Association", back_populates="user_object_for_asso_table")
@@ -79,7 +79,7 @@ class Current_Day_Log(db.Model):
     current_log_and_item_association = db.relationship("Item_Current_Day_Log_Association", back_populates="current_log_of_items_obj")
 
     #current log and user association 
-    current_log_and_user_association = db.relationship("User_Current_Log_Association", back_populates = "current_log_of_user")
+    # current_log_and_user_association = db.relationship("User_Current_Log_Association", back_populates = "current_log_of_user")
 
     def to_dict(self):
         return {
@@ -125,7 +125,7 @@ class Item_User_Association(db.Model):  #associates the items to users
     item_object = db.relationship("Item", back_populates="items_selected_by_user")  #signaling to the items that we are associating
     user_object = db.relationship("User", back_populates="user_that_selected_the_item") 
 
-#associate item and current log 
+#associate item, current log and user
 class Item_Current_Day_Log_Association(db.Model): 
     __tablename__ = "item_and_log_association_table"
 
@@ -139,15 +139,15 @@ class Item_Current_Day_Log_Association(db.Model):
     user_object_for_asso_table = db.relationship("User", back_populates="user_item_log_association") 
 
 # associate user and current log
-class User_Current_Log_Association(db.Model):
-    __tablename__ = "user_and_log_association_table"
+# class User_Current_Log_Association(db.Model):
+#     __tablename__ = "user_and_log_association_table"
 
-    id = db.Column(db.Integer, primary_key= True )
-    user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
-    current_day_log_id = db.Column(db.Integer, db.ForeignKey("current_day_log_table.id"))
+#     id = db.Column(db.Integer, primary_key= True )
+#     user_id = db.Column(db.Integer, db.ForeignKey("user_table.id"))
+#     current_day_log_id = db.Column(db.Integer, db.ForeignKey("current_day_log_table.id"))
 
-    user_log = db.relationship("User", back_populates="user_log_association")
-    current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
+#     user_log = db.relationship("User", back_populates="user_log_association")
+#     current_log_of_user = db.relationship("Current_Day_Log", back_populates = "current_log_and_user_association")
 
 #recipe and user association table 
 class User_Recipe_Association(db.Model):

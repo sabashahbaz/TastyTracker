@@ -49,6 +49,9 @@ def check_session():
                 Item_Current_Day_Log_Association.current_day_log_id == current_day_log.id
             ).all()
 
+            #associate current user with current day log 
+
+
             return {
                 "user": user.to_dict(),
                 "total_calories_eaten": current_day_log.to_dict(),
@@ -130,6 +133,7 @@ def login():
 
     try: 
         data = request.json
+        # print(user)
         user = User.query.filter(User.username == data["username"]).first() #check to see if username exists
         existing_food_log = Current_Day_Log.query.filter(Current_Day_Log.user_id == user.id).filter(Current_Day_Log.date == current_date).first() #check to see if there is a current user log
         #each day, a user will have a new current_day_log (food_log)
@@ -143,7 +147,15 @@ def login():
             db.session.add(new_food_log)
             db.session.commit()
             existing_food_log = new_food_log  # Update existing_food_log
-            return jsonify({"user": user.to_dict(), "new_day_calories": new_food_log.to_dict()}), 200
+
+        #     user_log_association = User_Current_Log_Association(
+        #     user_id = data.user.id,
+        #     current_day_log_id = new_food_log.id
+        # )
+        #     db.session.add(user_log_association)
+        #     db.session.commit()
+
+        return jsonify({"user": user.to_dict(), "new_day_calories": new_food_log.to_dict()}), 200
     
     except Exception as e:
         print("Error:", e)
@@ -219,11 +231,11 @@ def post_item_to_food_list():
         db.session.add(item)
         db.session.commit()
 
-        user_log_association = Item_User_Association(
+        user_item_association = Item_User_Association(
             user_id = requested_data["user_id"],
             item_id = item.id,
         )
-        db.session.add(user_log_association)
+        db.session.add(user_item_association)
         db.session.commit()
         
 
