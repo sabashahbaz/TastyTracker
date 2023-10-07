@@ -67,6 +67,9 @@ cd server
 pipenv install
 ```
 ```bash
+pipenv shell
+```
+```bash
 python python app.py
 ```
 
