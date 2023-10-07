@@ -18,7 +18,7 @@
 </h4>
 
 <p align="center">
-    <img src="" alt="demo video" width=60% height=60%/>
+    <img src="assets/tasty-tracker-demo.gif" alt="demo-video" width=40% height=40%/>
 </p>
 
 ## Key Functionality 
