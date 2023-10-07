@@ -67,7 +67,7 @@ cd server
 pipenv install && pipenv shell
 ```
 ```bash
-python python app.py
+python app.py
 ```
 
 Run the front-end server: 
