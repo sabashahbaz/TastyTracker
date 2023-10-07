@@ -64,10 +64,7 @@ Run the back-end server:
 cd server
 ```
 ```bash
-pipenv install
-```
-```bash
-pipenv shell
+pipenv install && pipenv shell
 ```
 ```bash
 python python app.py
